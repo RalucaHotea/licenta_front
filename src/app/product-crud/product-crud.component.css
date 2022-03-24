@@ -1,0 +1,20 @@
+.header {
+    background-color: var(--bosch-white);
+    margin-top: 0;
+}
+
+.selected-tab {
+    border-bottom: 0.125rem solid var(--bosch-blue-50);
+    color: var(--bosch-blue-50);
+}
+
+.a-tab-navigation {
+    display: inline-flex;
+    width: 100%;
+    flex-wrap: wrap;
+    padding: 0 3rem;
+    border-bottom: 0.05rem solid var(--bosch-gray-40);
+    margin-bottom: 0;
+    background-color: var(--bosch-white) !important;
+    color: var(--integrated__enabled__text__default);
+}

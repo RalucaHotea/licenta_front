@@ -1,0 +1,23 @@
+<div class="sidebar" [ngClass]="{ 'my-full-sidebar': isSidebarActive }">
+    <div class="content-row" (click)="closeButtonClicked()">
+        <div *ngIf="isSidebarActive" class="sidebar-title unselectable">
+            {{ authService.getLoggedUserUserName() }}
+        </div>
+        <i class="close-button" [ngClass]="{
+        'a-icon ui-ic-close': isSidebarActive,
+        'a-icon ui-ic-menu': !isSidebarActive
+      }"></i>
+    </div>
+    <div class="menu-item unselectable" routerLink="/home" routerLinkActive="menu-item-selected">
+        <div class="icon-home"></div>
+        <div class="menu-item-title">Home</div>
+    </div>
+    <div class="menu-item unselectable" routerLink="/products" routerLinkActive="menu-item-selected">
+        <div class="icon-products"></div>
+        <div class="menu-item-title">Product</div>
+    </div>
+    <div class="menu-item unselectable" routerLink="/product-crud" routerLinkActive="menu-item-selected">
+        <div class="icon-add-product"></div>
+        <div class="menu-item-title">Add Product</div>
+    </div>
+</div>

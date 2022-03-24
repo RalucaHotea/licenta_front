@@ -1,1 +1,71 @@
-/* You can add global styles to this file, and also import other style files */
+body,
+html {
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bosch-gray-95);
+    color: var(--bosch-black);
+    font-family: boschsans, Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+@font-face {
+    font-family: "BoschSans";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Pacifico Regular"), local("Pacifico-Regular"), url("/src/assets/fonts/BoschSans-Black.woff") format("woff"), /* Modern Browsers */
+    url("./assets/fonts/BoschSans-Black.woff2") format("woff2");
+    /* Super Modern Browsers */
+}
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+ul>li::before {
+    content: none;
+}
+
+a,
+a:visited {
+    color: var(--minor-accent__enabled__text__default);
+    text-decoration: none;
+}
+
+a:hover,
+a:visited:hover {
+    color: var(--minor-accent__enabled__text__hovered);
+    text-decoration: underline;
+}
+
+a:active {
+    color: var(--minor-accent__enabled__text__pressed);
+}
+
+svg {
+    fill: currentColor;
+}
+
+
+/* TODO: move this code inside another file that should be only for links */
+
+.a-link {
+    color: var(--minor-accent__enabled__text__default);
+    text-decoration: none;
+}
+
+.a-link--primary {
+    display: inline-block;
+}
+
+.a-link--simple {
+    display: flex;
+}
+
+.w-4 {
+    width: 1rem;
+}

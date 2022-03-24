@@ -1,0 +1,32 @@
+<div class="page-wrapper">
+    <div class="a-box -floating page-inner">
+        <div class="row" style="width: 100%" *ngIf="items.length != 0">
+            <div class="title">Shopping Bag</div>
+            <div class="row item" *ngFor="let item of items">
+                <div class="image">
+                    <img src="../../assets/bosch_tool.jpg" />
+                </div>
+                <div class="name">
+                    {{ item.name }}
+                </div>
+                <div class="quantity">
+                    <button class="plus-btn" type="button" name="button">
+            <img src="plus.svg" alt="" />
+          </button>
+                    <input type="text" name="name" value="1" />
+                    <button class="minus-btn" type="button" name="button">
+            <img src="minus.svg" alt="" />
+          </button>
+                </div>
+                <div class="total-price">$549</div>
+                <div class="buttons">
+                    <i class="a-icon boschicon-bosch-ic-delete" title="delete"></i>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="width: 100%" *ngIf="items.length == 0">
+            <div class="title">Shopping Bag</div>
+            No items
+        </div>
+    </div>
+</div>

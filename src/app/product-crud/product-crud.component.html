@@ -1,0 +1,23 @@
+<ol class="a-tab-navigation header">
+    <li class="a-tab-navigation__item">
+        <button type="button" class="a-tab-navigation__tab" data-frok-tab-identifier="1" tabindex="0" (click)="optionMenu = 'AddProduct'" [class.selected-tab]="optionMenu == 'AddProduct'">
+      <span class="a-tab-navigation__tab-content">
+        <i
+          class="a-icon a-tab-navigation__icon boschicon-bosch-ic-add"
+          title="Lorem Ipsum"
+        ></i>
+        <span class="a-tab-navigation__label">Add Product</span>
+      </span>
+    </button>
+    </li>
+    <li class="a-tab-navigation__item">
+        <button [class.selected-tab]="optionMenu == 'EditProduct'" type="button" class="a-tab-navigation__tab" data-frok-tab-identifier="2" tabindex="0" (click)="optionMenu = 'EditProduct'">
+      <span class="a-tab-navigation__tab-content">
+        <i class="a-icon a-tab-navigation__icon boschicon-bosch-ic-edit"></i>
+        <span class="a-tab-navigation__label">Edit Product</span>
+      </span>
+    </button>
+    </li>
+</ol>
+<app-edit-product *ngIf="optionMenu == 'EditProduct'"></app-edit-product>
+<app-add-product *ngIf="optionMenu == 'AddProduct'"></app-add-product>

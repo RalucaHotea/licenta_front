@@ -1,0 +1,48 @@
+.page-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 5rem;
+}
+
+.page-inner {
+    display: flex;
+    justify-content: center;
+    background-color: var(--bosch-white);
+    padding: 2rem;
+    width: 80rem;
+    height: 50rem;
+}
+
+.title {
+    height: 60px;
+    width: 100%;
+    border-bottom: 0.05rem solid #e1e8ee;
+    padding: 20px 30px;
+    color: var(--bosch-gray-60);
+    font-size: 18px;
+    font-weight: 400;
+}
+
+.item {
+    padding: 1rem 1rem;
+    height: 10rem;
+    display: flex;
+}
+
+.item:nth-child(3) {
+    border-top: 0.05rem solid #e1e8ee;
+    border-bottom: 0.05rem solid #e1e8ee;
+}
+
+.image img {
+    width: 8rem;
+    height: 8rem;
+    margin-right: 3rem;
+}
+
+.name {
+    padding-top: 10px;
+    margin-right: 60px;
+    width: 115px;
+}

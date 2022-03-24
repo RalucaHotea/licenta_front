@@ -1,0 +1,44 @@
+.my-container {
+    position: fixed;
+    z-index: 2;
+    right: 0;
+    bottom: 0;
+    width: 25%;
+    height: auto;
+    max-height: 30rem;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: visibility 0s 0.9s, opacity 0.9s ease-in-out;
+    visibility: hidden;
+}
+
+.my-notification {
+    margin: 0.5rem;
+    animation: fadein 1s;
+    /* Safari, Chrome and Opera */
+}
+
+.my-notification:hover {
+    cursor: pointer;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.close-message-animation {
+    transform: translateX(+140%);
+    transition: 0.5s ease-in-out;
+}
+
+.drop-element-animation {
+    transform: translateY(+117%);
+    transition: 0.3s;
+}

@@ -1,0 +1,241 @@
+<app-messageBar #messageBar [successes]="formSuccesses" [errors]="formErrors">
+</app-messageBar>
+<div class="container">
+    <div class="main-container frontend-kit__example-wrapper -floating">
+        <div class="edit-form">
+            <div class="input-row" id="input-search-row" style="margin-bottom: 3rem">
+                <div class="input-group" (clickOutside)="searchOnBlur()">
+                    <div>
+                        <div>Product</div>
+                        <form class="m-search-form" autocomplete="off">
+                            <div class="a-text-field a-text-field--search">
+                                <input type="search" id="search" placeholder="Search" name="searchContent" [(ngModel)]="searchContent" (input)="filterProducts()" (focus)="searchOnFocus()" />
+                                <button type="submit" class="a-text-field__icon-search">
+                  <i class="a-icon ui-ic-search"></i>
+                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="search-result-container" *ngIf="showProductsDropDown">
+                        <div *ngFor="let product of filteredProducts">
+                            <div (click)="selectProduct(product)">
+                                <li class="a-menu-item" role="none">
+                                    <a role="menuitem" class="a-menu-item__link">
+                                        <i class="a-icon boschicon-bosch-ic-user"></i>
+                                        <span class="a-menu-item__label" aria-label="Menu Item">
+                      {{ product.name }}</span
+                    >
+                    <i class="a-icon boschicon-bosch-ic-edit"></i>
+                  </a>
+                </li>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h4 class="add-form__title">Edit Product</h4>
+      <form [formGroup]="form">
+        <div class="input-row">
+          <div class="input-group">
+            <div>
+              <div>Name:</div>
+              <div class="m-form-field">
+                <div class="a-text-field">
+                  <input formControlName="name" type="text" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="input-group">
+            <div style="margin-right: 3rem">Price:</div>
+            <div class="m-form-field">
+              <div class="a-text-field">
+                <input formControlName="price" type="text" placeholder="200" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="input-row">
+          <div class="input-group">
+            <div style="margin-right: 3rem">EanCode:</div>
+            <div class="m-form-field">
+              <div class="a-text-field">
+                <input
+                  formControlName="eanCode"
+                  type="text"
+                  placeholder="9083474"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="input-group">
+            <div class="custom-input">
+              <div style="margin-right: 3rem">MinimumQuantity:</div>
+              <div class="m-form-field">
+                <div class="a-text-field">
+                  <input
+                    formControlName="minimumQuantity"
+                    type="text"
+                    placeholder="20"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="input-row">
+          <div class="input-group">
+            <div
+              class="my-drop-down m-form-field-drop m-form-field m-form-field--dropdown"
+              style="margin-top: 0"
+            >
+              <div>Category:</div>
+              <div class="my-drop-down a-dropdown">
+                <select
+                  id="dropdown-3"
+                  name="drop1"
+                  formControlName="category"
+                  [value]="category.value"
+                  (change)="selectCategory($event)"
+                >
+                  <option
+                    value="{{ category.id }}"
+                    *ngFor="let category of categories"
+                  >
+                    {{ category.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="input-group">
+            <div
+              class="my-drop-down m-form-field-drop m-form-field m-form-field--dropdown"
+              style="margin-top: 0"
+            >
+              <div>SubCategory:</div>
+              <div class="my-drop-down a-dropdown">
+                <select
+                  id="dropdown-4"
+                  name="drop2"
+                  formControlName="subcategory"
+                  [value]="subcategory.value"
+                  (change)="selectSubcategory($event)"
+                >
+                  <option
+                    value="{{ subcategory.id }}"
+                    *ngFor="let subcategory of subcategories"
+                  >
+                    {{ subcategory.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="input-row">
+          <div class="input-group">
+            <div style="margin-right: 3rem">Description:</div>
+            <div class="m-form-field">
+              <div class="a-text-area">
+                <textarea
+                  formControlName="description"
+                  type="text"
+                  placeholder="good product"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="input-group">
+            <div class="product-description-right-column">
+              <div class="product-description-group-box">
+                <div style="margin-right: 3rem">
+                  Image
+                  <button
+                    type="button"
+                    class="upload-button"
+                    (click)="fileInput.click()"
+                  >
+                    <mat-icon svgIcon="link"></mat-icon>
+                    <input
+                      type="file"
+                      formControlName="images"
+                      #fileInput
+                      accept="image/*"
+                      (change)="uploadFile(fileInput.files)"
+                      style="display: none"
+                      multiple
+                    />
+                  </button>
+                </div>
+                <ul *ngIf="uploadedImages.length != 0" class="images__list">
+                  <li
+                    *ngFor="let image of uploadedImages"
+                    class="images__list-item"
+                  >
+                    <div class="image">
+                      {{ image.name }}
+                      <button (click)="removeFile(image.name)">
+                        <mat-icon svgIcon="close"></mat-icon>
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row submit-area">
+          <button class="form-btn" (click)="submitData()">Submit</button>
+          <button
+            type="button"
+            class="form-btn"
+            style="background-color: var(--bosch-red-45)"
+            data-frok-action="confirm"
+            (click)="clicked = false; deleteProduct()"
+          >
+            Delete
+          </button>
+        </div>
+        <div
+          *ngIf="clicked == true"
+          class="m-dialog"
+          id="frontend-kit-dialog-default-dialog-without-header"
+          role="dialog"
+          aria-labelledby="frontend-kit-dialog-default-dialog-without-header-title"
+        >
+          <div class="a-box -floating">
+            <div class="m-dialog__content">
+              <div
+                class="m-dialog__headline"
+                id="frontend-kit-dialog-default-dialog-without-header-title"
+              >
+                Are you sure you want to delete {{ name.value }}?
+              </div>
+              <div
+                class="m-dialog__body"
+                id="frontend-kit-dialog-default-dialog-without-header-description"
+              >
+                This user will be deleted immediately. You can't undo this
+                action.
+              </div>
+              <div class="m-dialog__actions">
+                <div class="a-button__label">Confirm</div>
+                <button
+                  type="button"
+                  class="a-button a-button--secondary -without-icon"
+                  data-frok-action="cancel"
+                  (click)="clicked = false"
+                >
+                  <div class="a-button__label">Cancel</div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

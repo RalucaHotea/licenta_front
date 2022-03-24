@@ -1,0 +1,61 @@
+<div class="profile-header">
+    <h3>Personal Profile</h3>
+</div>
+<div class>
+    <div class="body-wrapper">
+        <div class="input-row">
+            <div class="input-group">
+                <div>
+                    <div>NT User:</div>
+                    <div class="a-text-field">
+                        <input type="text" value="{{ authService.getLoggedUserUserName() }}" disabled="" />
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="custom-input">
+                    <div>Name:</div>
+                    <div class="a-text-field">
+                        <input type="text" value="{{ authService.getLoggedUserName() }}" disabled="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input-group">
+                <div class="custom-input">
+                    <div>Email:</div>
+                    <div class="a-text-field">
+                        <input type="text" value="{{ authService.getLoggedUserEmail() }}" disabled="" />
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="custom-input">
+                    <div>Role:</div>
+                    <div class="a-text-field">
+                        <input type="text" value="{{ authService.getLoggedUserRole() }}" disabled="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="input-row">
+            <div class="input-group">
+                <div class="custom-input">
+                    <div>Group:</div>
+                    <div class="a-text-field">
+                        <input type="text" value="{{ authService.getLoggedUserGroup() }}" disabled="" />
+                    </div>
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="custom-input">
+                    <div>Total Benefits:</div>
+                    <div class="a-text-field">
+                        <input type="text" value="{{ loggedUser.totalBenefit }}" disabled="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

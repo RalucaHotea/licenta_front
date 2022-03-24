@@ -1,0 +1,18 @@
+.content {
+    height: 100%;
+    padding: 0;
+    transition: 0.3s ease-in-out;
+}
+
+.body-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.sidebar-active {
+    margin-left: 4rem;
+}
+
+.sidebar-toggled {
+    margin-left: 15rem;
+}

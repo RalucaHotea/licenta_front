@@ -1,0 +1,129 @@
+<app-messageBar #messageBar [successes]="formSuccesses" [errors]="formErrors">
+</app-messageBar>
+<div class="container">
+    <div class="main-container frontend-kit__example-wrapper -floating">
+        <div class="add-form">
+            <h4 class="add-form__title">Add Product</h4>
+            <form [formGroup]="form">
+                <div class="input-row">
+                    <div class="input-group">
+                        <div>
+                            <div>Name:</div>
+                            <div class="m-form-field">
+                                <div class="a-text-field">
+                                    <input formControlName="name" type="text" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <div style="margin-right: 3rem">Price:</div>
+                        <div class="m-form-field">
+                            <div class="a-text-field">
+                                <input formControlName="price" type="text" placeholder="200" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <div style="margin-right: 3rem">EanCode:</div>
+                        <div class="m-form-field">
+                            <div class="a-text-field">
+                                <input formControlName="eanCode" type="text" placeholder="9083474" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <div class="custom-input">
+                            <div style="margin-right: 3rem">MinimumQuantity:</div>
+                            <div class="m-form-field">
+                                <div class="a-text-field">
+                                    <input formControlName="minimumQuantity" type="text" placeholder="20" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
+                        <div class="my-drop-down m-form-field-drop m-form-field m-form-field--dropdown" style="margin-top: 0">
+                            <div>Category:</div>
+                            <div class="my-drop-down a-dropdown">
+                                <select id="dropdown-3" name="drop1" formControlName="category" (change)="selectCategory($event)">
+                  <option
+                    value="{{ category.id }}"
+                    *ngFor="let category of categories"
+                  >
+                    {{ category.name }}
+                  </option>
+                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <div class="my-drop-down m-form-field-drop m-form-field m-form-field--dropdown" style="margin-top: 0">
+                            <div>SubCategory:</div>
+                            <div class="my-drop-down a-dropdown">
+                                <select id="dropdown-4" name="drop2" formControlName="subcategory" (change)="selectSubcategory($event)">
+                  <option
+                    value="{{ subcategory.id }}"
+                    *ngFor="let subcategory of subcategories"
+                  >
+                    {{ subcategory.name }}
+                  </option>
+                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="input-group">
+                        <div style="margin-right: 3rem">Description:</div>
+                        <div class="m-form-field">
+                            <div class="a-text-area">
+                                <textarea formControlName="description" type="text" placeholder="good product"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <div class="product-description-right-column">
+                            <div class="product-description-group-box">
+                                <div style="margin-right: 3rem">
+                                    Image
+                                    <button type="button" class="upload-button" (click)="fileInput.click()">
+                    <mat-icon svgIcon="link"></mat-icon>
+                    <input
+                      type="file"
+                      formControlName="images"
+                      #fileInput
+                      accept="image/*"
+                      (change)="uploadFile(fileInput.files)"
+                      style="display: none"
+                      multiple
+                    />
+                  </button>
+                                </div>
+                                <ul *ngIf="uploadedImages.length != 0" class="images__list">
+                                    <li *ngFor="let image of uploadedImages" class="images__list-item">
+                                        <div class="image">
+                                            {{ image.name }}
+                                            <button (click)="removeFile(image.name)">
+                        <mat-icon svgIcon="close"></mat-icon>
+                      </button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row submit-area">
+                    <button class="form-btn" (click)="submitData()">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

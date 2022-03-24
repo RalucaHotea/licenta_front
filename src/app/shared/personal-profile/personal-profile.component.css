@@ -1,0 +1,29 @@
+.a-text-field {
+    position: relative;
+    width: auto;
+    height: 3rem;
+}
+
+.body-wrapper {
+    padding: 1rem;
+}
+
+.input-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+}
+
+.input-group {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 1rem;
+}

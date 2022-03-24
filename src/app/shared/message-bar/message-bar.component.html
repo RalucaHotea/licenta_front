@@ -1,0 +1,15 @@
+<div class="my-container">
+    <div class="my-notification a-notification -error" role="alert" aria-labelledby="notification-label-id" *ngFor="let error of errors" (click)="errorClick(error)" id="error-{{ errors.indexOf(error) }}">
+        <i class="a-icon ui-ic-alert-error" title="Loren Ipsum"></i>
+        <div id="notification-label-id" class="a-notification__content">
+            {{ error }}
+        </div>
+    </div>
+
+    <div class="my-notification a-notification -success" role="alert" aria-labelledby="notification-label-id" *ngFor="let success of successes" (click)="successClick(success)" id="successes-{{ successes.indexOf(success) }}">
+        <i class="a-icon ui-ic-alert-success" title="Loren Ipsum"></i>
+        <div id="notification-label-id" class="a-notification__content">
+            {{ success }}
+        </div>
+    </div>
+</div>
