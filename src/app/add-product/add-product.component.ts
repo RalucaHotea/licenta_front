@@ -1,10 +1,9 @@
 import { User } from 'src/app/models/user.model';
-import { ImageDto } from './../models/image.model';
 import { ProductService } from './../services/product-service/product.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Product } from '../models/product.model';
-import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { AuthenticationService } from '../services/authentication-service/authentication.service';
 import { Subcategory } from '../models/subcategory.model';
@@ -18,8 +17,11 @@ import { MessageBarComponent } from '../shared/message-bar/message-bar.component
 })
 export class AddProductComponent implements OnInit {
   @ViewChild('messageBar') messageBar = {} as MessageBarComponent;
-  uploadedImages = [] as File[];
-  imagesNames = [] as string[];
+  isCategorySelected = false;
+  isSubcategorySelected = false;
+  isDescriptionEditorTouched = false;
+  isValidForm = false;
+  imageName: string;
   progress: number;
   product: Product = {} as Product;
   loggedUser: User = {} as User;
@@ -29,7 +31,6 @@ export class AddProductComponent implements OnInit {
   subcategories: Subcategory[] = [] as Subcategory[];
   formErrors: string[] = [] as string[];
   formSuccesses: string[] = [] as string[];
-  isValidForm = false;
 
   form = new FormGroup({
     name: new FormControl(null, [
@@ -42,12 +43,8 @@ export class AddProductComponent implements OnInit {
     category: new FormControl(null, Validators.required),
     subcategory: new FormControl(null, Validators.required),
     price: new FormControl(null, Validators.required),
-    images: new FormControl(''),
-    orderEntityId: new FormControl(''),
+    image: new FormControl(null, Validators.required),
   });
-  fileUploadProgress: number;
-  messageService: any;
-  onUploadFinished: any;
 
   get name(): FormControl {
     return this.form.get('name') as FormControl;
@@ -69,8 +66,8 @@ export class AddProductComponent implements OnInit {
     return this.form.get('category') as FormControl;
   }
 
-  get images(): FormControl {
-    return this.form.get('images') as FormControl;
+  get image(): FormControl {
+    return this.form.get('image') as FormControl;
   }
 
   get subcategory(): FormControl {
@@ -102,15 +99,10 @@ export class AddProductComponent implements OnInit {
     if (files.length === 0) {
       return;
     }
-
-    let filesToUpload: File[] = files;
-    this.uploadedImages.push(filesToUpload[0]);
+    let fileToUpload = <File>files[0];
+    this.imageName = fileToUpload.name;
     const formData = new FormData();
-
-    Array.from(filesToUpload).map((file, index) => {
-      return formData.append('file' + index, file, file.name);
-    });
-
+    formData.append('file', fileToUpload, fileToUpload.name);
     this.httpClient
       .put(
         environment.apiUrl + 'Product/UploadImage/' + this.name.value,
@@ -125,7 +117,7 @@ export class AddProductComponent implements OnInit {
 
   removeFile(file) {
     this.productService.removeFile(file);
-    this.uploadedImages.splice(file, 1);
+    this.imageName = null;
   }
 
   downloadFile(productId: number, fileId: number, filename: string) {
@@ -145,19 +137,12 @@ export class AddProductComponent implements OnInit {
   }
 
   getFormProduct(): Product {
-    let images = [] as ImageDto[];
-    if (this.uploadedImages.length != 0) {
-      this.uploadedImages.forEach((image) => {
-        let newImage = {
-          id: 0,
-          imageName: image.name,
-          location: null,
-        };
-        images.push(newImage);
-      });
-    } else {
-      images = null;
-    }
+    let imagePath =
+      'https://localhost:44353/Resources/Images/' +
+      this.name.value +
+      '/' +
+      this.imageName;
+    imagePath.replace('', '%');
     const newProduct = {
       id: 0,
       name: this.name.value,
@@ -167,19 +152,25 @@ export class AddProductComponent implements OnInit {
       price: this.price.value,
       categoryId: Number(this.category.value),
       subcategoryId: Number(this.subcategory.value),
-      images: images,
+      imagePath: imagePath,
     } as Product;
     return newProduct;
   }
 
   submitData(): void {
-    const newProduct = this.getFormProduct();
-    this.productService
-      .addProduct(newProduct)
-      .subscribe(() =>
-        this.messageBar.addSuccessTimeOut('Product Added Successfully')
+    if (this.form.valid) {
+      const newProduct = this.getFormProduct();
+      this.productService.addProduct(newProduct).subscribe(
+        () => {
+          this.messageBar.addSuccessTimeOut('Product Added Successfully');
+        },
+        () => {
+          this.messageBar.addErrorTimeOut('Submission was unsuccessful');
+        }
       );
-    this.form.reset();
+      this.form.reset();
+      this.imageName = null;
+    }
   }
 
   selectCategory(event: Event) {
@@ -194,6 +185,10 @@ export class AddProductComponent implements OnInit {
           this.formErrors.push('No Subcategories for this Category');
         }
       );
+  }
+
+  touchDescriptionEditor(): void {
+    this.isDescriptionEditorTouched = true;
   }
 
   selectSubcategory(event: Event) {

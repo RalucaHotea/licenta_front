@@ -1,25 +1,45 @@
 .container {
     display: flex;
     justify-content: center;
-    padding: 2rem;
-    width: 100%;
 }
 
 .main-container {
+    position: relative;
     width: 80%;
     height: auto;
-    min-height: 20rem;
+    min-height: 15rem;
     padding: 1rem;
-    margin-top: 2rem;
+    margin: 2rem;
     background-color: var(--bosch-white);
     box-shadow: rgba(0, 0, 0, 0.24) 0 0.188rem 0.5rem;
+}
+
+.input-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.search-result-container {
+    position: absolute;
+    z-index: 1;
+    overflow: auto;
+    width: 100%;
+    height: 15rem;
+    margin-top: 5rem;
 }
 
 .edit-form {
     padding: 1rem;
 }
 
-.product-description-box {
+.edit-title {
+    display: flex;
+    justify-content: center;
+    text-align: right;
+}
+
+.image-box {
     max-width: 95%;
     max-height: 20rem;
     padding: 1rem;
@@ -29,17 +49,17 @@
     overflow-y: auto;
 }
 
-.product-description-label {
+.image-label {
     padding-bottom: 1rem;
 }
 
-.product-description-group-box {
+.image-group-box {
     width: 100%;
     padding: 1rem;
     background-color: var(--bosch-white) !important;
 }
 
-.product-description-right-column {
+.image-right-column {
     max-width: 95%;
     margin: 1rem;
     background-color: #fbfbfb !important;
@@ -124,7 +144,6 @@ li {
     display: flex;
     justify-content: center;
     padding-top: 1rem;
-    gap: 5rem;
 }
 
 .form-btn {
@@ -142,29 +161,35 @@ li {
     transition: all 0.3 ease;
 }
 
-.search-result-container {
-    position: absolute;
-    z-index: 1;
-    overflow: auto;
-    width: 100%;
-    height: 15rem;
-    margin-top: 5rem;
-}
-
 .form-btn:hover,
 .form-btn:active,
 .form-btn:focus {
     background: var(--bosch-blue-45);
 }
 
-.my-drop-down {
-    width: 100%;
+.delete-btn {
+    align-content: center !important;
+    width: auto;
+    justify-content: center !important;
+    padding: 1rem;
+    border: 0;
+    background: var(--bosch-red-45);
+    color: var(--bosch-white);
+    cursor: pointer;
+    font-size: 1rem;
+    outline: 0;
+    text-transform: uppercase;
+    transition: all 0.3 ease;
 }
 
-.input-row {
-    display: flex;
+.delete-btn:hover,
+.delete-btn:active,
+.delete-btn:focus {
+    background: var(--bosch-red-50);
+}
+
+.my-drop-down {
     width: 100%;
-    justify-content: space-between;
 }
 
 .group-box input {
@@ -209,6 +234,13 @@ li {
     font-size: 0.938rem;
 }
 
+.image button {
+    border-style: none;
+    background-color: var(--bosch-blue-30);
+    color: var(--bosch-white);
+    float: right;
+}
+
 .attachment button {
     border-style: none;
     background-color: var(--bosch-blue-30);
@@ -239,4 +271,8 @@ li {
 
 .a-button-custom {
     width: 15rem;
+}
+
+.p-error {
+    color: var(--bosch-red-55);
 }

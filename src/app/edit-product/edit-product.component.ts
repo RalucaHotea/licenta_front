@@ -23,8 +23,7 @@ export class EditProductComponent implements OnInit {
   filteredProducts: Product[] = [] as Product[];
   searchContent = '';
   showContent = true;
-  uploadedImages = [] as File[];
-  imagesNames = [] as string[];
+  imageName: string;
   formErrors: string[] = [] as string[];
   formSuccesses: string[] = [] as string[];
   progress: number;
@@ -47,8 +46,7 @@ export class EditProductComponent implements OnInit {
     category: new FormControl(null, Validators.required),
     subcategory: new FormControl(null, Validators.required),
     price: new FormControl(null, Validators.required),
-    images: new FormControl(''),
-    orderEntityId: new FormControl(''),
+    image: new FormControl(''),
   });
 
   constructor(
@@ -76,8 +74,8 @@ export class EditProductComponent implements OnInit {
     return this.form.get('category') as FormControl;
   }
 
-  get images(): FormControl {
-    return this.form.get('images') as FormControl;
+  get image(): FormControl {
+    return this.form.get('image') as FormControl;
   }
 
   get subcategory(): FormControl {
@@ -97,9 +95,9 @@ export class EditProductComponent implements OnInit {
   }
 
   loadData() {
-    this.productService
-      .getAllProducts()
-      .subscribe((products) => (this.products = products));
+    this.productService.getAllProducts().subscribe((products) => {
+      this.products = products;
+    });
     this.productService
       .getAllCategories()
       .subscribe((categories) => (this.categories = categories));
@@ -112,15 +110,10 @@ export class EditProductComponent implements OnInit {
     if (files.length === 0) {
       return;
     }
-
-    let filesToUpload: File[] = files;
-    this.uploadedImages.push(filesToUpload[0]);
+    let fileToUpload = <File>files[0];
+    this.imageName = fileToUpload.name;
     const formData = new FormData();
-
-    Array.from(filesToUpload).map((file, index) => {
-      return formData.append('file' + index, file, file.name);
-    });
-
+    formData.append('file', fileToUpload, fileToUpload.name);
     this.httpClient
       .put(
         environment.apiUrl + 'Product/UploadImage/' + this.name.value,
@@ -135,7 +128,7 @@ export class EditProductComponent implements OnInit {
 
   removeFile(file) {
     this.productService.removeFile(file);
-    this.uploadedImages.splice(file, 1);
+    this.imageName = null;
   }
 
   downloadFile(productId: number, fileId: number, filename: string) {
@@ -173,19 +166,12 @@ export class EditProductComponent implements OnInit {
   }
 
   getFormProduct(): Product {
-    let images = [] as ImageDto[];
-    if (this.uploadedImages.length != 0) {
-      this.uploadedImages.forEach((image) => {
-        let newImage = {
-          id: 0,
-          imageName: image.name,
-          location: null,
-        };
-        images.push(newImage);
-      });
-    } else {
-      images = null;
-    }
+    let imagePath =
+      'https://localhost:44353/Resources/Images/' +
+      this.name.value +
+      '/' +
+      this.imageName;
+    imagePath = imagePath.replace(/\s/g, '');
     const newProduct = {
       id: this.selectedProduct.id,
       name: this.name.value,
@@ -195,34 +181,42 @@ export class EditProductComponent implements OnInit {
       price: this.price.value,
       categoryId: Number(this.category.value),
       subcategoryId: Number(this.subcategory.value),
-      images: images,
+      imagePath: imagePath,
     } as Product;
+    console.log(imagePath);
     return newProduct;
   }
 
   submitData(): void {
-    const newProduct = this.getFormProduct();
-    this.productService.updateProduct(newProduct).subscribe(() => {
-      this.messageBar.addSuccessTimeOut('Product Updated Successfully');
-    });
-    this.form.reset();
-    this.form.reset();
-    this.searchContent = '';
-    this.selectedProduct = undefined;
-    this.loadData();
+    if (this.form.valid) {
+      const newProduct = this.getFormProduct();
+      this.productService.updateProduct(newProduct).subscribe(
+        () => {
+          this.messageBar.addSuccessTimeOut('Product Updated Successfully');
+        },
+        () => {
+          this.messageBar.addErrorTimeOut('Update was unsuccessful');
+        }
+      );
+      this.form.reset();
+      this.searchContent = '';
+      this.selectedProduct = undefined;
+      this.loadData();
+      this.imageName = null;
+    }
   }
 
   deleteProduct(): void {
     const product = this.selectedProduct as Product;
-    console.log(product.id);
     this.productService
       .deleteProduct(product.id)
       .subscribe(() =>
         this.messageBar.addSuccessTimeOut('Product Deleted Successfully')
       );
-    this.selectProduct = undefined;
+    this.selectedProduct = undefined;
     this.searchContent = '';
-    this.loadData;
+    this.form.reset();
+    this.loadData();
   }
 
   searchOnFocus(): void {
@@ -265,7 +259,7 @@ export class EditProductComponent implements OnInit {
       price: product.price,
       category: product.categoryId,
       subcategory: product.subcategoryId,
-      images: product.images,
+      imagePath: product.imagePath,
     });
     this.showProductsDropDown = false;
   }

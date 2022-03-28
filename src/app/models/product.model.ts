@@ -7,6 +7,6 @@ export interface Product {
   minimumQuantity: string;
   categoryId: number;
   subcategoryId: number;
-  images?: Array<ImageDto>;
+  imagePath: string;
   price: number;
 }

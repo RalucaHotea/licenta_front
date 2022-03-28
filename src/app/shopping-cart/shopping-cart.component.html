@@ -1,32 +1,42 @@
 <div class="page-wrapper">
-    <div class="a-box -floating page-inner">
-        <div class="row" style="width: 100%" *ngIf="items.length != 0">
-            <div class="title">Shopping Bag</div>
-            <div class="row item" *ngFor="let item of items">
-                <div class="image">
-                    <img src="../../assets/bosch_tool.jpg" />
-                </div>
-                <div class="name">
-                    {{ item.name }}
-                </div>
-                <div class="quantity">
-                    <button class="plus-btn" type="button" name="button">
-            <img src="plus.svg" alt="" />
-          </button>
-                    <input type="text" name="name" value="1" />
-                    <button class="minus-btn" type="button" name="button">
-            <img src="minus.svg" alt="" />
-          </button>
-                </div>
-                <div class="total-price">$549</div>
-                <div class="buttons">
-                    <i class="a-icon boschicon-bosch-ic-delete" title="delete"></i>
-                </div>
+    <div class="a-box -floating page-inner page-inner">
+        <div class="left-column">
+            <div class="products-container">
+                <table mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef class="header-cell">
+                            Product
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <img class="img" src="{{ element.imagePath }}" class="img" /> {{ element.name }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="price">
+                        <th mat-header-cell *matHeaderCellDef class="header-cell">Price</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.price }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="quantity">
+                        <th mat-header-cell *matHeaderCellDef class="header-cell">
+                            Quantity
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <select class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+              </select>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
             </div>
         </div>
-        <div class="row" style="width: 100%" *ngIf="items.length == 0">
-            <div class="title">Shopping Bag</div>
-            No items
+        <div class="right-column">
+            <div class="order-resume-container">Salut</div>
         </div>
     </div>
 </div>
