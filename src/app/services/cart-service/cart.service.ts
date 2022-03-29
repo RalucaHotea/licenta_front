@@ -17,7 +17,8 @@ export class CartService {
   }
 
   getItems(): Product[] {
-    return this.getProductList();
+    // return this.getProductList();
+    return this.items;
   }
 
   removeItem(product: Product) {

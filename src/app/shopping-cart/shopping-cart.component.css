@@ -21,7 +21,8 @@
 
 .right-column {
     width: 30%;
-    height: 100%;
+    height: 50%;
+    padding: 3rem 1rem 3rem;
 }
 
 .input-row {
@@ -35,6 +36,7 @@
 }
 
 .order-resume-container {
+    height: 100%;
     background-color: var(--bosch-gray-95);
 }
 
@@ -42,13 +44,88 @@
     display: flex;
     width: 100%;
     justify-content: space-between;
-    padding: 5rem;
+    padding: 3rem;
     position: relative;
 }
+
+.a-value-modificator {
+    position: relative;
+    height: 3rem;
+    width: 10rem;
+    margin: 0.5rem;
+    background-color: var(--bosch-white);
+    border-bottom: 1px solid var(--neutral__enabled__front__default);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.a-value-modificator input {
+    height: 100%;
+    width: calc(100% - 6rem);
+    border: 0;
+    line-height: 1.5rem;
+    background-color: var(--bosch-white);
+    font-size: 16px;
+    padding: 0 1rem;
+}
+
+
+/* .boschicon-bosch-ic-less-minimize {
+    border: 2px solid var(--bosch-gray-60);
+    border-radius: 2rem;
+}
+
+.boschicon-bosch-ic-add {
+    border: 2px solid var(--bosch-gray-60);
+    border-radius: 2rem;
+} */
 
 .img {
     width: 5rem;
     height: 5rem;
+}
+
+.order-details {
+    width: 100%;
+    height: 50%;
+    padding-top: 5rem;
+}
+
+.button-circle-container {
+    border-radius: 2rem;
+    cursor: pointer;
+    outline: 0;
+    border-style: none;
+}
+
+.form-btn {
+    align-content: center !important;
+    width: 100%;
+    height: 3rem;
+    justify-content: center !important;
+    padding: 1rem;
+    border: 0;
+    background: var(--bosch-blue-30);
+    color: var(--bosch-white);
+    cursor: pointer;
+    font-size: 1rem;
+    outline: 0;
+    text-transform: uppercase;
+    transition: all 0.3 ease;
+}
+
+.form-btn:hover,
+.form-btn:active,
+.form-btn:focus {
+    background: var(--bosch-blue-45);
+}
+
+.submit-area {
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+    gap: 5rem;
 }
 
 .title {
@@ -63,6 +140,25 @@
 
 table {
     width: 100%;
+}
+
+.a-value-modificator input {
+    height: 100%;
+    width: calc(100% - 6rem);
+    border: 0;
+    line-height: 1.5rem;
+    background-color: var(--bosch-white);
+    font-size: 16px;
+    padding: 0 1rem;
+    text-align: center;
+}
+
+.header-container {
+    width: 100%;
+    text-align: center;
+    padding-top: 2rem;
+    font-size: 1.25rem;
+    font-weight: 300;
 }
 
 .mat-cell {
@@ -82,6 +178,6 @@ table {
     width: 20rem;
     padding: 0 0.625rem;
     background-color: var(--bosch-white);
-    color: var(--bosch-blue-30);
+    color: var(--bosch-gray-40);
     font-weight: bold;
 }
