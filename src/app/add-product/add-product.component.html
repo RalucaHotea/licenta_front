@@ -11,8 +11,10 @@
                             <div>Name:</div>
                             <div class="m-form-field">
                                 <div class="a-text-field">
-                                    <input formControlName="name" type="text" />
+                                    <input formControlName="name" type="text" required />
                                 </div>
+                                <small class="p-error" *ngIf="name.invalid && name.touched">Name is mandatory!
+                </small>
                             </div>
                         </div>
                     </div>
@@ -20,7 +22,9 @@
                         <div style="margin-right: 3rem">Price:</div>
                         <div class="m-form-field">
                             <div class="a-text-field">
-                                <input formControlName="price" type="text" placeholder="200" />
+                                <input formControlName="price" type="number" placeholder="200" required />
+                                <small class="p-error" *ngIf="price.invalid && price.touched">Price is mandatory!
+                </small>
                             </div>
                         </div>
                     </div>
@@ -30,7 +34,9 @@
                         <div style="margin-right: 3rem">EanCode:</div>
                         <div class="m-form-field">
                             <div class="a-text-field">
-                                <input formControlName="eanCode" type="text" placeholder="9083474" />
+                                <input formControlName="eanCode" type="text" placeholder="9083474" required />
+                                <small class="p-error" *ngIf="eanCode.invalid && eanCode.touched">EanCode is mandatory!
+                </small>
                             </div>
                         </div>
                     </div>
@@ -50,7 +56,7 @@
                         <div class="my-drop-down m-form-field-drop m-form-field m-form-field--dropdown" style="margin-top: 0">
                             <div>Category:</div>
                             <div class="my-drop-down a-dropdown">
-                                <select id="dropdown-3" name="drop1" formControlName="category" (change)="selectCategory($event)">
+                                <select id="dropdown-1" name="drop1" formControlName="category" required (change)="selectCategory($event)">
                   <option
                     value="{{ category.id }}"
                     *ngFor="let category of categories"
@@ -58,6 +64,8 @@
                     {{ category.name }}
                   </option>
                 </select>
+                                <small class="p-error" *ngIf="category.invalid && category.touched">Category is mandatory!
+                </small>
                             </div>
                         </div>
                     </div>
@@ -65,7 +73,7 @@
                         <div class="my-drop-down m-form-field-drop m-form-field m-form-field--dropdown" style="margin-top: 0">
                             <div>SubCategory:</div>
                             <div class="my-drop-down a-dropdown">
-                                <select id="dropdown-4" name="drop2" formControlName="subcategory" (change)="selectSubcategory($event)">
+                                <select id="dropdown-2" name="drop2" formControlName="subcategory" required (change)="selectSubcategory($event)">
                   <option
                     value="{{ subcategory.id }}"
                     *ngFor="let subcategory of subcategories"
@@ -73,55 +81,59 @@
                     {{ subcategory.name }}
                   </option>
                 </select>
+                                <small class="p-error" *ngIf="subcategory.invalid && subcategory.touched">Subcategory is mandatory!
+                </small>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div class="input-row">
                     <div class="input-group">
                         <div style="margin-right: 3rem">Description:</div>
                         <div class="m-form-field">
                             <div class="a-text-area">
-                                <textarea formControlName="description" type="text" placeholder="good product"></textarea>
+                                <textarea formControlName="description" (onSelectionChange)="touchDescriptionEditor()" (onTextChange)="touchDescriptionEditor()" type="text" placeholder="good product"></textarea>
                             </div>
+                            <small class="p-error" *ngIf="description.invalid && description.touched">Description is mandatory!
+              </small>
                         </div>
                     </div>
                     <div class="input-group">
-                        <div class="product-description-right-column">
-                            <div class="product-description-group-box">
-                                <div style="margin-right: 3rem">
-                                    Image
-                                    <button type="button" class="upload-button" (click)="fileInput.click()">
-                    <mat-icon svgIcon="link"></mat-icon>
-                    <input
-                      type="file"
-                      formControlName="images"
-                      #fileInput
-                      accept="image/*"
-                      (change)="uploadFile(fileInput.files)"
-                      style="display: none"
-                      multiple
-                    />
-                  </button>
-                                </div>
-                                <ul *ngIf="uploadedImages.length != 0" class="images__list">
-                                    <li *ngFor="let image of uploadedImages" class="images__list-item">
-                                        <div class="image">
-                                            {{ image.name }}
-                                            <button (click)="removeFile(image.name)">
-                        <mat-icon svgIcon="close"></mat-icon>
-                      </button>
-                                        </div>
-                                    </li>
-                                </ul>
+                        <div class="image-right-column">
+                            <div class="image-header">
+                                Image
+                                <button [disabled]="name.invalid" type="button" class="upload-button" (click)="fileInput.click()">
+                  <mat-icon svgIcon="link"></mat-icon>
+                  <input
+                    type="file"
+                    formControlName="image"
+                    #fileInput
+                    accept="image/*"
+                    (change)="uploadFile(fileInput.files)"
+                    style="display: none"
+                    required
+                  />
+                </button>
+                                <small class="p-error" *ngIf="image.invalid && image.touched">Image is mandatory!
+                </small>
                             </div>
+                            <ul *ngIf="imageName != null" class="images__list">
+                                <li class="images__list-item">
+                                    <div class="image">
+                                        {{ imageName }}
+                                        <button type="button" class="remove-button" (click)="removeFile(imageName)">
+                      <mat-icon svgIcon="close"></mat-icon>
+                    </button>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-
                 <div class="row submit-area">
-                    <button class="form-btn" (click)="submitData()">Submit</button>
+                    <button [hidden]="!this.form.valid" class="form-btn" (click)="submitData()">
+            Submit
+          </button>
                 </div>
             </form>
         </div>

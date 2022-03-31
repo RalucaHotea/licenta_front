@@ -9,10 +9,20 @@ export class CartService {
 
   addToCart(product: Product) {
     this.items.push(product);
+    localStorage.setItem('productsList', JSON.stringify(this.items));
   }
 
-  getItems() {
+  getProductList(): Product[] {
+    return JSON.parse(localStorage.getItem('productsList'));
+  }
+
+  getItems(): Product[] {
+    // return this.getProductList();
     return this.items;
+  }
+
+  removeItem(product: Product) {
+    localStorage.removeItem(JSON.stringify(product));
   }
 
   clearCart() {

@@ -1,6 +1,35 @@
-body,
-html {
-    height: 100%;
+.container {
+    max-width: 100%;
+    height: 100vh;
+    padding: 5rem;
+    overflow-y: auto;
+}
+
+.page-inner {
+    background-color: var(--bosch-white);
+    max-width: 100rem;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 0.5rem;
+    height: 5rem;
+    align-items: center;
+    padding: 5rem;
+}
+
+.products-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 5rem;
+    position: relative;
 }
 
 .d-flex {
@@ -19,38 +48,10 @@ html {
     align-items: center;
 }
 
-body {
-    background-color: var(--bosch-white);
-}
-
-.page-wrapper {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 5rem;
-}
-
-.page-inner {
-    display: flex;
-    justify-content: center;
-    background-color: var(--bosch-white);
-    padding: 5rem;
-    width: 100rem;
-}
-
-.section-header {
-    width: 100%;
-    padding: 1rem;
-    margin: 0;
-    background-color: var(--bosch-gray-40);
-    color: var(--bosch-white);
-    font-weight: 600;
-}
-
 .el-wrapper {
     width: 20rem;
     padding: 2rem;
-    margin: 5rem;
+    margin: 4rem;
     background-color: var(--bosch-gray-95);
 }
 
@@ -80,12 +81,13 @@ body {
     color: var(--bosch-gray-95);
 }
 
-.el-wrapper:hover .add-to-cart {
+.el-wrapper:hover .details {
     left: 50%;
 }
 
 .img {
-    width: 80%;
+    width: 100%;
+    height: 18rem;
     position: absolute;
     left: 0;
     top: 0;
@@ -188,7 +190,7 @@ body {
 
 .info-inner .p-name {
     font-family: "PT Sans", sans-serif;
-    font-size: 1.125rem;
+    font-size: 1rem;
     color: var(--bosch-gray-50);
 }
 
@@ -259,7 +261,7 @@ body {
     color: var(--bosch-gray-50);
 }
 
-.cart .add-to-cart {
+.cart .details {
     -webkit-transition: all 600ms cubic-bezier(0, 0, 0.18, 1);
     -moz-transition: all 600ms cubic-bezier(0, 0, 0.18, 1);
     -o-transition: all 600ms cubic-bezier(0, 0, 0.18, 1);
@@ -294,13 +296,6 @@ body {
 .container-body {
     height: auto;
     background-color: var(--bosch-gray-95) !important;
-}
-
-.container {
-    max-width: 100%;
-    height: 100vh;
-    padding: 5rem;
-    overflow-y: auto;
 }
 
 .section-body {
@@ -356,4 +351,24 @@ body {
     text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.search-row {
+    width: 80rem;
+    margin-left: 10rem;
+}
+
+.paginator-container {
+    text-align: center;
+}
+
+.ngx-pagination {
+    padding-left: 0px !important;
+}
+
+.ngx-pagination .current,
+.btn-info {
+    background: #17a2b8 !important;
+    border: transparent !important;
+    border-radius: 20px !important;
 }

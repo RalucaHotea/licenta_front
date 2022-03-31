@@ -21,7 +21,6 @@
                             <div (click)="selectProduct(product)">
                                 <li class="a-menu-item" role="none">
                                     <a role="menuitem" class="a-menu-item__link">
-                                        <i class="a-icon boschicon-bosch-ic-user"></i>
                                         <span class="a-menu-item__label" aria-label="Menu Item">
                       {{ product.name }}</span
                     >
@@ -33,7 +32,7 @@
           </div>
         </div>
       </div>
-      <h4 class="add-form__title">Edit Product</h4>
+      <h4 class="edit-title">Edit Product</h4>
       <form [formGroup]="form">
         <div class="input-row">
           <div class="input-group">
@@ -41,8 +40,11 @@
               <div>Name:</div>
               <div class="m-form-field">
                 <div class="a-text-field">
-                  <input formControlName="name" type="text" />
+                  <input formControlName="name" type="text" required />
                 </div>
+                <small class="p-error" *ngIf="name.invalid && name.touched"
+                  >Name is mandatory!
+                </small>
               </div>
             </div>
           </div>
@@ -52,6 +54,9 @@
               <div class="a-text-field">
                 <input formControlName="price" type="text" placeholder="200" />
               </div>
+              <small class="p-error" *ngIf="price.invalid && price.touched"
+                >Price is mandatory!
+              </small>
             </div>
           </div>
         </div>
@@ -66,6 +71,9 @@
                   placeholder="9083474"
                 />
               </div>
+              <small class="p-error" *ngIf="eanCode.invalid && eanCode.touched"
+                >EanCode is mandatory!
+              </small>
             </div>
           </div>
           <div class="input-group">
@@ -105,6 +113,11 @@
                     {{ category.name }}
                   </option>
                 </select>
+                <small
+                  class="p-error"
+                  *ngIf="category.invalid && category.touched"
+                  >Category is mandatory!
+                </small>
               </div>
             </div>
           </div>
@@ -129,11 +142,15 @@
                     {{ subcategory.name }}
                   </option>
                 </select>
+                <small
+                  class="p-error"
+                  *ngIf="subcategory.invalid && subcategory.touched"
+                  >Subcategory is mandatory!
+                </small>
               </div>
             </div>
           </div>
         </div>
-
         <div class="input-row">
           <div class="input-group">
             <div style="margin-right: 3rem">Description:</div>
@@ -145,11 +162,16 @@
                   placeholder="good product"
                 ></textarea>
               </div>
+              <small
+                class="p-error"
+                *ngIf="description.invalid && description.touched"
+                >Description is mandatory!
+              </small>
             </div>
           </div>
           <div class="input-group">
-            <div class="product-description-right-column">
-              <div class="product-description-group-box">
+            <div class="image-right-column">
+              <div class="image-group-box">
                 <div style="margin-right: 3rem">
                   Image
                   <button
@@ -160,7 +182,7 @@
                     <mat-icon svgIcon="link"></mat-icon>
                     <input
                       type="file"
-                      formControlName="images"
+                      formControlName="image"
                       #fileInput
                       accept="image/*"
                       (change)="uploadFile(fileInput.files)"
@@ -168,15 +190,15 @@
                       multiple
                     />
                   </button>
+                  <small class="p-error" *ngIf="image.invalid && image.touched"
+                    >Image is mandatory!
+                  </small>
                 </div>
-                <ul *ngIf="uploadedImages.length != 0" class="images__list">
-                  <li
-                    *ngFor="let image of uploadedImages"
-                    class="images__list-item"
-                  >
+                <ul *ngIf="imageName != null" class="images__list">
+                  <li class="images__list-item">
                     <div class="image">
-                      {{ image.name }}
-                      <button (click)="removeFile(image.name)">
+                      {{ imageName }}
+                      <button (click)="removeFile(imageName)">
                         <mat-icon svgIcon="close"></mat-icon>
                       </button>
                     </div>
@@ -188,11 +210,16 @@
         </div>
 
         <div class="row submit-area">
-          <button class="form-btn" (click)="submitData()">Submit</button>
+          <button
+            [hidden]="!this.form.valid"
+            class="form-btn"
+            (click)="submitData()"
+          >
+            Submit
+          </button>
           <button
             type="button"
-            class="form-btn"
-            style="background-color: var(--bosch-red-45)"
+            class="delete-btn"
             data-frok-action="confirm"
             (click)="clicked = false; deleteProduct()"
           >

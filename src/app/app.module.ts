@@ -33,12 +33,14 @@ import { ProductCrudComponent } from './product-crud/product-crud.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
 @NgModule({
-  declarations: [		
+  declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
@@ -51,15 +53,14 @@ export function tokenGetter() {
     ProductCrudComponent,
     EditProductComponent,
     MessageBarComponent,
-      ProductDetailsComponent,
-      ShoppingCartComponent
-   ],
+    ProductDetailsComponent,
+    ShoppingCartComponent,
+  ],
   imports: [
     HttpClientModule,
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
-    AppRoutingModule,
-    BrowserModule,
     ReactiveFormsModule,
     FormsModule,
     MatSliderModule,
@@ -72,6 +73,7 @@ export function tokenGetter() {
     MatNativeDateModule,
     MatTableModule,
     MatInputModule,
+    NgxPaginationModule,
     MatSortModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,

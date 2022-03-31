@@ -1,32 +1,64 @@
 <div class="page-wrapper">
-    <div class="a-box -floating page-inner">
-        <div class="row" style="width: 100%" *ngIf="items.length != 0">
-            <div class="title">Shopping Bag</div>
-            <div class="row item" *ngFor="let item of items">
-                <div class="image">
-                    <img src="../../assets/bosch_tool.jpg" />
-                </div>
-                <div class="name">
-                    {{ item.name }}
-                </div>
-                <div class="quantity">
-                    <button class="plus-btn" type="button" name="button">
-            <img src="plus.svg" alt="" />
-          </button>
-                    <input type="text" name="name" value="1" />
-                    <button class="minus-btn" type="button" name="button">
-            <img src="minus.svg" alt="" />
-          </button>
-                </div>
-                <div class="total-price">$549</div>
-                <div class="buttons">
-                    <i class="a-icon boschicon-bosch-ic-delete" title="delete"></i>
-                </div>
+    <div class="a-box -floating page-inner page-inner">
+        <div class="left-column">
+            <div class="products-container">
+                <table mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef class="header-cell">
+                            PRODUCT DETAILS
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="input-row">
+                                <img class="img" src="{{ element.imagePath }}" class="img" />
+                                <span>{{ element.name }}</span>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="price">
+                        <th mat-header-cell *matHeaderCellDef class="header-cell">PRICE</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.price }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="quantity">
+                        <th mat-header-cell *matHeaderCellDef class="header-cell">
+                            QUANTITY
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="a-value-modificator">
+                                <i class="a-icon a-value-modificator__icon a-value-modificator__minus-icon boschicon-bosch-ic-less-minimize" (click)="decreaseQuantity()"></i>
+                                <input type="number" value="{{ quantity }}" min="1" max="10" step="1" id="1" />
+                                <i class="a-icon a-value-modificator__icon a-value-modificator__plus-icon boschicon-bosch-ic-add" (click)="increaseQuantity()"></i>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="total">
+                        <th mat-header-cell *matHeaderCellDef class="header-cell">TOTAL</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.price * quantity }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="removeItem">
+                        <th mat-header-cell *matHeaderCellDef class="header-cell"></th>
+                        <td mat-cell *matCellDef="let element">
+                            <i class="a-icon boschicon-bosch-ic-delete" (click)="removeItem(element)"></i>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
             </div>
         </div>
-        <div class="row" style="width: 100%" *ngIf="items.length == 0">
-            <div class="title">Shopping Bag</div>
-            No items
+        <div class="right-column">
+            <div class="order-resume-container">
+                <div class="header-container">ORDER SUMMARY</div>
+                <hr class="a-divider" />
+                <div class="order-details">TOTAL COST :</div>
+                <hr class="a-divider" />
+                <div class="submit-area">
+                    <button class="form-btn">CHECKOUT</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

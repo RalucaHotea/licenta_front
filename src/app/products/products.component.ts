@@ -19,6 +19,11 @@ export class ProductsComponent implements OnInit {
   dataSource = new MatTableDataSource<Product>();
   selectedCategory = '';
   selectedSubcategory = '';
+  numberOfProducts: number;
+  totalPages: number;
+  limitPageNumber = 5;
+  paginationSize = 7;
+  p: number = 1;
   categories: Category[] = [] as Category[];
   subcategories: Subcategory[] = [] as Subcategory[];
 
@@ -59,6 +64,10 @@ export class ProductsComponent implements OnInit {
       if (products) {
         this.products = products;
         this.filteredProducts = products;
+        this.numberOfProducts = products.length;
+        this.totalPages = Math.ceil(
+          this.numberOfProducts / this.limitPageNumber
+        );
       }
     });
     this.productService
@@ -75,7 +84,6 @@ export class ProductsComponent implements OnInit {
 
   selectCategory(event: Event) {
     this.selectedCategory = (event.target as HTMLSelectElement).value;
-    console.log((event.target as HTMLSelectElement).value);
     this.productService
       .getAllSubcategoriesByCategoryId(Number(this.selectedCategory))
       .subscribe((subcategories) => {

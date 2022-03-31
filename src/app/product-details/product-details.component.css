@@ -18,7 +18,7 @@
     background-color: var(--bosch-white);
     padding: 5rem;
     width: 80rem;
-    height: 50rem;
+    height: 43rem;
 }
 
 .product-container {
@@ -58,12 +58,20 @@ body {
 }
 
 .left-column {
-    width: 65%;
+    width: 50%;
+    height: 100%;
     position: relative;
 }
 
+.title-container {
+    width: 100%;
+    height: 5rem;
+    font-size: xx-large;
+}
+
 .right-column {
-    width: 35%;
+    width: 50%;
+    height: 100%;
     margin-top: 60px;
 }
 
