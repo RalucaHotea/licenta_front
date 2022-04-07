@@ -1,3 +1,4 @@
+import { CartItem } from 'src/app/models/cart-item.model';
 import { Subcategory } from './../../models/subcategory.model';
 import { Category } from './../../models/category.model';
 import { Observable } from 'rxjs';
@@ -5,6 +6,7 @@ import { Product } from './../../models/product.model';
 import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from 'src/app/models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,10 +29,25 @@ export class ProductService {
     );
   }
 
+  getUserByUserUsername(username: string): Observable<User> {
+    return this.http.get<User>(
+      this.baseUrl + '/GetUserByUserUsername?username=' + username
+    );
+  }
+
   updateProduct(product: Product): Observable<Product> {
     const body = JSON.stringify(product);
     return this.http.put<Product>(
       this.baseUrl + '/UpdateProduct',
+      body,
+      this.options
+    );
+  }
+
+  updateCartItem(item: CartItem): Observable<CartItem> {
+    const body = JSON.stringify(item);
+    return this.http.put<CartItem>(
+      this.baseUrl + '/UpdateCartItem',
       body,
       this.options
     );
@@ -49,6 +66,12 @@ export class ProductService {
   getProductById(productId: number): Observable<Product> {
     return this.http.get<Product>(
       this.baseUrl + '/GetProductById?productId=' + productId
+    );
+  }
+
+  getCartItemById(itemId: number): Observable<CartItem> {
+    return this.http.get<CartItem>(
+      this.baseUrl + '/GetCartItemById?itemId=' + itemId
     );
   }
 

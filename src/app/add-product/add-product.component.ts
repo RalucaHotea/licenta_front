@@ -89,6 +89,7 @@ export class AddProductComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log(this.authService.getLoggedUser());
     this.loggedUser = this.authService.getLoggedUser();
     this.productService
       .getAllCategories()
@@ -138,7 +139,7 @@ export class AddProductComponent implements OnInit {
 
   getFormProduct(): Product {
     let imagePath =
-      'https://localhost:44353/Resources/Images/' +
+      'https://localhost:44372/Resources/Images/' +
       this.name.value +
       '/' +
       this.imageName;

@@ -167,7 +167,7 @@ export class EditProductComponent implements OnInit {
 
   getFormProduct(): Product {
     let imagePath =
-      'https://localhost:44353/Resources/Images/' +
+      'https://localhost:44372/Resources/Images/' +
       this.name.value +
       '/' +
       this.imageName;

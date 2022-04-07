@@ -21,9 +21,8 @@ export class ProductsComponent implements OnInit {
   selectedSubcategory = '';
   numberOfProducts: number;
   totalPages: number;
-  limitPageNumber = 5;
-  paginationSize = 7;
-  p: number = 1;
+  limitPageNumber = 4;
+  p: number = 1; //set the page where the app opens
   categories: Category[] = [] as Category[];
   subcategories: Subcategory[] = [] as Subcategory[];
 

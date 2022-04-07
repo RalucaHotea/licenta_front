@@ -1,32 +1,38 @@
 import { Product } from './../../models/product.model';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+import { CartItem } from 'src/app/models/cart-item.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  items: Product[] = [] as Product[];
+  private baseUrl = environment.apiUrl + 'Product';
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+  });
+  private options = { headers: this.headers, withCredentials: true };
 
-  addToCart(product: Product) {
-    this.items.push(product);
-    localStorage.setItem('productsList', JSON.stringify(this.items));
+  constructor(private http: HttpClient) {}
+
+  addToCart(item: CartItem) {
+    const body = JSON.stringify(item);
+    return this.http.post<CartItem>(
+      this.baseUrl + '/AddItemToCart',
+      body,
+      this.options
+    );
   }
 
-  getProductList(): Product[] {
-    return JSON.parse(localStorage.getItem('productsList'));
+  getItemList(userId: number): Observable<CartItem[]> {
+    return this.http.get<CartItem[]>(
+      this.baseUrl + '/GetCartItemsByUserId?userId=' + userId
+    );
   }
 
-  getItems(): Product[] {
-    // return this.getProductList();
-    return this.items;
-  }
-
-  removeItem(product: Product) {
-    localStorage.removeItem(JSON.stringify(product));
-  }
-
-  clearCart() {
-    this.items = [];
-    return this.items;
+  removeItem(itemId: number) {
+    return this.http.delete(this.baseUrl + '/DeleteCartItem?itemId=' + itemId);
   }
 }

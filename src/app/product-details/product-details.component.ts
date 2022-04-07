@@ -1,8 +1,11 @@
+import { CartItem } from './../models/cart-item.model';
 import { CartService } from './../services/cart-service/cart.service';
 import { Product } from './../models/product.model';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product-service/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../models/user.model';
+import { AuthenticationService } from '../services/authentication-service/authentication.service';
 
 @Component({
   selector: 'app-product-details',
@@ -11,14 +14,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ProductDetailsComponent implements OnInit {
   product: Product = {} as Product;
+  loggedUser: User = {} as User;
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
-    private router: Router,
-    private cartService: CartService
+    private cartService: CartService,
+    private authService: AuthenticationService
   ) {}
 
   ngOnInit() {
+    this.loggedUser = this.authService.getLoggedUser();
     this.loadProductDetails();
   }
 
@@ -28,7 +33,13 @@ export class ProductDetailsComponent implements OnInit {
       .subscribe((product) => (this.product = product));
   }
 
-  addToCart(product: Product) {
-    this.cartService.addToCart(product);
+  addToCart() {
+    const newItem = {
+      id: 0,
+      userId: this.loggedUser.id,
+      productId: this.route.snapshot.params.id,
+      quantity: 1,
+    } as CartItem;
+    this.cartService.addToCart(newItem).subscribe();
   }
 }
