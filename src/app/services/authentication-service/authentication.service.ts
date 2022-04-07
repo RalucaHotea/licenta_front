@@ -22,7 +22,8 @@ export class AuthenticationService {
     const headerDict = {
       'Content-Type': 'application/json',
       //'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Origin': 'localhost:44353/api/Authentication/login',
+      'Access-Control-Allow-Origin':
+        'https://localhost:44372/api/Authentication/login',
     };
 
     const requestOptions = {

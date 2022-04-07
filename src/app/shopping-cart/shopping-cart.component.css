@@ -3,6 +3,7 @@
     display: flex;
     justify-content: center;
     padding: 5rem;
+    overflow: auto;
 }
 
 .page-inner {
@@ -10,7 +11,7 @@
     justify-content: center;
     background-color: var(--bosch-white);
     width: 80rem;
-    height: 43rem;
+    height: 50rem;
 }
 
 .left-column {
@@ -180,4 +181,33 @@ table {
     background-color: var(--bosch-white);
     color: var(--bosch-gray-40);
     font-weight: bold;
+}
+
+.mat-paginator-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    flex-wrap: wrap-reverse;
+    width: 100%;
+}
+
+.form-btn-delete {
+    align-content: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    border: 0;
+    background: var(--bosch-white);
+    color: var(--bosch-gray-30);
+    cursor: pointer;
+    font-size: 1rem;
+    outline: 0;
+    text-transform: uppercase;
+    transition: all 0.3 ease;
+}
+
+.form-btn-delete:hover,
+.form-btn-delete:active,
+.form-btn-delete:focus {
+    background: none;
 }

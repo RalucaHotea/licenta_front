@@ -1,0 +1,8 @@
+.container {
+    max-width: 50%;
+    height: 50vh;
+    margin-left: 30rem;
+    align-items: center;
+    margin-top: 11rem;
+    overflow: hidden;
+}

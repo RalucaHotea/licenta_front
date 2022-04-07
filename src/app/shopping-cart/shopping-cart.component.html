@@ -1,7 +1,7 @@
 <div class="page-wrapper">
     <div class="a-box -floating page-inner page-inner">
         <div class="left-column">
-            <div class="products-container">
+            <div [hidden]="items.length == 0" class="products-container">
                 <table mat-table [dataSource]="dataSource">
                     <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef class="header-cell">
@@ -9,15 +9,15 @@
                         </th>
                         <td mat-cell *matCellDef="let element">
                             <div class="input-row">
-                                <img class="img" src="{{ element.imagePath }}" class="img" />
-                                <span>{{ element.name }}</span>
+                                <img class="img" src="{{ element.product.imagePath }}" class="img" />
+                                <span>{{ element.product.name }}</span>
                             </div>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="price">
                         <th mat-header-cell *matHeaderCellDef class="header-cell">PRICE</th>
                         <td mat-cell *matCellDef="let element">
-                            {{ element.price }}
+                            {{ element.product.price }}
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="quantity">
@@ -26,37 +26,41 @@
                         </th>
                         <td mat-cell *matCellDef="let element">
                             <div class="a-value-modificator">
-                                <i class="a-icon a-value-modificator__icon a-value-modificator__minus-icon boschicon-bosch-ic-less-minimize" (click)="decreaseQuantity()"></i>
-                                <input type="number" value="{{ quantity }}" min="1" max="10" step="1" id="1" />
-                                <i class="a-icon a-value-modificator__icon a-value-modificator__plus-icon boschicon-bosch-ic-add" (click)="increaseQuantity()"></i>
+                                <i class="a-icon a-value-modificator__icon a-value-modificator__minus-icon boschicon-bosch-ic-less-minimize" (click)="decreaseQuantity(element.id)"></i>
+                                <input type="number" value="{{ element.quantity }}" min="1" max="10" step="1" id="1" />
+                                <i class="a-icon a-value-modificator__icon a-value-modificator__plus-icon boschicon-bosch-ic-add" (click)="increaseQuantity(element.id)"></i>
                             </div>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="total">
                         <th mat-header-cell *matHeaderCellDef class="header-cell">TOTAL</th>
                         <td mat-cell *matCellDef="let element">
-                            {{ element.price * quantity }}
+                            {{ element.product.price * element.quantity }}
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="removeItem">
                         <th mat-header-cell *matHeaderCellDef class="header-cell"></th>
                         <td mat-cell *matCellDef="let element">
-                            <i class="a-icon boschicon-bosch-ic-delete" (click)="removeItem(element)"></i>
+                            <button class="form-btn-delete" (click)="removeItem(element.id)">
+                <i class="a-icon boschicon-bosch-ic-delete"></i>
+              </button>
                         </td>
                     </ng-container>
                     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
                     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
                 </table>
             </div>
+            <mat-paginator class="mat-paginator-container" [pageSize]="2">
+            </mat-paginator>
         </div>
         <div class="right-column">
             <div class="order-resume-container">
                 <div class="header-container">ORDER SUMMARY</div>
                 <hr class="a-divider" />
-                <div class="order-details">TOTAL COST :</div>
+                <div class="order-details">TOTAL COST : {{ getTotalCost() }}</div>
                 <hr class="a-divider" />
                 <div class="submit-area">
-                    <button class="form-btn">CHECKOUT</button>
+                    <button class="form-btn" (click)="placeOrder()">CHECKOUT</button>
                 </div>
             </div>
         </div>
