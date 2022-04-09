@@ -1,3 +1,4 @@
+import { Order } from './../../models/order.model';
 import { CartItem } from 'src/app/models/cart-item.model';
 import { Subcategory } from './../../models/subcategory.model';
 import { Category } from './../../models/category.model';
@@ -24,6 +25,15 @@ export class ProductService {
     const body = JSON.stringify(product);
     return this.http.post<Product>(
       this.baseUrl + '/AddProduct',
+      body,
+      this.options
+    );
+  }
+
+  addOrder(order: Order): Observable<Order> {
+    const body = JSON.stringify(order);
+    return this.http.post<Order>(
+      this.baseUrl + '/AddOrder',
       body,
       this.options
     );

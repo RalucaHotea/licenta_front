@@ -19,6 +19,7 @@ export class ShoppingCartComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   items: CartItem[] = [] as CartItem[];
+  products: Product[] = [] as Product[];
   dataSource = new MatTableDataSource<CartItem>();
   quantity: number = 1;
   loggedUser: User = {} as User;
@@ -98,7 +99,13 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   placeOrder() {
-    console.log('order');
+    const newOrder = {
+      userId: this.loggedUser.id,
+      approvalNumber: null,
+      billNumber: null,
+      items: this.items,
+    };
+    this.productService.addOrder(newOrder).subscribe();
   }
 
   getTotalCost() {
