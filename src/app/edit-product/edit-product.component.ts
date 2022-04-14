@@ -7,6 +7,7 @@ import { ImageDto } from '../models/image.model';
 import { Product } from '../models/product.model';
 import { Subcategory } from '../models/subcategory.model';
 import { User } from '../models/user.model';
+import { Warehouse } from '../models/warehouse.model';
 import { ProductService } from '../services/product-service/product.service';
 import { MessageBarComponent } from '../shared/message-bar/message-bar.component';
 
@@ -31,7 +32,9 @@ export class EditProductComponent implements OnInit {
   loggedUser: User = {} as User;
   selectedCategory = '';
   selectedSubcategory = '';
+  selectedWarehouse = '';
   categories: Category[] = [] as Category[];
+  warehouses: Warehouse[] = [] as Warehouse[];
   subcategories: Subcategory[] = [] as Subcategory[];
   clicked = false;
 
@@ -45,6 +48,8 @@ export class EditProductComponent implements OnInit {
     minimumQuantity: new FormControl(''),
     category: new FormControl(null, Validators.required),
     subcategory: new FormControl(null, Validators.required),
+    stock: new FormControl(null, Validators.required),
+    warehouse: new FormControl(null, Validators.required),
     price: new FormControl(null, Validators.required),
     image: new FormControl(''),
   });
@@ -90,6 +95,14 @@ export class EditProductComponent implements OnInit {
     return this.form.get('orderEntityId') as FormControl;
   }
 
+  get stock(): FormControl {
+    return this.form.get('stock') as FormControl;
+  }
+
+  get warehouse(): FormControl {
+    return this.form.get('warehouse') as FormControl;
+  }
+
   ngOnInit() {
     this.loadData();
   }
@@ -104,6 +117,9 @@ export class EditProductComponent implements OnInit {
     this.productService
       .getAllSubcategories()
       .subscribe((subcategories) => (this.subcategories = subcategories));
+    this.productService.getAllWarehouses().subscribe((warehouses) => {
+      this.warehouses = warehouses;
+    });
   }
 
   uploadFile = (files) => {
@@ -165,6 +181,10 @@ export class EditProductComponent implements OnInit {
     this.selectedSubcategory = (event.target as HTMLSelectElement).value;
   }
 
+  selectWarehouse(event: Event) {
+    this.selectedWarehouse = (event.target as HTMLSelectElement).value;
+  }
+
   getFormProduct(): Product {
     let imagePath =
       'https://localhost:44372/Resources/Images/' +
@@ -182,6 +202,8 @@ export class EditProductComponent implements OnInit {
       categoryId: Number(this.category.value),
       subcategoryId: Number(this.subcategory.value),
       imagePath: imagePath,
+      warehouseId: Number(this.warehouse.value),
+      quantity: this.stock.value,
     } as Product;
     return newProduct;
   }
@@ -259,6 +281,8 @@ export class EditProductComponent implements OnInit {
       category: product.categoryId,
       subcategory: product.subcategoryId,
       imagePath: product.imagePath,
+      warehouse: product.warehouseId,
+      stock: product.quantity,
     });
     this.showProductsDropDown = false;
   }

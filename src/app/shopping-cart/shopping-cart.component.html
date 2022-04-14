@@ -1,3 +1,4 @@
+<app-messageBar #messageBar [errors]="formErrors"> </app-messageBar>
 <div class="page-wrapper">
     <div class="a-box -floating page-inner page-inner">
         <div class="left-column">
@@ -65,7 +66,8 @@
                 value="{{ pickupPoint.id }}"
                 *ngFor="let pickupPoint of pickupPoints"
               >
-                {{ pickupPoint.name }} - {{ pickupPoint.location }}
+                {{ pickupPoint.name }} - {{ pickupPoint.city }} -
+                {{ pickupPoint.country }}
               </option>
             </select>
                     </div>

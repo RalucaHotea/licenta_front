@@ -14,6 +14,7 @@ import { ProductService } from '../services/product-service/product.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Order } from '../models/order.model';
+import { MessageBarComponent } from '../shared/message-bar/message-bar.component';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -31,6 +32,7 @@ export class ShoppingCartComponent implements OnInit {
   pickupPoints: PickupPoint[] = [] as PickupPoint[];
   selectedPickupPoint = '';
   orderId: number;
+  formErrors: string[] = [] as string[];
 
   displayedColumns: string[] = [
     'name',
@@ -95,17 +97,25 @@ export class ShoppingCartComponent implements OnInit {
 
   increaseQuantity(itemId) {
     this.cartService.getCartItemById(itemId).subscribe((item) => {
-      var newItem = {
-        id: item.id,
-        userId: item.userId,
-        productId: item.productId,
-        quantity: item.quantity + 1,
-      } as CartItem;
-      this.cartService.updateCartItem(newItem).subscribe(() => {
-        window.location.reload();
-      });
+      var productStock = this.productService
+        .getProductStockCount(item.productId)
+        .subscribe((stock) => {
+          if (stock >= item.quantity + 1) {
+            var newItem = {
+              id: item.id,
+              userId: item.userId,
+              productId: item.productId,
+              quantity: item.quantity + 1,
+            } as CartItem;
+            this.cartService.updateCartItem(newItem).subscribe(() => {
+              window.location.reload();
+            });
+            this.quantity = this.quantity + 1;
+          } else {
+            this.formErrors.push('Quantity is bigger than stock');
+          }
+        });
     });
-    this.quantity = this.quantity + 1;
   }
 
   removeItem(itemId: number) {

@@ -1,4 +1,3 @@
-import { ImageDto } from './image.model';
 export interface Product {
   id: number;
   name: string;
@@ -9,4 +8,6 @@ export interface Product {
   subcategoryId: number;
   imagePath: string;
   price: number;
+  warehouseId: number;
+  quantity: number;
 }

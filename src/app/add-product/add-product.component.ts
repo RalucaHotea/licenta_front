@@ -158,7 +158,7 @@ export class AddProductComponent implements OnInit {
       this.name.value +
       '/' +
       this.imageName;
-    imagePath.replace('', '%');
+    //imagePath.replace('', '%');
     const newProduct = {
       id: 0,
       name: this.name.value,
@@ -169,6 +169,8 @@ export class AddProductComponent implements OnInit {
       categoryId: Number(this.category.value),
       subcategoryId: Number(this.subcategory.value),
       imagePath: imagePath,
+      quantity: this.stock.value,
+      warehouseId: Number(this.warehouse.value),
     } as Product;
     return newProduct;
   }

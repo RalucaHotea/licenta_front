@@ -153,6 +153,53 @@
         </div>
         <div class="input-row">
           <div class="input-group">
+            <div
+              class="my-drop-down m-form-field-drop m-form-field m-form-field--dropdown"
+              style="margin-top: 0"
+            >
+              <div>Warehouse:</div>
+              <div class="my-drop-down a-dropdown">
+                <select
+                  id="dropdown-2"
+                  name="drop2"
+                  formControlName="warehouse"
+                  [value]="warehouse.value"
+                  required
+                  (change)="selectWarehouse($event)"
+                >
+                  <option
+                    value="{{ warehouse.id }}"
+                    *ngFor="let warehouse of warehouses"
+                  >
+                    {{ warehouse.name }}
+                  </option>
+                </select>
+                <small
+                  class="p-error"
+                  *ngIf="warehouse.invalid && warehouse.touched"
+                  >Warehouse is mandatory!
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="input-group">
+            <div class="custom-input">
+              <div style="margin-right: 3rem">Stock:</div>
+              <div class="m-form-field">
+                <div class="a-text-field">
+                  <input
+                    formControlName="stock"
+                    type="text"
+                    placeholder="20"
+                    [value]="stock.value"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="input-row">
+          <div class="input-group">
             <div style="margin-right: 3rem">Description:</div>
             <div class="m-form-field">
               <div class="a-text-area">
