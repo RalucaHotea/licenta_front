@@ -8,6 +8,7 @@ import { environment } from './../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/models/user.model';
+import { Warehouse } from 'src/app/models/warehouse.model';
 
 @Injectable({
   providedIn: 'root',
@@ -30,15 +31,6 @@ export class ProductService {
     );
   }
 
-  addOrder(order: Order): Observable<Order> {
-    const body = JSON.stringify(order);
-    return this.http.post<Order>(
-      this.baseUrl + '/AddOrder',
-      body,
-      this.options
-    );
-  }
-
   getUserByUserUsername(username: string): Observable<User> {
     return this.http.get<User>(
       this.baseUrl + '/GetUserByUserUsername?username=' + username
@@ -49,15 +41,6 @@ export class ProductService {
     const body = JSON.stringify(product);
     return this.http.put<Product>(
       this.baseUrl + '/UpdateProduct',
-      body,
-      this.options
-    );
-  }
-
-  updateCartItem(item: CartItem): Observable<CartItem> {
-    const body = JSON.stringify(item);
-    return this.http.put<CartItem>(
-      this.baseUrl + '/UpdateCartItem',
       body,
       this.options
     );
@@ -76,12 +59,6 @@ export class ProductService {
   getProductById(productId: number): Observable<Product> {
     return this.http.get<Product>(
       this.baseUrl + '/GetProductById?productId=' + productId
-    );
-  }
-
-  getCartItemById(itemId: number): Observable<CartItem> {
-    return this.http.get<CartItem>(
-      this.baseUrl + '/GetCartItemById?itemId=' + itemId
     );
   }
 
@@ -122,5 +99,9 @@ export class ProductService {
       this.baseUrl + 'DownloadFileById?ideaId=' + ideaId + '&fileId=' + fileId,
       { observe: 'response', responseType: 'blob' as 'json' }
     );
+  }
+
+  getAllWarehouses(): Observable<Warehouse[]> {
+    return this.http.get<Warehouse[]>(this.baseUrl + '/GetAllWarehouses');
   }
 }

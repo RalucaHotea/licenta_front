@@ -35,12 +35,13 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { OrdersComponent } from './orders/orders.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
 @NgModule({
-  declarations: [
+  declarations: [	
     AppComponent,
     LoginComponent,
     HomeComponent,
@@ -55,7 +56,8 @@ export function tokenGetter() {
     MessageBarComponent,
     ProductDetailsComponent,
     ShoppingCartComponent,
-  ],
+      OrdersComponent
+   ],
   imports: [
     HttpClientModule,
     BrowserModule,

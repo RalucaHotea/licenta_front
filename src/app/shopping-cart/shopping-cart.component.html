@@ -57,6 +57,21 @@
             <div class="order-resume-container">
                 <div class="header-container">ORDER SUMMARY</div>
                 <hr class="a-divider" />
+                <div class="my-drop-down m-form-field-drop m-form-field m-form-field--dropdown">
+                    <div>Pickup Point:</div>
+                    <div class="my-drop-down a-dropdown">
+                        <select id="dropdown-3" name="drop1" [value]="selectedPickupPoint" (change)="selectPickupPoint($event)">
+              <option
+                value="{{ pickupPoint.id }}"
+                *ngFor="let pickupPoint of pickupPoints"
+              >
+                {{ pickupPoint.name }} - {{ pickupPoint.location }}
+              </option>
+            </select>
+                    </div>
+                </div>
+                <hr class="a-divider" />
+
                 <div class="order-details">TOTAL COST : {{ getTotalCost() }}</div>
                 <hr class="a-divider" />
                 <div class="submit-area">
