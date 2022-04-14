@@ -14,6 +14,7 @@ import { AuthenticationService } from '../services/authentication-service/authen
 })
 export class ProductDetailsComponent implements OnInit {
   product: Product = {} as Product;
+  items: CartItem[] = [] as CartItem[];
   loggedUser: User = {} as User;
   constructor(
     private productService: ProductService,
@@ -23,7 +24,11 @@ export class ProductDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loggedUser = this.authService.getLoggedUser();
+    this.productService
+      .getUserByUserUsername(localStorage.getItem('username'))
+      .subscribe((user) => {
+        this.loggedUser = user;
+      });
     this.loadProductDetails();
   }
 

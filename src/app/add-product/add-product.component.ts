@@ -1,3 +1,4 @@
+import { Warehouse } from './../models/warehouse.model';
 import { User } from 'src/app/models/user.model';
 import { ProductService } from './../services/product-service/product.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -25,9 +26,11 @@ export class AddProductComponent implements OnInit {
   progress: number;
   product: Product = {} as Product;
   loggedUser: User = {} as User;
+  selectedWarehouse = '';
   selectedCategory = '';
   selectedSubcategory = '';
   categories: Category[] = [] as Category[];
+  warehouses: Warehouse[] = [] as Warehouse[];
   subcategories: Subcategory[] = [] as Subcategory[];
   formErrors: string[] = [] as string[];
   formSuccesses: string[] = [] as string[];
@@ -43,6 +46,8 @@ export class AddProductComponent implements OnInit {
     category: new FormControl(null, Validators.required),
     subcategory: new FormControl(null, Validators.required),
     price: new FormControl(null, Validators.required),
+    stock: new FormControl(null, Validators.required),
+    warehouse: new FormControl(null, Validators.required),
     image: new FormControl(null, Validators.required),
   });
 
@@ -82,6 +87,14 @@ export class AddProductComponent implements OnInit {
     return this.form.get('orderEntityId') as FormControl;
   }
 
+  get stock(): FormControl {
+    return this.form.get('stock') as FormControl;
+  }
+
+  get warehouse(): FormControl {
+    return this.form.get('warehouse') as FormControl;
+  }
+
   constructor(
     private productService: ProductService,
     private httpClient: HttpClient,
@@ -89,11 +102,13 @@ export class AddProductComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.authService.getLoggedUser());
     this.loggedUser = this.authService.getLoggedUser();
     this.productService
       .getAllCategories()
       .subscribe((categories) => (this.categories = categories));
+    this.productService.getAllWarehouses().subscribe((warehouses) => {
+      this.warehouses = warehouses;
+    });
   }
 
   uploadFile = (files) => {
@@ -186,6 +201,10 @@ export class AddProductComponent implements OnInit {
           this.formErrors.push('No Subcategories for this Category');
         }
       );
+  }
+
+  selectWarehouse(event: Event) {
+    this.selectedWarehouse = (event.target as HTMLSelectElement).value;
   }
 
   touchDescriptionEditor(): void {

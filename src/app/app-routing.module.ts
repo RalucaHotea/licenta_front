@@ -9,6 +9,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { PersonalProfileComponent } from './shared/personal-profile/personal-profile.component';
 import { AuthGuard } from './guards/auth.guard';
 import { ProductCrudComponent } from './product-crud/product-crud.component';
+import { OrdersComponent } from './orders/orders.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,10 @@ const routes: Routes = [
   {
     path: 'profile',
     component: PersonalProfileComponent,
+  },
+  {
+    path: 'orders',
+    component: OrdersComponent,
   },
   {
     path: 'cart',

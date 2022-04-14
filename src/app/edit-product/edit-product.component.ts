@@ -183,7 +183,6 @@ export class EditProductComponent implements OnInit {
       subcategoryId: Number(this.subcategory.value),
       imagePath: imagePath,
     } as Product;
-    console.log(imagePath);
     return newProduct;
   }
 

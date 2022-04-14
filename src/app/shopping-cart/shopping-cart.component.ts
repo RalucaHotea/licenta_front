@@ -1,3 +1,8 @@
+import { AddOrder } from './../models/add-order.model';
+import { OrderItem } from './../models/order-item.model';
+import { PickupPoint } from './../models/pickup-point.model';
+import { OrderService } from './../services/order-service/order.service';
+import { OrderStatus } from './../enums/order-status.enum';
 import { CartItem } from './../models/cart-item.model';
 import { Product } from './../models/product.model';
 import { CartService } from './../services/cart-service/cart.service';
@@ -7,8 +12,8 @@ import { AuthenticationService } from '../services/authentication-service/authen
 import { User } from '../models/user.model';
 import { ProductService } from '../services/product-service/product.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
+import { Order } from '../models/order.model';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -17,12 +22,15 @@ import { Router } from '@angular/router';
 })
 export class ShoppingCartComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
   items: CartItem[] = [] as CartItem[];
+  orderItems: OrderItem[] = [] as OrderItem[];
   products: Product[] = [] as Product[];
   dataSource = new MatTableDataSource<CartItem>();
   quantity: number = 1;
   loggedUser: User = {} as User;
+  pickupPoints: PickupPoint[] = [] as PickupPoint[];
+  selectedPickupPoint = '';
+  orderId: number;
 
   displayedColumns: string[] = [
     'name',
@@ -36,6 +44,7 @@ export class ShoppingCartComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private router: Router,
+    private orderService: OrderService,
     private productService: ProductService
   ) {}
 
@@ -53,14 +62,21 @@ export class ShoppingCartComponent implements OnInit {
           this.dataSource.data = items;
         });
       });
+    this.orderService.getAllPickupPoints().subscribe((pickupPoints) => {
+      this.pickupPoints = pickupPoints;
+    });
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
   }
 
+  selectPickupPoint(event: Event) {
+    this.selectedPickupPoint = (event.target as HTMLSelectElement).value;
+  }
+
   decreaseQuantity(itemId: number) {
-    this.productService.getCartItemById(itemId).subscribe((item) => {
+    this.cartService.getCartItemById(itemId).subscribe((item) => {
       if (item.quantity == 0) {
         this.cartService.removeItem(item.id);
       }
@@ -70,7 +86,7 @@ export class ShoppingCartComponent implements OnInit {
         productId: item.productId,
         quantity: item.quantity - 1,
       } as CartItem;
-      this.productService.updateCartItem(newItem).subscribe(() => {
+      this.cartService.updateCartItem(newItem).subscribe(() => {
         window.location.reload();
       });
     });
@@ -78,14 +94,14 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   increaseQuantity(itemId) {
-    this.productService.getCartItemById(itemId).subscribe((item) => {
+    this.cartService.getCartItemById(itemId).subscribe((item) => {
       var newItem = {
         id: item.id,
         userId: item.userId,
         productId: item.productId,
         quantity: item.quantity + 1,
       } as CartItem;
-      this.productService.updateCartItem(newItem).subscribe(() => {
+      this.cartService.updateCartItem(newItem).subscribe(() => {
         window.location.reload();
       });
     });
@@ -98,14 +114,22 @@ export class ShoppingCartComponent implements OnInit {
     });
   }
 
-  placeOrder() {
-    const newOrder = {
+  async placeOrder() {
+    const order = {
       userId: this.loggedUser.id,
-      approvalNumber: null,
-      billNumber: null,
+      status: OrderStatus.InSubmission,
+      pickupPointId: Number(this.selectedPickupPoint),
+      submittedAt: new Date(),
+    } as Order;
+
+    var orderToAdd = {
+      order: order,
       items: this.items,
-    };
-    this.productService.addOrder(newOrder).subscribe();
+    } as AddOrder;
+
+    this.orderService.createOrder(orderToAdd).subscribe(() => {
+      this.router.navigate(['/orders']);
+    });
   }
 
   getTotalCost() {

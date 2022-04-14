@@ -1,4 +1,3 @@
-import { Product } from './../../models/product.model';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CartItem } from 'src/app/models/cart-item.model';
@@ -9,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CartService {
-  private baseUrl = environment.apiUrl + 'Product';
+  private baseUrl = environment.apiUrl + 'Cart';
   private headers = new HttpHeaders({
     'Content-Type': 'application/json',
   });
@@ -23,6 +22,21 @@ export class CartService {
       this.baseUrl + '/AddItemToCart',
       body,
       this.options
+    );
+  }
+
+  updateCartItem(item: CartItem): Observable<CartItem> {
+    const body = JSON.stringify(item);
+    return this.http.put<CartItem>(
+      this.baseUrl + '/UpdateCartItem',
+      body,
+      this.options
+    );
+  }
+
+  getCartItemById(itemId: number): Observable<CartItem> {
+    return this.http.get<CartItem>(
+      this.baseUrl + '/GetCartItemById?itemId=' + itemId
     );
   }
 
