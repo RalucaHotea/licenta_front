@@ -2,7 +2,13 @@
 <div class="page-wrapper">
     <div class="a-box -floating page-inner page-inner">
         <div class="left-column">
-            <div [hidden]="items.length == 0" class="products-container">
+            <!-- <div *ngIf="items.length == 0" class="col products-container">
+                <div>
+                    <i class="a-icon boschicon-bosch-ic-shoppingcart-switch" title="shoppingcart-switch"></i>
+                </div>
+                <span>NO PRODUCTS</span>
+            </div> -->
+            <div *ngIf="items.length != 0" class="products-container">
                 <table mat-table [dataSource]="dataSource">
                     <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef class="header-cell">
@@ -51,7 +57,7 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
                 </table>
             </div>
-            <mat-paginator class="mat-paginator-container" [pageSize]="2">
+            <mat-paginator *ngIf="items.length != 0" class="mat-paginator-container" [pageSize]="2">
             </mat-paginator>
         </div>
         <div class="right-column">

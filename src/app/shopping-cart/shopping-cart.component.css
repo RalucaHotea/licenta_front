@@ -71,17 +71,6 @@
     padding: 0 1rem;
 }
 
-
-/* .boschicon-bosch-ic-less-minimize {
-    border: 2px solid var(--bosch-gray-60);
-    border-radius: 2rem;
-}
-
-.boschicon-bosch-ic-add {
-    border: 2px solid var(--bosch-gray-60);
-    border-radius: 2rem;
-} */
-
 .img {
     width: 5rem;
     height: 5rem;
@@ -114,6 +103,11 @@
     outline: 0;
     text-transform: uppercase;
     transition: all 0.3 ease;
+}
+
+.form-btn-disabled {
+    background: var(--bosch-gray-65);
+    pointer-events: none;
 }
 
 .form-btn:hover,

@@ -1,3 +1,4 @@
+import { OrderStatus } from './../enums/order-status.enum';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -18,15 +19,16 @@ export class OrdersComponent implements OnInit {
   dataSource = new MatTableDataSource<Order>();
   orders: Order[] = [] as Order[];
   loggedUser: User = {} as User;
+  orderStatus: OrderStatus = {} as OrderStatus;
 
   displayedColumns: string[] = [
-    'name',
-    'price',
-    'quantity',
+    'date',
+    'customerName',
     'total',
-    'removeItem',
+    'status',
+    'orderDetails',
   ];
-  headerInputs: string[] = ['input-name', 'input-price', 'input-quantity'];
+  headerInputs: string[] = ['input-date', 'input-customer', 'input-total'];
 
   constructor(
     private orderService: OrderService,

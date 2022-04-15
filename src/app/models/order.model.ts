@@ -13,4 +13,6 @@ export interface Order {
   user: User;
   totalPrice: number;
   submittedAt: Date;
+  shippedDate: Date;
+  pickupDate: Date;
 }

@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="form-container">
+        <div class="row">
+            <h1 class="section-header">
+                <mat-icon svgIcon="address-book"></mat-icon>Customer
+            </h1>
+        </div>
+        <div class="row section-body">
+            <div class="a-text group-box col-sm">
+                <label class="special__label">Name</label>
+                <p>{{ order.user.name }}</p>
+                <label class="special__label">Email</label>
+                <p>{{ order.user.email }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <h1 class="section-header">
+                <mat-icon svgIcon="summary"></mat-icon>Summary
+            </h1>
+        </div>
+        <div class="row section-body">
+            <div class="a-text group-box summary">
+                <div class="idea-summary-input">
+                    <label for="idea-title">Date</label>
+                    <div>
+                        {{ order.submittedAt }}
+                    </div>
+                </div>
+                <div class="idea-summary-input">
+                    <label>Description of the context state</label>
+                    <div></div>
+                </div>
+                <div class="idea-summary-input">
+                    <label>Description of the target state</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row submit-area">
+        <button type="button" class="form-outlined-btn" (click)="shipClicked()">
+      Ship
+    </button>
+    </div>
+</div>

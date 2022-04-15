@@ -125,21 +125,30 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   async placeOrder() {
-    const order = {
-      userId: this.loggedUser.id,
-      status: OrderStatus.InSubmission,
-      pickupPointId: Number(this.selectedPickupPoint),
-      submittedAt: new Date(),
-    } as Order;
+    if (this.items.length != 0 && this.selectedPickupPoint != '') {
+      const order = {
+        userId: this.loggedUser.id,
+        status: OrderStatus.InSubmission,
+        pickupPointId: Number(this.selectedPickupPoint),
+        submittedAt: new Date(),
+      } as Order;
 
-    var orderToAdd = {
-      order: order,
-      items: this.items,
-    } as AddOrder;
+      var orderToAdd = {
+        order: order,
+        items: this.items,
+      } as AddOrder;
 
-    this.orderService.createOrder(orderToAdd).subscribe(() => {
-      this.router.navigate(['/orders']);
-    });
+      this.orderService.createOrder(orderToAdd).subscribe(() => {
+        this.router.navigate(['/orders']);
+      });
+      this.cartService.clearCartByUserId(this.loggedUser.id).subscribe();
+    } else {
+      if (this.items.length == 0) {
+        this.formErrors.push('Your cart is empty');
+      } else if (this.selectedPickupPoint == '') {
+        this.formErrors.push('PickupPoint is mandatory');
+      }
+    }
   }
 
   getTotalCost() {

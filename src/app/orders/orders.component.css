@@ -7,11 +7,23 @@
 }
 
 .page-inner {
-    display: flex;
+    position: relative;
     justify-content: center;
     background-color: var(--bosch-white);
     width: 80rem;
     height: 50rem;
+}
+
+button {
+    border-style: none;
+    background-color: var(--bosch-white);
+}
+
+.icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+    margin-left: 1rem;
 }
 
 .left-column {

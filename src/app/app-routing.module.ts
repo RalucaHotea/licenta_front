@@ -10,6 +10,7 @@ import { PersonalProfileComponent } from './shared/personal-profile/personal-pro
 import { AuthGuard } from './guards/auth.guard';
 import { ProductCrudComponent } from './product-crud/product-crud.component';
 import { OrdersComponent } from './orders/orders.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 const routes: Routes = [
   {
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path: 'orders',
     component: OrdersComponent,
+  },
+  {
+    path: 'orders/ordersDetails/:id',
+    component: OrderDetailsComponent,
   },
   {
     path: 'cart',

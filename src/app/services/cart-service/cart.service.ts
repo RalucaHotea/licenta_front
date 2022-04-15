@@ -46,6 +46,12 @@ export class CartService {
     );
   }
 
+  clearCartByUserId(userId: number) {
+    return this.http.delete(
+      this.baseUrl + '/ClearCartByUserId?userId=' + userId
+    );
+  }
+
   removeItem(itemId: number) {
     return this.http.delete(this.baseUrl + '/DeleteCartItem?itemId=' + itemId);
   }

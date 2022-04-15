@@ -43,6 +43,18 @@ export class AppComponent {
         )
       )
       .addSvgIcon(
+        'arrow-right',
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/arrow-right.svg'
+        )
+      )
+      .addSvgIcon(
+        'arrow-right-blue',
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/arrow-right-blue.svg'
+        )
+      )
+      .addSvgIcon(
         'down-small',
         this.domSanitizer.bypassSecurityTrustResourceUrl(
           './assets/down-small.svg'
