@@ -4,6 +4,16 @@
         <button type="button" class="a-button a-button--primary -without-icon" (click)="logIn()">
       <div class="a-button__label">Log in as {{ ntUser }}</div>
     </button>
+        <div *ngIf="isAdmin" class="mt-4 a-checkbox">
+            <input type="checkbox" id="checkbox-1" (change)="onClickCheckbox($event)" />
+            <label for="checkbox-1">Custom Login</label>
+        </div>
+        <div *ngIf="isCheckboxChecked" class="mt-4 field-input">
+            <input class="form-control" (keyup)="onKey($event)" type="text" required />
+        </div>
+        <button *ngIf="isCheckboxChecked" type="button" class="a-button a-button--primary -without-icon" (click)="customLogin()">
+      <div class="a-button__label">Log in as {{ customUsername }}</div>
+    </button>
     </div>
 </div>
 <img src="../../assets/Bosch-Supergraphic-RGB.png" class="bg" alt="" />

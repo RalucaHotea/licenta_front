@@ -19,7 +19,7 @@ export class OrdersComponent implements OnInit {
   dataSource = new MatTableDataSource<Order>();
   orders: Order[] = [] as Order[];
   loggedUser: User = {} as User;
-  orderStatus: OrderStatus = {} as OrderStatus;
+  orderStatus = OrderStatus;
 
   displayedColumns: string[] = [
     'date',

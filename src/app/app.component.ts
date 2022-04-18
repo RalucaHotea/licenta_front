@@ -61,6 +61,18 @@ export class AppComponent {
         )
       )
       .addSvgIcon(
+        'address-book',
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/address-book.svg'
+        )
+      )
+      .addSvgIcon(
+        'products',
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/my-products.svg'
+        )
+      )
+      .addSvgIcon(
         'link',
         this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/link.svg')
       )

@@ -45,6 +45,7 @@ export class ShoppingCartComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
+    private authService: AuthenticationService,
     private router: Router,
     private orderService: OrderService,
     private productService: ProductService
@@ -125,7 +126,13 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   async placeOrder() {
-    if (this.items.length != 0 && this.selectedPickupPoint != '') {
+    var totalCost = this.getTotalCost();
+    var benefit = this.authService.getTotalBenefit();
+    if (
+      this.items.length != 0 &&
+      this.selectedPickupPoint != '' &&
+      benefit >= totalCost
+    ) {
       const order = {
         userId: this.loggedUser.id,
         status: OrderStatus.InSubmission,
@@ -147,6 +154,8 @@ export class ShoppingCartComponent implements OnInit {
         this.formErrors.push('Your cart is empty');
       } else if (this.selectedPickupPoint == '') {
         this.formErrors.push('PickupPoint is mandatory');
+      } else if (benefit <= totalCost) {
+        this.formErrors.push('Not enough benefit');
       }
     }
   }
