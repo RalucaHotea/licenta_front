@@ -3,7 +3,7 @@ export interface Product {
   name: string;
   description?: string;
   eanCode: string;
-  minimumQuantity: string;
+  minimumQuantity: number;
   categoryId: number;
   subcategoryId: number;
   imagePath: string;

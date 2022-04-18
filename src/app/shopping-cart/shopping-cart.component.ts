@@ -1,3 +1,4 @@
+import { EmailService } from './../services/email-service/email.service';
 import { AddOrder } from './../models/add-order.model';
 import { OrderItem } from './../models/order-item.model';
 import { PickupPoint } from './../models/pickup-point.model';
@@ -48,7 +49,8 @@ export class ShoppingCartComponent implements OnInit {
     private authService: AuthenticationService,
     private router: Router,
     private orderService: OrderService,
-    private productService: ProductService
+    private productService: ProductService,
+    private emailService: EmailService
   ) {}
 
   ngOnInit() {
@@ -147,6 +149,13 @@ export class ShoppingCartComponent implements OnInit {
 
       this.orderService.createOrder(orderToAdd).subscribe(() => {
         this.router.navigate(['/orders']);
+        this.emailService
+          .sendEmail(
+            this.loggedUser,
+            'Thank you for your order! You can check out the details in order section on our website',
+            'Order Confirmation'
+          )
+          .subscribe();
       });
       this.cartService.clearCartByUserId(this.loggedUser.id).subscribe();
     } else {
