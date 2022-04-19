@@ -1,0 +1,19 @@
+<div class="idea-status-section">
+    <div class="idea-cards-section">
+        <div class="dropdown-year">
+            <div class="a-dropdown">
+                <select
+                    [(ngModel)]="selectedYear"
+                    (change)="updateChart($event)"
+                >
+                    <option value="{{year}}" *ngFor="let year of years">
+                        {{year}}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="chart-container">
+            <canvas id="timeline-chart"></canvas>
+        </div>
+    </div>
+</div>

@@ -221,6 +221,9 @@
               <div class="image-group-box">
                 <div style="margin-right: 3rem">
                   Image
+                  <div *ngIf="selectedProduct.imagePath != null">
+                    <img src="{{ selectedProduct.imagePath }}" class="img" />
+                  </div>
                   <button
                     type="button"
                     class="upload-button"

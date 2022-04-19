@@ -5,7 +5,8 @@
     padding: 1rem 3rem;
     padding-bottom: 0;
     background-color: var(--bosch-white);
-    overflow: hidden;
+    overflow-x: hidden;
+    padding-left: 0rem;
 }
 
 .o-header::before {
@@ -28,6 +29,11 @@
     display: flex;
     align-items: center;
     margin: auto 0;
+    width: 20rem;
+}
+
+.o-header__logo svg {
+    width: 7rem;
 }
 
 .o-header__logo span:first-child {
@@ -76,7 +82,7 @@
     border: unset;
     margin-left: 1rem;
     cursor: pointer;
-    font-size: large;
+    font-size: small;
 }
 
 .wrapper:hover {

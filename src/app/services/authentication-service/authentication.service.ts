@@ -118,6 +118,10 @@ export class AuthenticationService {
     return localStorage.getItem('email');
   }
 
+  getRole(): RoleType {
+    return RoleType[localStorage.getItem('roleType')];
+  }
+
   getLoggedUserGroup(): string {
     return localStorage.getItem('group');
   }

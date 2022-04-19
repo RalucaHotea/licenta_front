@@ -103,7 +103,6 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
-    this.authService.login();
     if (localStorage.getItem('token') != null) {
       localStorage.removeItem('token');
     }

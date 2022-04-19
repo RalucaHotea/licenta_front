@@ -1,3 +1,4 @@
+import { PickupPoint } from './../models/pickup-point.model';
 import { OrderStatus } from './../enums/order-status.enum';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -44,10 +45,24 @@ export class OrdersComponent implements OnInit {
       .getUserByUserUsername(localStorage.getItem('username'))
       .subscribe((user) => {
         this.loggedUser = user;
-        this.orderService.getOrdersByUserId(user.id).subscribe((orders) => {
-          this.orders = orders;
-          this.dataSource.data = orders;
-        });
+        if (user.roleType == 1) {
+          this.orderService.getOrdersByUserId(user.id).subscribe((orders) => {
+            this.orders = orders;
+            this.dataSource.data = orders;
+          });
+        } else if (user.roleType == 2) {
+          this.orderService.getAllOrders().subscribe((orders) => {
+            this.orders = orders;
+            this.dataSource.data = orders;
+          });
+        } else if (user.roleType == 3) {
+          this.orderService
+            .getOrdersByUserOfficeLocation(user.id)
+            .subscribe((orders) => {
+              this.orders = orders;
+              this.dataSource.data = orders;
+            });
+        }
       });
   }
 

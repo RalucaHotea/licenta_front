@@ -1,3 +1,4 @@
+import { User } from 'src/app/models/user.model';
 import { AddOrder } from './../../models/add-order.model';
 import { CartItem } from 'src/app/models/cart-item.model';
 import { PickupPoint } from './../../models/pickup-point.model';
@@ -46,6 +47,12 @@ export class OrderService {
 
   getAllOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(this.baseUrl + '/GetAllOrders');
+  }
+
+  getOrdersByUserOfficeLocation(userId: number): Observable<Order[]> {
+    return this.http.get<Order[]>(
+      this.baseUrl + '/GetOrdersByUserOfficeLocation?userId=' + userId
+    );
   }
 
   getOrdersByUserId(userId: number): Observable<Order[]> {

@@ -11,6 +11,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { ProductCrudComponent } from './product-crud/product-crud.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { RoleGuard } from './guards/role.guard';
 
 const routes: Routes = [
   {
@@ -28,30 +29,37 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'product-crud',
-    component: ProductCrudComponent,
-    canActivate: [AuthGuard],
-  },
-  {
     path: 'products/productdetails/:id',
     component: ProductDetailsComponent,
     canActivate: [AuthGuard],
   },
   {
+    path: 'product-crud',
+    component: ProductCrudComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      expectedRoles: ['Admin'],
+    },
+  },
+  {
     path: 'profile',
     component: PersonalProfileComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'orders',
     component: OrdersComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'orders/ordersDetails/:id',
     component: OrderDetailsComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'cart',
     component: ShoppingCartComponent,
+    canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];

@@ -1,0 +1,230 @@
+body {
+    height: auto;
+    background-color: var(--bosch-white);
+}
+
+.body-wrapper {
+    position: sticky;
+    z-index: 1030;
+    top: 4.5rem;
+    right: 0;
+    left: 0;
+    height: 100%;
+}
+
+.container {
+    max-width: 90rem;
+    height: 100%;
+    padding: 5rem;
+}
+
+.canvas-container {
+    margin-left: 3rem;
+}
+
+.a-tab-navigation {
+    display: inline-flex;
+    width: 100%;
+    flex-wrap: wrap;
+    padding: 0 3rem;
+    border-bottom: 0.05rem solid var(--bosch-gray-40);
+    margin-bottom: 0;
+    background-color: var(--bosch-white) !important;
+    color: var(--integrated__enabled__text__default);
+}
+
+.a-tab-navigation__tab:hover {
+    filter: invert(33%) sepia(100%) saturate(925%) hue-rotate(172deg) brightness(92%) contrast(104%);
+}
+
+.selected-tab {
+    border-bottom: 0.125rem solid var(--bosch-blue-50);
+    color: var(--bosch-blue-50);
+}
+
+.selected-tab .icon {
+    filter: invert(33%) sepia(100%) saturate(925%) hue-rotate(172deg) brightness(92%) contrast(104%);
+}
+
+.card-details {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 0.75rem;
+    margin-left: 0 !important;
+}
+
+.pie-chart-container {
+    position: absolute;
+    top: 25%;
+    margin-left: 3rem;
+}
+
+.idea-status-section {
+    display: flex;
+    min-width: 20rem;
+    justify-content: space-evenly;
+    padding: 0.625rem;
+    padding-left: 1.5rem;
+    border: 0.031rem solid var(--bosch-gray-85);
+    margin: 0.625rem 0;
+    background-color: var(--bosch-white);
+}
+
+.section-card {
+    width: 20%;
+    min-width: 13rem;
+    height: 13rem;
+    padding: 0.25rem 0.25rem 0.25rem 0.625rem;
+    border: 0.031rem solid #d4d7da;
+    margin: 0.5rem;
+    color: var(--bosch-white);
+}
+
+.section-card .card-title {
+    bottom: 0;
+    padding-top: 1rem;
+    font-size: 1.125rem;
+    white-space: nowrap;
+}
+
+.section-card .icon {
+    width: 6.5rem;
+    padding-bottom: 0.625rem;
+    margin-top: 1.875rem;
+    margin-left: -0.625rem;
+    box-shadow: 0 0.188rem 0.938rem #0000006b;
+    font-size: 2.375rem;
+    white-space: nowrap;
+}
+
+.section-card .icon.in-approval {
+    background-color: var(--bosch-blue-45);
+}
+
+.section-card .icon.approved {
+    background-color: var(--bosch-green-40);
+}
+
+.section-card .icon.rejected {
+    background-color: var(--bosch-gray-30);
+}
+
+.section-card .icon.in-implementation {
+    background-color: var(--bosch-purple-30);
+}
+
+.section-card .icon.implemented {
+    background-color: var(--bosch--turquoise-35);
+}
+
+.section-card.in-approval {
+    background-color: var(--bosch-blue-55);
+}
+
+.section-card .icon.group {
+    background-color: var(--bosch-blue-45);
+}
+
+.section-card .icon.department {
+    background-color: var(--bosch-green-40);
+}
+
+.section-card .icon.ne {
+    background-color: var(--bosch-purple-30);
+}
+
+.section-card.group {
+    background-color: var(--bosch-blue-55);
+}
+
+.section-card.department {
+    background-color: var(--bosch-green-55);
+}
+
+.section-card.ne {
+    background-color: var(--bosch-purple-45);
+}
+
+.section-card.approved {
+    background-color: var(--bosch-green-55);
+}
+
+.section-card.rejected {
+    background-color: var(--bosch-gray-45);
+}
+
+.section-card.in-implementation {
+    background-color: var(--bosch-purple-45);
+}
+
+.section-card.implemented {
+    background-color: var(--bosch-turquoise-60);
+}
+
+.chart {
+    display: flex;
+    width: 9rem;
+    height: 8rem;
+    align-items: center;
+    justify-content: center;
+    float: right;
+}
+
+.option-container {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.mat-radio-button.mat-radio-button {
+    margin-left: 1rem;
+}
+
+canvas {
+    cursor: pointer;
+    vertical-align: center;
+}
+
+.percentage {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+}
+
+.idea-cards-section {
+    padding: 2rem;
+    padding-left: 6rem;
+}
+
+.card-icon {
+    margin-left: 0.625rem;
+    transform: scale(1.75);
+    vertical-align: super;
+}
+
+.pie-charts-section {
+    display: flex;
+    width: 100%;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    border: 0.031rem solid #d4d7da;
+    margin: 0.625rem auto;
+    margin-right: 2rem;
+    margin-left: 2rem;
+    background-color: var(--bosch-white);
+}
+
+.pie-chart-section {
+    min-width: 50%;
+    max-width: 75%;
+    padding: 0.625rem;
+    margin: 0.625rem 0;
+}
+
+.section-header {
+    padding-top: 0.5rem;
+    background-color: var(--bosch-white);
+    font-weight: 500;
+}
