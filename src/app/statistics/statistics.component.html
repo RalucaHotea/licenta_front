@@ -22,3 +22,9 @@
         <app-overview-statistics></app-overview-statistics>
     </div>
 </body>
+
+<body [ngSwitch]="selectedPage">
+    <div *ngSwitchCase="'Timeline'" class="container container-lg">
+        <app-timeline></app-timeline>
+    </div>
+</body>

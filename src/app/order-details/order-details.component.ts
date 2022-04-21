@@ -1,3 +1,4 @@
+import { EmailService } from './../services/email-service/email.service';
 import { PickupPoint } from './../models/pickup-point.model';
 import { OrderService } from './../services/order-service/order.service';
 import { Component, OnInit } from '@angular/core';
@@ -30,7 +31,8 @@ export class OrderDetailsComponent implements OnInit {
     private orderService: OrderService,
     private route: ActivatedRoute,
     private router: Router,
-    private productService: ProductService
+    private productService: ProductService,
+    private emailService: EmailService
   ) {}
 
   ngOnInit() {
@@ -58,6 +60,18 @@ export class OrderDetailsComponent implements OnInit {
     this.order.status = OrderStatus.Sent;
     this.order.shippedDate = new Date();
     this.orderService.updateOrder(this.order).subscribe();
+    this.router.navigate(['/products']);
+  }
+
+  confirmReceiptClicked() {
+    this.order.status = OrderStatus.Delivered;
+    this.order.receivingDate = new Date();
+    let emailMessage =
+      'Your order arrived. You can pick it up in the lobby of' +
+      this.pickupPoint.name;
+    this.orderService.updateOrder(this.order).subscribe(() => {
+      this.emailService.sendEmail(emailMessage, 'Package Received');
+    });
     this.router.navigate(['/products']);
   }
 

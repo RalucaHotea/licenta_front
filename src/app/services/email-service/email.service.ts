@@ -18,16 +18,12 @@ export class EmailService {
 
   constructor(private http: HttpClient) {}
 
-  sendEmail(
-    receiver: User,
-    message: string,
-    subject: string
-  ): Observable<boolean> {
+  sendEmail(message: string, subject: string): Observable<boolean> {
     const emailDetails = {
-      receiver: receiver.email,
+      receiver: 'fixed-term.Georgiana.Hotea@ro.bosch.com',
       messageTemplate:
         'Dear ' +
-        receiver.name +
+        'Raluca Hotea' +
         ' ,' +
         '<br/><br/>' +
         message +

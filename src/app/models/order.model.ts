@@ -15,4 +15,5 @@ export interface Order {
   submittedAt: Date;
   shippedDate: Date;
   pickupDate: Date;
+  receivingDate: Date;
 }

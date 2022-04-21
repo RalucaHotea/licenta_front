@@ -99,10 +99,19 @@
                 </div>
             </div>
         </div>
-
-        <div class="row submit-area" *ngIf="order.status != 3">
+        <div class="row submit-area" *ngIf="order.status == 1 && loggedUser.roleType == 2">
             <button type="button" class="form-outlined-btn" (click)="shipClicked()">
         Ship
+      </button>
+        </div>
+        <div class="row submit-area" *ngIf="order.status == 3 && loggedUser.roleType == 3">
+            <button type="button" class="form-outlined-btn" (click)="confirmReceiptClicked()">
+        Confirm Receipt
+      </button>
+        </div>
+        <div class="row submit-area" *ngIf="order.status == 2 && loggedUser.roleType == 3">
+            <button type="button" class="form-outlined-btn" (click)="completeOrderClicked()">
+        Complete Order
       </button>
         </div>
     </div>

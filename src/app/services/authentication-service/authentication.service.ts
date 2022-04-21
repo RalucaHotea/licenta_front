@@ -103,6 +103,7 @@ export class AuthenticationService {
   }
 
   getLoggedUserRole(): RoleType {
+    console.log(RoleType[localStorage.getItem('role')]);
     return RoleType[localStorage.getItem('role')];
   }
 

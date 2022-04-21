@@ -1,12 +1,9 @@
-import { PickupPoint } from './../models/pickup-point.model';
 import { OrderStatus } from './../enums/order-status.enum';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { Order } from '../models/order.model';
 import { User } from '../models/user.model';
-import { CartService } from '../services/cart-service/cart.service';
 import { OrderService } from '../services/order-service/order.service';
 import { ProductService } from '../services/product-service/product.service';
 
@@ -59,6 +56,7 @@ export class OrdersComponent implements OnInit {
           this.orderService
             .getOrdersByUserOfficeLocation(user.id)
             .subscribe((orders) => {
+              console.log(orders);
               this.orders = orders;
               this.dataSource.data = orders;
             });

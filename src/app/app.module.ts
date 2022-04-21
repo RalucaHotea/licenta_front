@@ -1,3 +1,4 @@
+import { TimelineComponent } from './timeline/timeline.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { MessageBarComponent } from './shared/message-bar/message-bar.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -63,6 +64,7 @@ export function tokenGetter() {
     OrderDetailsComponent,
     OverviewStatisticsComponent,
     StatisticsComponent,
+    TimelineComponent,
   ],
   imports: [
     HttpClientModule,
