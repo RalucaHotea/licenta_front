@@ -1,3 +1,4 @@
+import { StatisticsComponent } from './statistics/statistics.component';
 import { MessageBarComponent } from './shared/message-bar/message-bar.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
@@ -37,12 +38,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { OverviewStatisticsComponent } from './overview-statistics/overview-statistics.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
 }
 @NgModule({
-  declarations: [		
+  declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
@@ -57,9 +59,11 @@ export function tokenGetter() {
     MessageBarComponent,
     ProductDetailsComponent,
     ShoppingCartComponent,
-      OrdersComponent,
-      OrderDetailsComponent
-   ],
+    OrdersComponent,
+    OrderDetailsComponent,
+    OverviewStatisticsComponent,
+    StatisticsComponent,
+  ],
   imports: [
     HttpClientModule,
     BrowserModule,

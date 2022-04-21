@@ -83,6 +83,24 @@ export class AppComponent {
         )
       )
       .addSvgIcon(
+        'hourglass-white',
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/hourglass-white.svg'
+        )
+      )
+      .addSvgIcon(
+        'alert-success-white',
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/alert-success-white.svg'
+        )
+      )
+      .addSvgIcon(
+        'flag-white',
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/flag-white.svg'
+        )
+      )
+      .addSvgIcon(
         'close',
         this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/close.svg')
       )

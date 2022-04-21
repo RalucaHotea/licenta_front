@@ -12,6 +12,7 @@ import { ProductCrudComponent } from './product-crud/product-crud.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { RoleGuard } from './guards/role.guard';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 const routes: Routes = [
   {
@@ -59,6 +60,11 @@ const routes: Routes = [
   {
     path: 'cart',
     component: ShoppingCartComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'stats',
+    component: StatisticsComponent,
     canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },

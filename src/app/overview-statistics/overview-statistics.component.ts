@@ -1,140 +1,112 @@
 import { Component, OnInit } from '@angular/core';
-import * as Chart from 'chart.js';
-import { IdeaStatisticsDto } from '../models/ideaStatisticsDto';
-import { StatisticsService } from '../services/statistics.service';
+import Chart from 'chart.js';
+import { OrderStatisticsDto } from '../models/order-statistics.model';
+import { StatisticsService } from '../services/statistics-service/statistics.service';
 
 @Component({
-    selector: 'app-overview-statistics',
-    templateUrl: './overview-statistics.component.html',
-    styleUrls: ['./overview-statistics.component.css'],
+  selector: 'app-overview-statistics',
+  templateUrl: './overview-statistics.component.html',
+  styleUrls: ['./overview-statistics.component.css'],
 })
 export class OverviewStatisticsComponent implements OnInit {
-    ideaStatistics: IdeaStatisticsDto;
-    inApprovalPercentage: unknown;
-    approvedPercentage: unknown;
-    rejectedPercentage: unknown;
-    inImplementationPercentage: unknown;
-    implementedPercentage: unknown;
+  orderStatistics: OrderStatisticsDto = {} as OrderStatisticsDto;
+  inSubmissionPercentage: number;
+  shippedPercentage: number;
+  completePercentage: number;
 
-    constructor(private statisticsService: StatisticsService) {}
+  constructor(private statisticsService: StatisticsService) {}
 
-    async ngOnInit() {
-        await this.loadStatistics();
-        this.inApprovalPercentage = this.renderPieChart(
-            this.ideaStatistics.inApprovalIdeasNumber,
-            'in-approval',
-            'In Approval'
-        );
-        this.approvedPercentage = this.renderPieChart(
-            this.ideaStatistics.approvedIdeasNumber,
-            'approved',
-            'Approved'
-        );
-        this.inImplementationPercentage = this.renderPieChart(
-            this.ideaStatistics.inImplementationIdeasNumber,
-            'in-implementation',
-            'In Implementation'
-        );
-        this.rejectedPercentage = this.renderPieChart(
-            this.ideaStatistics.rejectedIdeasNumber,
-            'rejected',
-            'Rejected'
-        );
-        this.implementedPercentage = this.renderPieChart(
-            this.ideaStatistics.implementedIdeasNumber,
-            'implemented',
-            'Implemented'
-        );
-        this.renderOverviewChart();
-    }
+  async ngOnInit() {
+    await this.loadStatistics();
+    this.inSubmissionPercentage = this.renderPieChart(
+      this.orderStatistics.inSubmissionOrdersNumber,
+      'in-submission',
+      'In Submission'
+    );
+    this.shippedPercentage = this.renderPieChart(
+      this.orderStatistics.shippedOrdersNumber,
+      'shipped',
+      'Shipped'
+    );
+    this.completePercentage = this.renderPieChart(
+      this.orderStatistics.completeOrdersNumber,
+      'complete',
+      'Complete'
+    );
 
-    async loadStatistics() {
-        this.ideaStatistics = await this.statisticsService
-            .getIdeaStatistics()
-            .toPromise();
-    }
+    this.renderOverviewChart();
+  }
 
-    renderPieChart(
-        ideasNumber: number,
-        canvasName: string,
-        ideasType: string
-    ): number {
-        const totalIdeasNumber = this.ideaStatistics.allIdeasNumber;
-        const otherIdeasNumber = totalIdeasNumber - ideasNumber;
-        let ideasPercentage = (ideasNumber * 100) / totalIdeasNumber;
+  async loadStatistics(): Promise<void> {
+    this.orderStatistics = await this.statisticsService
+      .getOrderStatistics()
+      .toPromise();
+  }
 
-        new Chart(canvasName, {
-            type: 'doughnut',
-            data: {
-                labels: [ideasType, 'Others'],
-                datasets: [
-                    {
-                        label: '# of Votes',
-                        data: [ideasNumber, otherIdeasNumber],
-                        backgroundColor: ['#ffffff', '#b3bab5'],
-                        borderColor: ['#ffffff', '#419e98'],
-                        borderWidth: 1,
-                    },
-                ],
-            },
-            options: {
-                legend: {
-                    display: false,
-                },
-            },
-        });
-        return ideasPercentage;
-    }
+  renderPieChart(
+    ideasNumber: number,
+    canvasName: string,
+    ideasType: string
+  ): number {
+    const totalIdeasNumber = this.orderStatistics.totalOrdersNumber;
+    const otherIdeasNumber = totalIdeasNumber - ideasNumber;
+    let ideasPercentage = (ideasNumber * 100) / totalIdeasNumber;
 
-    renderOverviewChart() {
-        const inApprovalIdeasNumber = this.ideaStatistics.inApprovalIdeasNumber;
-        const approvedIdeasNumber = this.ideaStatistics.approvedIdeasNumber;
-        const rejectedIdeasNumber = this.ideaStatistics.rejectedIdeasNumber;
-        const inImplementationIdeasNumber =
-            this.ideaStatistics.inImplementationIdeasNumber;
-        const implementedIdeasNumber =
-            this.ideaStatistics.implementedIdeasNumber;
+    new Chart(canvasName, {
+      type: 'doughnut',
+      data: {
+        labels: [ideasType, 'Others'],
+        datasets: [
+          {
+            label: '# of Votes',
+            data: [ideasNumber, otherIdeasNumber],
+            backgroundColor: ['#ffffff', '#b3bab5'],
+            borderColor: ['#ffffff', '#419e98'],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        legend: {
+          display: false,
+        },
+      },
+    });
+    return ideasPercentage;
+  }
 
-        new Chart('ideas-overview', {
-            type: 'pie',
-            data: {
-                labels: [
-                    'In approval',
-                    'Approved',
-                    'In Implementation',
-                    'Implemented',
-                    'Rejected',
-                ],
-                datasets: [
-                    {
-                        label: '# of Votes',
-                        data: [
-                            inApprovalIdeasNumber,
-                            approvedIdeasNumber,
-                            inImplementationIdeasNumber,
-                            implementedIdeasNumber,
-                            rejectedIdeasNumber,
-                        ],
-                        backgroundColor: [
-                            '#0088d4',
-                            '#219557',
-                            '#b12ea9',
-                            '#419e98',
-                            '#656a6f',
-                        ],
-                        borderColor: ['#ffffff'],
-                        borderWidth: 1,
-                    },
-                ],
-            },
-            options: {
-                legend: {
-                    position: 'right',
-                    labels: {
-                        fontSize: 18,
-                    },
-                },
-            },
-        });
-    }
+  renderOverviewChart() {
+    const inSubmissionOrdersNumber =
+      this.orderStatistics.inSubmissionOrdersNumber;
+    const shippedOrdersNumber = this.orderStatistics.shippedOrdersNumber;
+    const completeOrdersNumber = this.orderStatistics.completeOrdersNumber;
+
+    new Chart('ideas-overview', {
+      type: 'pie',
+      data: {
+        labels: ['In Submission', 'Shipped', 'Complete'],
+        datasets: [
+          {
+            label: '# of Votes',
+            data: [
+              inSubmissionOrdersNumber,
+              shippedOrdersNumber,
+              completeOrdersNumber,
+            ],
+            backgroundColor: ['#0088d4', '#219557', '#b12ea9'],
+            borderColor: ['#ffffff'],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        legend: {
+          position: 'right',
+          labels: {
+            fontSize: 18,
+          },
+        },
+      },
+    });
+  }
 }

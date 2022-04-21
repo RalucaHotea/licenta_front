@@ -1,48 +1,18 @@
 <div class="body-wrapper">
     <ol class="a-tab-navigation">
         <li class="a-tab-navigation__item">
-            <button
-                type="button"
-                class="a-tab-navigation__tab"
-                data-frok-tab-identifier="2"
-                tabindex="0"
-                (click)="changePage('Overview')"
-                [class.selected-tab]="selectedPage == 'Overview'"
-            >
-                <span class="a-tab-navigation__tab-content">
-                    <span class="a-tab-navigation__label">Overview</span>
-                </span>
-            </button>
+            <button type="button" class="a-tab-navigation__tab" data-frok-tab-identifier="2" tabindex="0" (click)="changePage('Overview')" [class.selected-tab]="selectedPage == 'Overview'">
+        <span class="a-tab-navigation__tab-content">
+          <span class="a-tab-navigation__label">Overview</span>
+        </span>
+      </button>
         </li>
         <li class="a-tab-navigation__item">
-            <button
-                type="button"
-                class="a-tab-navigation__tab"
-                data-frok-tab-identifier="2"
-                tabindex="0"
-                (click)="changePage('ImplementationLevel')"
-                [class.selected-tab]="selectedPage == 'ImplementationLevel'"
-            >
-                <span class="a-tab-navigation__tab-content">
-                    <span class="a-tab-navigation__label"
-                        >Implementation Level</span
-                    >
-                </span>
-            </button>
-        </li>
-        <li class="a-tab-navigation__item">
-            <button
-                type="button"
-                class="a-tab-navigation__tab"
-                data-frok-tab-identifier="2"
-                tabindex="0"
-                (click)="changePage('Timeline')"
-                [class.selected-tab]="selectedPage == 'Timeline'"
-            >
-                <span class="a-tab-navigation__tab-content">
-                    <span class="a-tab-navigation__label">Timeline</span>
-                </span>
-            </button>
+            <button type="button" class="a-tab-navigation__tab" data-frok-tab-identifier="2" tabindex="0" (click)="changePage('Timeline')" [class.selected-tab]="selectedPage == 'Timeline'">
+        <span class="a-tab-navigation__tab-content">
+          <span class="a-tab-navigation__label">Timeline</span>
+        </span>
+      </button>
         </li>
     </ol>
 </div>
@@ -50,17 +20,5 @@
 <body [ngSwitch]="selectedPage">
     <div *ngSwitchCase="'Overview'" class="container container-lg">
         <app-overview-statistics></app-overview-statistics>
-    </div>
-</body>
-
-<body [ngSwitch]="selectedPage">
-    <div *ngSwitchCase="'ImplementationLevel'" class="container container-lg">
-        <app-implementation-level-stats></app-implementation-level-stats>
-    </div>
-</body>
-
-<body [ngSwitch]="selectedPage">
-    <div *ngSwitchCase="'Timeline'" class="container container-lg">
-        <app-timeline></app-timeline>
     </div>
 </body>

@@ -1,21 +1,25 @@
-body {
-    height: auto;
+.container {
+    height: 200vh;
+    padding: 5rem;
+    overflow-y: auto;
+}
+
+.idea-status-section {
+    display: flex;
+    min-width: 20rem;
+    justify-content: space-evenly;
+    padding: 0.625rem;
+    padding-left: 1.5rem;
+    border: 0.031rem solid var(--bosch-gray-85);
+    margin: 0.625rem 0;
     background-color: var(--bosch-white);
 }
 
 .body-wrapper {
-    position: sticky;
     z-index: 1030;
     top: 4.5rem;
     right: 0;
     left: 0;
-    height: 100%;
-}
-
-.container {
-    max-width: 90rem;
-    height: 100%;
-    padding: 5rem;
 }
 
 .canvas-container {
@@ -60,17 +64,6 @@ body {
     margin-left: 3rem;
 }
 
-.idea-status-section {
-    display: flex;
-    min-width: 20rem;
-    justify-content: space-evenly;
-    padding: 0.625rem;
-    padding-left: 1.5rem;
-    border: 0.031rem solid var(--bosch-gray-85);
-    margin: 0.625rem 0;
-    background-color: var(--bosch-white);
-}
-
 .section-card {
     width: 20%;
     min-width: 13rem;
@@ -98,68 +91,28 @@ body {
     white-space: nowrap;
 }
 
-.section-card .icon.in-approval {
+.section-card .icon.in-submission {
     background-color: var(--bosch-blue-45);
 }
 
-.section-card .icon.approved {
+.section-card .icon.shipped {
     background-color: var(--bosch-green-40);
 }
 
-.section-card .icon.rejected {
+.section-card .icon.complete {
     background-color: var(--bosch-gray-30);
 }
 
-.section-card .icon.in-implementation {
-    background-color: var(--bosch-purple-30);
-}
-
-.section-card .icon.implemented {
-    background-color: var(--bosch--turquoise-35);
-}
-
-.section-card.in-approval {
+.section-card.in-submission {
     background-color: var(--bosch-blue-55);
 }
 
-.section-card .icon.group {
-    background-color: var(--bosch-blue-45);
-}
-
-.section-card .icon.department {
-    background-color: var(--bosch-green-40);
-}
-
-.section-card .icon.ne {
-    background-color: var(--bosch-purple-30);
-}
-
-.section-card.group {
-    background-color: var(--bosch-blue-55);
-}
-
-.section-card.department {
+.section-card.shipped {
     background-color: var(--bosch-green-55);
 }
 
-.section-card.ne {
-    background-color: var(--bosch-purple-45);
-}
-
-.section-card.approved {
-    background-color: var(--bosch-green-55);
-}
-
-.section-card.rejected {
+.section-card.complete {
     background-color: var(--bosch-gray-45);
-}
-
-.section-card.in-implementation {
-    background-color: var(--bosch-purple-45);
-}
-
-.section-card.implemented {
-    background-color: var(--bosch-turquoise-60);
 }
 
 .chart {

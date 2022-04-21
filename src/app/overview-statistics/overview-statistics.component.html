@@ -1,109 +1,60 @@
-<div class="col idea-status-section">
-    <div class="pie-chart-section">
-        <h2>All Ideas</h2>
-        <canvas id="ideas-overview" class="pie-chart-container"> </canvas>
-    </div>
-    <div class="idea-cards-section">
-        <div class="col" style="margin-left: 1rem;">
-            <div class="row">
-                <div class="section-card in-approval">
-                    <div class="chart">
-                        <canvas id="in-approval" class="canvas-container">
-                        </canvas>
+<div class="container">
+    <div class="col idea-status-section">
+        <div class="pie-chart-section">
+            <h2>All Orders</h2>
+            <canvas id="ideas-overview" class="pie-chart-container"> </canvas>
+        </div>
+        <div class="idea-cards-section">
+            <div class="col" style="margin-left: 1rem">
+                <div class="row">
+                    <div class="section-card in-submission">
+                        <div class="chart">
+                            <canvas id="in-submission" class="canvas-container"> </canvas>
+                        </div>
+                        <div class="icon in-submission">
+                            <mat-icon svgIcon="hourglass-white" class="card-icon"></mat-icon>
+                            {{ this.orderStatistics?.inSubmissionOrdersNumber }}
+                        </div>
+                        <div class="card-details">
+                            <div class="card-title">In Submission</div>
+                            <div class="percentage">
+                                {{ this.inSubmissionPercentage | number: "1.1-2" }}
+                                <span>%</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="icon in-approval">
-                        <mat-icon
-                            svgIcon="hourglass-white"
-                            class="card-icon"
-                        ></mat-icon>
-                        {{ this.ideaStatistics?.inApprovalIdeasNumber }}
-                    </div>
-                    <div class="card-details">
-                        <div class="card-title">In approval</div>
-                        <div class="percentage">
-                            {{ this.inApprovalPercentage | number: "1.1-2" }}
-                            <span>%</span>
+                    <div class="section-card shipped">
+                        <div class="chart">
+                            <canvas id="shipped" class="canvas-container"></canvas>
+                        </div>
+                        <div class="icon shipped">
+                            <mat-icon svgIcon="alert-success-white" class="card-icon"></mat-icon>
+                            {{ this.orderStatistics?.shippedOrdersNumber }}
+                        </div>
+                        <div class="card-details">
+                            <div class="card-title">Shipped</div>
+                            <div class="percentage">
+                                {{ this.shippedPercentage | number: "1.1-2" }}
+                                <span>%</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="section-card approved">
-                    <div class="chart">
-                        <canvas id="approved" class="canvas-container"></canvas>
-                    </div>
-                    <div class="icon approved">
-                        <mat-icon
-                            svgIcon="alert-success-white"
-                            class="card-icon"
-                        ></mat-icon>
-                        {{ this.ideaStatistics?.approvedIdeasNumber }}
-                    </div>
-                    <div class="card-details">
-                        <div class="card-title">Approved</div>
-                        <div class="percentage">
-                            {{ this.approvedPercentage | number: "1.1-2" }}
-                            <span>%</span>
+                <div class="row">
+                    <div class="section-card complete">
+                        <div class="chart">
+                            <canvas id="complete" class="canvas-container"> </canvas>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="section-card in-implementation">
-                    <div class="chart">
-                        <canvas id="in-implementation" class="canvas-container">
-                        </canvas>
-                    </div>
-                    <div class="icon in-implementation">
-                        <mat-icon
-                            svgIcon="progress"
-                            class="card-icon"
-                        ></mat-icon>
-                        {{ this.ideaStatistics?.inImplementationIdeasNumber }}
-                    </div>
-                    <div class="card-details">
-                        <div class="card-title">In Implementation</div>
-                        <div class="percentage">
-                            {{ this.inImplementationPercentage | number: "1.1-2" }}
-                            <span>%</span>
+                        <div class="icon complete">
+                            <mat-icon svgIcon="flag-white" class="card-icon"></mat-icon>
+                            {{ this.orderStatistics?.completeOrdersNumber }}
                         </div>
-                    </div>
-                </div>
-                <div class="section-card implemented">
-                    <div class="chart">
-                        <canvas id="implemented" class="canvas-container">
-                        </canvas>
-                    </div>
-                    <div class="icon implemented">
-                        <mat-icon
-                            svgIcon="flag-white"
-                            class="card-icon"
-                        ></mat-icon>
-                        {{ this.ideaStatistics?.implementedIdeasNumber }}
-                    </div>
-                    <div class="card-details">
-                        <div class="card-title">Implemented</div>
-                        <div class="percentage">
-                            {{ this.implementedPercentage |number: "1.1-2" }}
-                            <span>%</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="section-card rejected">
-                    <div class="chart">
-                        <canvas id="rejected" class="canvas-container">
-                        </canvas>
-                    </div>
-                    <div class="icon rejected">
-                        <mat-icon
-                            svgIcon="abort-frame-white"
-                            class="card-icon"
-                        ></mat-icon>
-                        {{ this.ideaStatistics?.rejectedIdeasNumber }}
-                    </div>
-                    <div class="card-details">
-                        <div class="card-title">Rejected</div>
-                        <div class="percentage">
-                            {{ this.rejectedPercentage | number: "1.1-2" }}
-                            <span>%</span>
+                        <div class="card-details">
+                            <div class="card-title">Complete</div>
+                            <div class="percentage">
+                                {{ this.completePercentage | number: "1.1-2" }}
+                                <span>%</span>
+                            </div>
                         </div>
                     </div>
                 </div>

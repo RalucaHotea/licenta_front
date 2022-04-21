@@ -1,22 +1,18 @@
-import { IdeaStatisticsPerLevelDto } from './../models/ideaStatisticsPerLevelDto';
 import { Component, ElementRef, OnInit } from '@angular/core';
-import { Chart } from 'node_modules/chart.js';
-import { IdeaStatisticsDto } from '../models/ideaStatisticsDto';
-import { StatisticsService } from '../services/statistics.service';
-
+import { OverviewStatisticsComponent } from '../overview-statistics/overview-statistics.component';
 @Component({
-    selector: 'app-statistics',
-    templateUrl: './statistics.component.html',
-    styleUrls: ['./statistics.component.css'],
+  selector: 'app-statistics',
+  templateUrl: './statistics.component.html',
+  styleUrls: ['./statistics.component.css'],
 })
 export class StatisticsComponent implements OnInit {
-    selectedPage = 'Overview';
+  selectedPage = 'Overview';
 
-    constructor() {}
+  constructor() {}
 
-    ngOnInit() {}
+  ngOnInit() {}
 
-    changePage(page) {
-        this.selectedPage = page;
-    }
+  changePage(page) {
+    this.selectedPage = page;
+  }
 }
