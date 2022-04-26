@@ -1,12 +1,12 @@
 .container {
-    height: 200vh;
+    height: 100%;
     padding: 5rem;
     overflow-y: auto;
 }
 
-.idea-status-section {
+.order-status-section {
     display: flex;
-    min-width: 20rem;
+    width: 80rem;
     justify-content: space-evenly;
     padding: 0.625rem;
     padding-left: 1.5rem;
@@ -24,21 +24,6 @@
 
 .canvas-container {
     margin-left: 3rem;
-}
-
-.a-tab-navigation {
-    display: inline-flex;
-    width: 100%;
-    flex-wrap: wrap;
-    padding: 0 3rem;
-    border-bottom: 0.05rem solid var(--bosch-gray-40);
-    margin-bottom: 0;
-    background-color: var(--bosch-white) !important;
-    color: var(--integrated__enabled__text__default);
-}
-
-.a-tab-navigation__tab:hover {
-    filter: invert(33%) sepia(100%) saturate(925%) hue-rotate(172deg) brightness(92%) contrast(104%);
 }
 
 .selected-tab {
@@ -59,9 +44,9 @@
 }
 
 .pie-chart-container {
-    position: absolute;
-    top: 25%;
     margin-left: 3rem;
+    position: fixed;
+    top: 40%;
 }
 
 .section-card {
@@ -100,7 +85,7 @@
 }
 
 .section-card .icon.complete {
-    background-color: var(--bosch-gray-30);
+    background-color: var(--bosch-purple-30);
 }
 
 .section-card.in-submission {
@@ -112,7 +97,7 @@
 }
 
 .section-card.complete {
-    background-color: var(--bosch-gray-45);
+    background-color: var(--bosch-purple-45);
 }
 
 .chart {
@@ -145,7 +130,7 @@ canvas {
     font-size: 1rem;
 }
 
-.idea-cards-section {
+.order-cards-section {
     padding: 2rem;
     padding-left: 6rem;
 }

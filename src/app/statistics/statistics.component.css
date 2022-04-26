@@ -1,6 +1,6 @@
 body {
     height: auto;
-    background-color: #efeff0;
+    background-color: var(--bosch-gray-95);
 }
 
 .body-wrapper {
@@ -13,12 +13,15 @@ body {
 }
 
 .container {
-    max-width: 90rem;
     height: 100%;
     padding: 5rem;
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
 }
 
 .a-tab-navigation {
+    margin-top: 0rem;
     display: inline-flex;
     width: 100%;
     flex-wrap: wrap;

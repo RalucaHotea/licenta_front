@@ -15,7 +15,6 @@ import { ProductService } from '../services/product-service/product.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Order } from '../models/order.model';
-import { MessageBarComponent } from '../shared/message-bar/message-bar.component';
 
 @Component({
   selector: 'app-shopping-cart',

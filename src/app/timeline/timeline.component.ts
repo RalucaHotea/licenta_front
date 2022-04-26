@@ -65,7 +65,7 @@ export class TimelineComponent implements OnInit {
         labels: labels,
         datasets: [
           {
-            label: 'Approved Ideas',
+            label: 'Complete Orders',
             backgroundColor: '#0088d4',
             data: completeOrdersCount,
           },

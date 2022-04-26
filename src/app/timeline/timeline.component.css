@@ -18,7 +18,7 @@ body {
     margin-left: auto;
 }
 
-.idea-status-section {
+.order-status-section {
     display: flex;
     min-width: 20rem;
     justify-content: space-evenly;
@@ -46,7 +46,7 @@ canvas {
     vertical-align: center;
 }
 
-.idea-cards-section {
+.order-cards-section {
     min-width: 30rem;
     padding: 2rem;
 }

@@ -41,7 +41,7 @@
 }
 
 .o-header__logo span:first-child::after {
-    margin: 0 0.5rem;
+    margin: 0.5rem 0.5rem;
     content: "|";
 }
 

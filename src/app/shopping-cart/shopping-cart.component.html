@@ -2,12 +2,12 @@
 <div class="page-wrapper">
     <div class="a-box -floating page-inner page-inner">
         <div class="left-column">
-            <!-- <div *ngIf="items.length == 0" class="col products-container">
+            <div *ngIf="items.length == 0" class="empty-cart-container">
                 <div>
-                    <i class="a-icon boschicon-bosch-ic-shoppingcart-switch" title="shoppingcart-switch"></i>
+                    <h2 style="text-align: center">NO PRODUCTS</h2>
+                    <img style="width: 30rem; height: 30rem" src="../../assets/empty-cart.jpg" class="img" />
                 </div>
-                <span>NO PRODUCTS</span>
-            </div> -->
+            </div>
             <div *ngIf="items.length != 0" class="products-container">
                 <table mat-table [dataSource]="dataSource">
                     <ng-container matColumnDef="name">

@@ -9,7 +9,7 @@ export class MessageBarComponent {
   @Input() errors: string[] = [] as string[];
   @Input() successes: string[] = [] as string[];
 
-  addErrorTimeOut(error: string, ms = 7000) {
+  addErrorTimeOut(error: string, ms = 5000) {
     if (ms < 4000) ms = 7000;
     this.errors.push(error);
     setTimeout(async () => {
@@ -17,8 +17,8 @@ export class MessageBarComponent {
     }, ms);
   }
 
-  addSuccessTimeOut(success: string, ms = 4000) {
-    if (ms < 4000) ms = 4000;
+  addSuccessTimeOut(success: string, ms = 2000) {
+    if (ms < 2000) ms = 2000;
     this.successes.push(success);
     setTimeout(async () => {
       await this.successClick(success);

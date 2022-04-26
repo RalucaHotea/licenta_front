@@ -136,29 +136,13 @@ export class AddProductComponent implements OnInit {
     this.imageName = null;
   }
 
-  downloadFile(productId: number, fileId: number, filename: string) {
-    this.productService
-      .downloadFile(productId, fileId)
-      .subscribe((response: HttpResponse<Blob>) => {
-        const binaryData = [];
-        binaryData.push(response.body);
-        const downloadLink = document.createElement('a');
-        downloadLink.href = window.URL.createObjectURL(
-          new Blob(binaryData, { type: 'blob' })
-        );
-        downloadLink.setAttribute('download', filename);
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-      });
-  }
-
   getFormProduct(): Product {
     let imagePath =
       'https://localhost:44372/Resources/Images/' +
       this.name.value +
       '/' +
       this.imageName;
-    //imagePath.replace('', '%');
+    imagePath = imagePath.replace(/\s/g, '');
     const newProduct = {
       id: 0,
       name: this.name.value,
@@ -176,7 +160,7 @@ export class AddProductComponent implements OnInit {
   }
 
   submitData(): void {
-    if (this.form.valid) {
+    if (this.form.valid && this.imageName != null) {
       const newProduct = this.getFormProduct();
       this.productService.addProduct(newProduct).subscribe(
         () => {

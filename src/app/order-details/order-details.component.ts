@@ -67,10 +67,14 @@ export class OrderDetailsComponent implements OnInit {
     this.order.status = OrderStatus.Delivered;
     this.order.receivingDate = new Date();
     let emailMessage =
-      'Your order arrived. You can pick it up in the lobby of' +
-      this.pickupPoint.name;
+      'Your order arrived. You can pick it up in the lobby of ' +
+      this.pickupPoint.name +
+      ' in ' +
+      this.pickupPoint.city +
+      ' , ' +
+      this.pickupPoint.country;
     this.orderService.updateOrder(this.order).subscribe(() => {
-      this.emailService.sendEmail(emailMessage, 'Package Received');
+      this.emailService.sendEmail(emailMessage, 'Package Received').subscribe();
     });
     this.router.navigate(['/products']);
   }

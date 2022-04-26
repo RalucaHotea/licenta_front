@@ -24,6 +24,7 @@ export class EditProductComponent implements OnInit {
   filteredProducts: Product[] = [] as Product[];
   searchContent = '';
   showContent = true;
+  showImage = false;
   imageName: string;
   formErrors: string[] = [] as string[];
   formSuccesses: string[] = [] as string[];
@@ -126,6 +127,7 @@ export class EditProductComponent implements OnInit {
     if (files.length === 0) {
       return;
     }
+    this.showImage = false;
     let fileToUpload = <File>files[0];
     this.imageName = fileToUpload.name;
     const formData = new FormData();
@@ -145,22 +147,6 @@ export class EditProductComponent implements OnInit {
   removeFile(file) {
     this.productService.removeFile(file);
     this.imageName = null;
-  }
-
-  downloadFile(productId: number, fileId: number, filename: string) {
-    this.productService
-      .downloadFile(productId, fileId)
-      .subscribe((response: HttpResponse<Blob>) => {
-        const binaryData = [];
-        binaryData.push(response.body);
-        const downloadLink = document.createElement('a');
-        downloadLink.href = window.URL.createObjectURL(
-          new Blob(binaryData, { type: 'blob' })
-        );
-        downloadLink.setAttribute('download', filename);
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-      });
   }
 
   selectCategory(event: Event) {
@@ -186,12 +172,6 @@ export class EditProductComponent implements OnInit {
   }
 
   getFormProduct(): Product {
-    let imagePath =
-      'https://localhost:44372/Resources/Images/' +
-      this.name.value +
-      '/' +
-      this.imageName;
-    imagePath = imagePath.replace(/\s/g, '');
     const newProduct = {
       id: this.selectedProduct.id,
       name: this.name.value,
@@ -201,7 +181,7 @@ export class EditProductComponent implements OnInit {
       price: this.price.value,
       categoryId: Number(this.category.value),
       subcategoryId: Number(this.subcategory.value),
-      imagePath: imagePath,
+      imagePath: this.selectedProduct.imagePath,
       warehouseId: Number(this.warehouse.value),
       quantity: this.stock.value,
     } as Product;
@@ -221,23 +201,29 @@ export class EditProductComponent implements OnInit {
       );
       this.form.reset();
       this.searchContent = '';
-      this.selectedProduct = undefined;
+      this.selectedCategory = '';
+      this.selectedSubcategory = '';
+      this.selectedWarehouse = '';
       this.loadData();
       this.imageName = null;
     }
   }
 
   deleteProduct(): void {
-    const product = this.selectedProduct as Product;
+    const product = this.selectedProduct;
     this.productService
       .deleteProduct(product.id)
       .subscribe(() =>
         this.messageBar.addSuccessTimeOut('Product Deleted Successfully')
       );
-    this.selectedProduct = undefined;
     this.searchContent = '';
+    this.selectedCategory = '';
+    this.selectedSubcategory = '';
+    this.selectedWarehouse = '';
     this.form.reset();
+
     this.loadData();
+    this.imageName = null;
   }
 
   searchOnFocus(): void {
@@ -269,6 +255,7 @@ export class EditProductComponent implements OnInit {
   }
 
   selectProduct(product: Product): void {
+    this.showImage = true;
     this.form.reset();
     this.selectedProduct = product;
     this.searchContent = product.name;

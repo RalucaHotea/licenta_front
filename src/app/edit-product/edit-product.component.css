@@ -1,17 +1,15 @@
 .container {
     display: flex;
     justify-content: center;
+    padding: 5rem;
     overflow-y: auto;
-    height: 100vh;
 }
 
 .main-container {
-    position: relative;
+    min-width: 50rem;
     width: 80%;
-    height: 80vh;
-    min-height: 15rem;
     padding: 1rem;
-    margin: 2rem;
+    margin: 1rem;
     background-color: var(--bosch-white);
     box-shadow: rgba(0, 0, 0, 0.24) 0 0.188rem 0.5rem;
 }
@@ -31,7 +29,7 @@
     position: absolute;
     z-index: 1;
     overflow: auto;
-    width: 100%;
+    width: 63%;
     height: 15rem;
     margin-top: 5rem;
 }
@@ -62,14 +60,12 @@
 
 .image-group-box {
     width: 100%;
-    padding: 1rem;
     background-color: var(--bosch-white) !important;
 }
 
 .image-right-column {
     max-width: 95%;
-    margin: 1rem;
-    background-color: #fbfbfb !important;
+    background-color: var(--bosch-white) !important;
 }
 
 .group-box {

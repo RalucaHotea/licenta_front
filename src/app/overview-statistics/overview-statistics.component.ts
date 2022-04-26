@@ -44,22 +44,22 @@ export class OverviewStatisticsComponent implements OnInit {
   }
 
   renderPieChart(
-    ideasNumber: number,
+    ordersNumber: number,
     canvasName: string,
-    ideasType: string
+    orderType: string
   ): number {
-    const totalIdeasNumber = this.orderStatistics.totalOrdersNumber;
-    const otherIdeasNumber = totalIdeasNumber - ideasNumber;
-    let ideasPercentage = (ideasNumber * 100) / totalIdeasNumber;
+    const totalOrdersNumber = this.orderStatistics.totalOrdersNumber;
+    const otherOrdersNumber = totalOrdersNumber - ordersNumber;
+    let ordersPercentage = (ordersNumber * 100) / totalOrdersNumber;
 
     new Chart(canvasName, {
       type: 'doughnut',
       data: {
-        labels: [ideasType, 'Others'],
+        labels: [orderType, 'Others'],
         datasets: [
           {
             label: '# of Votes',
-            data: [ideasNumber, otherIdeasNumber],
+            data: [orderType, otherOrdersNumber],
             backgroundColor: ['#ffffff', '#b3bab5'],
             borderColor: ['#ffffff', '#419e98'],
             borderWidth: 1,
@@ -72,7 +72,7 @@ export class OverviewStatisticsComponent implements OnInit {
         },
       },
     });
-    return ideasPercentage;
+    return ordersPercentage;
   }
 
   renderOverviewChart() {
@@ -81,7 +81,7 @@ export class OverviewStatisticsComponent implements OnInit {
     const shippedOrdersNumber = this.orderStatistics.shippedOrdersNumber;
     const completeOrdersNumber = this.orderStatistics.completeOrdersNumber;
 
-    new Chart('ideas-overview', {
+    new Chart('order-overview', {
       type: 'pie',
       data: {
         labels: ['In Submission', 'Shipped', 'Complete'],

@@ -98,13 +98,6 @@ export class ProductService {
     return this.http.delete(this.baseUrl + '/DeleteFile?fileName=' + fileName);
   }
 
-  downloadFile(ideaId: number, fileId: number) {
-    return this.http.get<Blob>(
-      this.baseUrl + 'DownloadFileById?ideaId=' + ideaId + '&fileId=' + fileId,
-      { observe: 'response', responseType: 'blob' as 'json' }
-    );
-  }
-
   getAllWarehouses(): Observable<Warehouse[]> {
     return this.http.get<Warehouse[]>(this.baseUrl + '/GetAllWarehouses');
   }

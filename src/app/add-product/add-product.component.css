@@ -1,16 +1,16 @@
 .container {
+    height: 100%;
     display: flex;
     justify-content: center;
-    padding: 2rem;
-    width: 100%;
-    overflow-y: auto !important;
+    padding: 5rem;
+    overflow-y: auto;
 }
 
 .main-container {
+    min-width: 50rem;
     width: 80%;
-    min-height: 20rem;
     padding: 1rem;
-    margin-top: 2rem;
+    margin: 2rem;
     background-color: var(--bosch-white);
     box-shadow: rgba(0, 0, 0, 0.24) 0 0.188rem 0.5rem;
 }
@@ -35,14 +35,12 @@
 
 .image-group-box {
     width: 100%;
-    padding: 1rem;
     background-color: var(--bosch-white) !important;
 }
 
 .image-right-column {
     max-width: 95%;
-    margin: 1rem;
-    background-color: #fbfbfb !important;
+    background-color: var(--bosch-white) !important;
 }
 
 .group-box {
@@ -135,7 +133,7 @@ li {
 .submit-area {
     display: flex;
     justify-content: center;
-    padding-top: 1rem;
+    padding-top: 2rem;
     gap: 5rem;
 }
 
