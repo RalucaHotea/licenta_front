@@ -1,3 +1,21 @@
+<div class="body-wrapper">
+    <ol class="a-tab-navigation">
+        <li class="a-tab-navigation__item">
+            <button type="button" class="a-tab-navigation__tab" data-frok-tab-identifier="2" tabindex="0" (click)="changePage('InSubmission')" [class.selected-tab]="selectedPage == 'InReview'">
+        <span class="a-tab-navigation__tab-content">
+          <span class="a-tab-navigation__label">In Submission</span>
+        </span>
+      </button>
+        </li>
+        <li class="a-tab-navigation__item" *ngIf="loggedUser.roleType != 1">
+            <button type="button" class="a-tab-navigation__tab" data-frok-tab-identifier="1" tabindex="0" (click)="changePage('Overview')" [class.selected-tab]="selectedPage == 'InSubmission'">
+        <span class="a-tab-navigation__tab-content">
+          <span class="a-tab-navigation__label">Overview</span>
+        </span>
+      </button>
+        </li>
+    </ol>
+</div>
 <div class="page-wrapper">
     <div class="a-box -floating page-inner page-inner">
         <div class="products-container">

@@ -23,6 +23,7 @@ export class OrdersComponent implements OnInit {
   loggedUser: User = {} as User;
   orderStatus = OrderStatus;
   status: OrderStatus = {} as OrderStatus;
+  selectedPage = 'InSubmission';
 
   displayedColumns: string[] = [
     'date',
@@ -62,25 +63,10 @@ export class OrdersComponent implements OnInit {
       .getUserByUserUsername(localStorage.getItem('username'))
       .subscribe((user) => {
         this.loggedUser = user;
-        if (user.roleType == 1) {
-          this.orderService.getOrdersByUserId(user.id).subscribe((orders) => {
-            this.orders = orders;
-            this.dataSource.data = orders;
-          });
-        } else if (user.roleType == 2) {
-          this.orderService.getAllOrders().subscribe((orders) => {
-            this.orders = orders;
-            this.dataSource.data = orders;
-          });
-        } else if (user.roleType == 3) {
-          this.orderService
-            .getOrdersByUserOfficeLocation(user.id)
-            .subscribe((orders) => {
-              console.log(orders);
-              this.orders = orders;
-              this.dataSource.data = orders;
-            });
-        }
+        this.orderService.getOrdersByUserId(user.id).subscribe((orders) => {
+          this.orders = orders;
+          this.dataSource.data = orders;
+        });
       });
   }
 
@@ -151,5 +137,40 @@ export class OrdersComponent implements OnInit {
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
+
+  changePage(page) {
+    this.dataSource.data = [];
+    this.orders = [];
+    this.selectedPage = page;
+    switch (page) {
+      case 'InSubmission':
+        this.orderService
+          .getOrdersByUserId(this.loggedUser.id)
+          .subscribe((orders) => {
+            this.orders = orders;
+            this.dataSource.data = orders;
+          });
+        localStorage.setItem('pageType', 'InSubmission');
+        break;
+      case 'Overview':
+        if (this.loggedUser.roleType == 2) {
+          this.orderService.getAllOrders().subscribe((orders) => {
+            this.orders = orders;
+            this.dataSource.data = orders;
+          });
+        } else if (this.loggedUser.roleType == 3) {
+          this.orderService
+            .getOrdersByUserOfficeLocation(this.loggedUser.id)
+            .subscribe((orders) => {
+              console.log(orders);
+              this.orders = orders;
+              this.dataSource.data = orders;
+            });
+        }
+        break;
+      default:
+        break;
+    }
   }
 }

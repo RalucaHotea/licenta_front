@@ -128,7 +128,7 @@ export class ShoppingCartComponent implements OnInit {
 
   async placeOrder() {
     var totalCost = this.getTotalCost();
-    var benefit = this.authService.getTotalBenefit();
+    var benefit = this.loggedUser.totalBenefit;
     if (
       this.items.length != 0 &&
       this.selectedPickupPoint != '' &&
