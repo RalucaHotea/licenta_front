@@ -1,0 +1,118 @@
+<div class="container">
+    <div class="form-container">
+        <div class="row">
+            <h1 class="section-header">
+                <mat-icon svgIcon="address-book"></mat-icon>Customer
+            </h1>
+        </div>
+        <div class="section-body">
+            <div class="a-text group-box col-sm">
+                <label class="special__label">Name</label>
+                <p>{{ order.user.name }}</p>
+                <label class="special__label">Email</label>
+                <p>{{ order.user.email }}</p>
+                <label class="special__label">Group</label>
+                <p>{{ order.user.group }}</p>
+            </div>
+        </div>
+        <div class="row">
+            <h1 class="section-header">
+                <mat-icon svgIcon="products"></mat-icon>Products
+            </h1>
+        </div>
+        <div class="row section-body">
+            <div *ngIf="items.length != 0" class="a-text group-box col-sm">
+                <table mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef class="header-cell">
+                            PRODUCT DETAILS
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="input-row">
+                                <img class="img" src="{{ element.product.imagePath }}" class="img" />
+                                <span>{{ element.product.name }}</span>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="price">
+                        <th mat-header-cell *matHeaderCellDef class="header-cell">PRICE</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.product.price }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="quantity">
+                        <th mat-header-cell *matHeaderCellDef class="header-cell">
+                            QUANTITY
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.quantity }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="total">
+                        <th mat-header-cell *matHeaderCellDef class="header-cell">TOTAL</th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.product.price * element.quantity }}
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <h1 class="section-header">
+                <mat-icon svgIcon="address-book"></mat-icon>Delivery Info
+            </h1>
+        </div>
+        <div class="row section-body">
+            <div class="a-text group-box-delivery col-sm">
+                <div class="row">
+                    <div class="col-sm a-text horizontal-text-box">
+                        <label class="special__label">PickupPoint</label>
+                        <p>{{ pickupPoint.name }}</p>
+                        <label class="special__label">Location</label>
+                        <p>
+                            {{ pickupPoint.streetAddress }}, {{ pickupPoint.city }} , {{ pickupPoint.country }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="a-text group-box-delivery-horizontal col-sm">
+                <div class="row">
+                    <div class="col-sm a-text horizontal-text-box">
+                        <label class="special__label">Submitted Date</label>
+                        <p>{{ order.submittedAt | date: "dd/MM/yyyy" }}</p>
+                        <label class="special__label">Total Price</label>
+                        <p>{{ order.totalPrice }}</p>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="order.status == 4 && loggedUser.roleType == 2" class="a-text group-box-delivery-horizontal col-sm">
+                <div class="row">
+                    <div class="col-sm a-text horizontal-text-box">
+                        <label class="special__label">Shipped Date</label>
+                        <p>{{ order.shippedDate | date: "dd/MM/yyyy" }}</p>
+                        <label class="special__label">Pickup Date</label>
+                        <p>{{ order.pickupDate | date: "dd/MM/yyyy" }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row submit-area" *ngIf="order.status == 1 && loggedUser.roleType == 2">
+            <button type="button" class="form-outlined-btn" (click)="shipClicked()">
+        Ship
+      </button>
+        </div>
+        <div class="row submit-area" *ngIf="order.status == 3 && loggedUser.roleType == 3">
+            <button type="button" class="form-outlined-btn" (click)="confirmReceiptClicked()">
+        Confirm Receipt
+      </button>
+        </div>
+        <div class="row submit-area" *ngIf="order.status == 2 && loggedUser.roleType == 3">
+            <button type="button" class="form-outlined-btn" (click)="completeOrderClicked()">
+        Complete Order
+      </button>
+        </div>
+    </div>
+</div>

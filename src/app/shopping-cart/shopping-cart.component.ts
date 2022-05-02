@@ -1,3 +1,4 @@
+import { EmailService } from './../services/email-service/email.service';
 import { AddOrder } from './../models/add-order.model';
 import { OrderItem } from './../models/order-item.model';
 import { PickupPoint } from './../models/pickup-point.model';
@@ -31,6 +32,7 @@ export class ShoppingCartComponent implements OnInit {
   pickupPoints: PickupPoint[] = [] as PickupPoint[];
   selectedPickupPoint = '';
   orderId: number;
+  formErrors: string[] = [] as string[];
 
   displayedColumns: string[] = [
     'name',
@@ -43,9 +45,11 @@ export class ShoppingCartComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
+    private authService: AuthenticationService,
     private router: Router,
     private orderService: OrderService,
-    private productService: ProductService
+    private productService: ProductService,
+    private emailService: EmailService
   ) {}
 
   ngOnInit() {
@@ -95,17 +99,25 @@ export class ShoppingCartComponent implements OnInit {
 
   increaseQuantity(itemId) {
     this.cartService.getCartItemById(itemId).subscribe((item) => {
-      var newItem = {
-        id: item.id,
-        userId: item.userId,
-        productId: item.productId,
-        quantity: item.quantity + 1,
-      } as CartItem;
-      this.cartService.updateCartItem(newItem).subscribe(() => {
-        window.location.reload();
-      });
+      var productStock = this.productService
+        .getProductStockCount(item.productId)
+        .subscribe((stock) => {
+          if (stock >= item.quantity + 1) {
+            var newItem = {
+              id: item.id,
+              userId: item.userId,
+              productId: item.productId,
+              quantity: item.quantity + 1,
+            } as CartItem;
+            this.cartService.updateCartItem(newItem).subscribe(() => {
+              window.location.reload();
+            });
+            this.quantity = this.quantity + 1;
+          } else {
+            this.formErrors.push('Quantity is bigger than stock');
+          }
+        });
     });
-    this.quantity = this.quantity + 1;
   }
 
   removeItem(itemId: number) {
@@ -115,21 +127,44 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   async placeOrder() {
-    const order = {
-      userId: this.loggedUser.id,
-      status: OrderStatus.InSubmission,
-      pickupPointId: Number(this.selectedPickupPoint),
-      submittedAt: new Date(),
-    } as Order;
+    var totalCost = this.getTotalCost();
+    var benefit = this.authService.getTotalBenefit();
+    if (
+      this.items.length != 0 &&
+      this.selectedPickupPoint != '' &&
+      benefit >= totalCost
+    ) {
+      const order = {
+        userId: this.loggedUser.id,
+        status: OrderStatus.InSubmission,
+        pickupPointId: Number(this.selectedPickupPoint),
+        submittedAt: new Date(),
+      } as Order;
 
-    var orderToAdd = {
-      order: order,
-      items: this.items,
-    } as AddOrder;
+      var orderToAdd = {
+        order: order,
+        items: this.items,
+      } as AddOrder;
 
-    this.orderService.createOrder(orderToAdd).subscribe(() => {
-      this.router.navigate(['/orders']);
-    });
+      this.orderService.createOrder(orderToAdd).subscribe(() => {
+        this.router.navigate(['/orders']);
+        this.emailService
+          .sendEmail(
+            'Thank you for your order! You can check out the details in order section on our website',
+            'Order Confirmation'
+          )
+          .subscribe();
+      });
+      this.cartService.clearCartByUserId(this.loggedUser.id).subscribe();
+    } else {
+      if (this.items.length == 0) {
+        this.formErrors.push('Your cart is empty');
+      } else if (this.selectedPickupPoint == '') {
+        this.formErrors.push('PickupPoint is mandatory');
+      } else if (benefit <= totalCost) {
+        this.formErrors.push('Not enough benefit');
+      }
+    }
   }
 
   getTotalCost() {

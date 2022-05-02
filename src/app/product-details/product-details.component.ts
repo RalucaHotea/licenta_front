@@ -39,11 +39,15 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToCart() {
+    var minimumQuantity = 1;
+    if (this.product.minimumQuantity != 0) {
+      minimumQuantity = minimumQuantity;
+    }
     const newItem = {
       id: 0,
       userId: this.loggedUser.id,
       productId: this.route.snapshot.params.id,
-      quantity: 1,
+      quantity: minimumQuantity,
     } as CartItem;
     this.cartService.addToCart(newItem).subscribe();
   }

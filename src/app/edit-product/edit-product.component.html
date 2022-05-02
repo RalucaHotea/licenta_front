@@ -62,37 +62,6 @@
         </div>
         <div class="input-row">
           <div class="input-group">
-            <div style="margin-right: 3rem">EanCode:</div>
-            <div class="m-form-field">
-              <div class="a-text-field">
-                <input
-                  formControlName="eanCode"
-                  type="text"
-                  placeholder="9083474"
-                />
-              </div>
-              <small class="p-error" *ngIf="eanCode.invalid && eanCode.touched"
-                >EanCode is mandatory!
-              </small>
-            </div>
-          </div>
-          <div class="input-group">
-            <div class="custom-input">
-              <div style="margin-right: 3rem">MinimumQuantity:</div>
-              <div class="m-form-field">
-                <div class="a-text-field">
-                  <input
-                    formControlName="minimumQuantity"
-                    type="text"
-                    placeholder="20"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="input-row">
-          <div class="input-group">
             <div
               class="my-drop-down m-form-field-drop m-form-field m-form-field--dropdown"
               style="margin-top: 0"
@@ -153,6 +122,53 @@
         </div>
         <div class="input-row">
           <div class="input-group">
+            <div
+              class="my-drop-down m-form-field-drop m-form-field m-form-field--dropdown"
+              style="margin-top: 0"
+            >
+              <div>Warehouse:</div>
+              <div class="my-drop-down a-dropdown">
+                <select
+                  id="dropdown-2"
+                  name="drop2"
+                  formControlName="warehouse"
+                  [value]="warehouse.value"
+                  required
+                  (change)="selectWarehouse($event)"
+                >
+                  <option
+                    value="{{ warehouse.id }}"
+                    *ngFor="let warehouse of warehouses"
+                  >
+                    {{ warehouse.name }}
+                  </option>
+                </select>
+                <small
+                  class="p-error"
+                  *ngIf="warehouse.invalid && warehouse.touched"
+                  >Warehouse is mandatory!
+                </small>
+              </div>
+            </div>
+          </div>
+          <div class="input-group">
+            <div class="custom-input">
+              <div style="margin-right: 3rem">Stock:</div>
+              <div class="m-form-field">
+                <div class="a-text-field">
+                  <input
+                    formControlName="stock"
+                    type="text"
+                    placeholder="20"
+                    [value]="stock.value"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="input-row">
+          <div class="input-group">
             <div style="margin-right: 3rem">Description:</div>
             <div class="m-form-field">
               <div class="a-text-area">
@@ -170,13 +186,32 @@
             </div>
           </div>
           <div class="input-group">
+            <div style="margin-right: 3rem">EanCode:</div>
+            <div class="m-form-field">
+              <div class="a-text-field">
+                <input
+                  formControlName="eanCode"
+                  type="text"
+                  placeholder="9083474"
+                />
+              </div>
+              <small class="p-error" *ngIf="eanCode.invalid && eanCode.touched"
+                >EanCode is mandatory!
+              </small>
+            </div>
+          </div>
+        </div>
+        <div class="input-row">
+          <div class="input-group">
             <div class="image-right-column">
               <div class="image-group-box">
                 <div style="margin-right: 3rem">
                   Image
+
                   <button
                     type="button"
                     class="upload-button"
+                    [disabled]="name.invalid"
                     (click)="fileInput.click()"
                   >
                     <mat-icon svgIcon="link"></mat-icon>
@@ -193,6 +228,9 @@
                   <small class="p-error" *ngIf="image.invalid && image.touched"
                     >Image is mandatory!
                   </small>
+                  <div [hidden]="!showImage">
+                    <img src="{{ selectedProduct.imagePath }}" class="img" />
+                  </div>
                 </div>
                 <ul *ngIf="imageName != null" class="images__list">
                   <li class="images__list-item">
@@ -208,8 +246,7 @@
             </div>
           </div>
         </div>
-
-        <div class="row submit-area">
+        <div class="submit-area">
           <button
             [hidden]="!this.form.valid"
             class="form-btn"
@@ -221,46 +258,11 @@
             type="button"
             class="delete-btn"
             data-frok-action="confirm"
-            (click)="clicked = false; deleteProduct()"
+            [hidden]="!this.form.valid"
+            (click)="deleteProduct()"
           >
             Delete
           </button>
-        </div>
-        <div
-          *ngIf="clicked == true"
-          class="m-dialog"
-          id="frontend-kit-dialog-default-dialog-without-header"
-          role="dialog"
-          aria-labelledby="frontend-kit-dialog-default-dialog-without-header-title"
-        >
-          <div class="a-box -floating">
-            <div class="m-dialog__content">
-              <div
-                class="m-dialog__headline"
-                id="frontend-kit-dialog-default-dialog-without-header-title"
-              >
-                Are you sure you want to delete {{ name.value }}?
-              </div>
-              <div
-                class="m-dialog__body"
-                id="frontend-kit-dialog-default-dialog-without-header-description"
-              >
-                This user will be deleted immediately. You can't undo this
-                action.
-              </div>
-              <div class="m-dialog__actions">
-                <div class="a-button__label">Confirm</div>
-                <button
-                  type="button"
-                  class="a-button a-button--secondary -without-icon"
-                  data-frok-action="cancel"
-                  (click)="clicked = false"
-                >
-                  <div class="a-button__label">Cancel</div>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
       </form>
     </div>

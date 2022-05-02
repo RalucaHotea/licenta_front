@@ -56,6 +56,10 @@ export class ProductService {
     return this.http.get<Product[]>(this.baseUrl + '/GetAllProducts');
   }
 
+  getAllAvailableProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.baseUrl + '/GetAllAvailableProducts');
+  }
+
   getProductById(productId: number): Observable<Product> {
     return this.http.get<Product>(
       this.baseUrl + '/GetProductById?productId=' + productId
@@ -94,14 +98,13 @@ export class ProductService {
     return this.http.delete(this.baseUrl + '/DeleteFile?fileName=' + fileName);
   }
 
-  downloadFile(ideaId: number, fileId: number) {
-    return this.http.get<Blob>(
-      this.baseUrl + 'DownloadFileById?ideaId=' + ideaId + '&fileId=' + fileId,
-      { observe: 'response', responseType: 'blob' as 'json' }
-    );
-  }
-
   getAllWarehouses(): Observable<Warehouse[]> {
     return this.http.get<Warehouse[]>(this.baseUrl + '/GetAllWarehouses');
+  }
+
+  getProductStockCount(productId: number): Observable<number> {
+    return this.http.get<number>(
+      this.baseUrl + '/GetProductStockCountById?productId=' + productId
+    );
   }
 }

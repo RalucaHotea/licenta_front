@@ -7,6 +7,7 @@ import { ImageDto } from '../models/image.model';
 import { Product } from '../models/product.model';
 import { Subcategory } from '../models/subcategory.model';
 import { User } from '../models/user.model';
+import { Warehouse } from '../models/warehouse.model';
 import { ProductService } from '../services/product-service/product.service';
 import { MessageBarComponent } from '../shared/message-bar/message-bar.component';
 
@@ -23,6 +24,7 @@ export class EditProductComponent implements OnInit {
   filteredProducts: Product[] = [] as Product[];
   searchContent = '';
   showContent = true;
+  showImage = false;
   imageName: string;
   formErrors: string[] = [] as string[];
   formSuccesses: string[] = [] as string[];
@@ -31,7 +33,9 @@ export class EditProductComponent implements OnInit {
   loggedUser: User = {} as User;
   selectedCategory = '';
   selectedSubcategory = '';
+  selectedWarehouse = '';
   categories: Category[] = [] as Category[];
+  warehouses: Warehouse[] = [] as Warehouse[];
   subcategories: Subcategory[] = [] as Subcategory[];
   clicked = false;
 
@@ -45,6 +49,8 @@ export class EditProductComponent implements OnInit {
     minimumQuantity: new FormControl(''),
     category: new FormControl(null, Validators.required),
     subcategory: new FormControl(null, Validators.required),
+    stock: new FormControl(null, Validators.required),
+    warehouse: new FormControl(null, Validators.required),
     price: new FormControl(null, Validators.required),
     image: new FormControl(''),
   });
@@ -90,6 +96,14 @@ export class EditProductComponent implements OnInit {
     return this.form.get('orderEntityId') as FormControl;
   }
 
+  get stock(): FormControl {
+    return this.form.get('stock') as FormControl;
+  }
+
+  get warehouse(): FormControl {
+    return this.form.get('warehouse') as FormControl;
+  }
+
   ngOnInit() {
     this.loadData();
   }
@@ -104,12 +118,16 @@ export class EditProductComponent implements OnInit {
     this.productService
       .getAllSubcategories()
       .subscribe((subcategories) => (this.subcategories = subcategories));
+    this.productService.getAllWarehouses().subscribe((warehouses) => {
+      this.warehouses = warehouses;
+    });
   }
 
   uploadFile = (files) => {
     if (files.length === 0) {
       return;
     }
+    this.showImage = false;
     let fileToUpload = <File>files[0];
     this.imageName = fileToUpload.name;
     const formData = new FormData();
@@ -131,22 +149,6 @@ export class EditProductComponent implements OnInit {
     this.imageName = null;
   }
 
-  downloadFile(productId: number, fileId: number, filename: string) {
-    this.productService
-      .downloadFile(productId, fileId)
-      .subscribe((response: HttpResponse<Blob>) => {
-        const binaryData = [];
-        binaryData.push(response.body);
-        const downloadLink = document.createElement('a');
-        downloadLink.href = window.URL.createObjectURL(
-          new Blob(binaryData, { type: 'blob' })
-        );
-        downloadLink.setAttribute('download', filename);
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-      });
-  }
-
   selectCategory(event: Event) {
     this.selectedCategory = (event.target as HTMLSelectElement).value;
     this.productService
@@ -165,13 +167,11 @@ export class EditProductComponent implements OnInit {
     this.selectedSubcategory = (event.target as HTMLSelectElement).value;
   }
 
+  selectWarehouse(event: Event) {
+    this.selectedWarehouse = (event.target as HTMLSelectElement).value;
+  }
+
   getFormProduct(): Product {
-    let imagePath =
-      'https://localhost:44372/Resources/Images/' +
-      this.name.value +
-      '/' +
-      this.imageName;
-    imagePath = imagePath.replace(/\s/g, '');
     const newProduct = {
       id: this.selectedProduct.id,
       name: this.name.value,
@@ -181,7 +181,9 @@ export class EditProductComponent implements OnInit {
       price: this.price.value,
       categoryId: Number(this.category.value),
       subcategoryId: Number(this.subcategory.value),
-      imagePath: imagePath,
+      imagePath: this.selectedProduct.imagePath,
+      warehouseId: Number(this.warehouse.value),
+      quantity: this.stock.value,
     } as Product;
     return newProduct;
   }
@@ -199,23 +201,29 @@ export class EditProductComponent implements OnInit {
       );
       this.form.reset();
       this.searchContent = '';
-      this.selectedProduct = undefined;
+      this.selectedCategory = '';
+      this.selectedSubcategory = '';
+      this.selectedWarehouse = '';
       this.loadData();
       this.imageName = null;
     }
   }
 
   deleteProduct(): void {
-    const product = this.selectedProduct as Product;
+    const product = this.selectedProduct;
     this.productService
       .deleteProduct(product.id)
       .subscribe(() =>
         this.messageBar.addSuccessTimeOut('Product Deleted Successfully')
       );
-    this.selectedProduct = undefined;
     this.searchContent = '';
+    this.selectedCategory = '';
+    this.selectedSubcategory = '';
+    this.selectedWarehouse = '';
     this.form.reset();
+
     this.loadData();
+    this.imageName = null;
   }
 
   searchOnFocus(): void {
@@ -247,6 +255,7 @@ export class EditProductComponent implements OnInit {
   }
 
   selectProduct(product: Product): void {
+    this.showImage = true;
     this.form.reset();
     this.selectedProduct = product;
     this.searchContent = product.name;
@@ -259,6 +268,8 @@ export class EditProductComponent implements OnInit {
       category: product.categoryId,
       subcategory: product.subcategoryId,
       imagePath: product.imagePath,
+      warehouse: product.warehouseId,
+      stock: product.quantity,
     });
     this.showProductsDropDown = false;
   }

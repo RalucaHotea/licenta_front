@@ -31,28 +31,6 @@
                 </div>
                 <div class="input-row">
                     <div class="input-group">
-                        <div style="margin-right: 3rem">EanCode:</div>
-                        <div class="m-form-field">
-                            <div class="a-text-field">
-                                <input formControlName="eanCode" type="text" placeholder="9083474" required />
-                                <small class="p-error" *ngIf="eanCode.invalid && eanCode.touched">EanCode is mandatory!
-                </small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="input-group">
-                        <div class="custom-input">
-                            <div style="margin-right: 3rem">MinimumQuantity:</div>
-                            <div class="m-form-field">
-                                <div class="a-text-field">
-                                    <input formControlName="minimumQuantity" type="text" placeholder="20" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-row">
-                    <div class="input-group">
                         <div class="my-drop-down m-form-field-drop m-form-field m-form-field--dropdown" style="margin-top: 0">
                             <div>Category:</div>
                             <div class="my-drop-down a-dropdown">
@@ -128,6 +106,18 @@
                         </div>
                     </div>
                     <div class="input-group">
+                        <div style="margin-right: 3rem">EanCode:</div>
+                        <div class="m-form-field">
+                            <div class="a-text-field">
+                                <input formControlName="eanCode" type="text" placeholder="9083474" required />
+                                <small class="p-error" *ngIf="eanCode.invalid && eanCode.touched">EanCode is mandatory!
+                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-row">
+                    <div class="input-group">
                         <div class="image-right-column">
                             <div class="image-header">
                                 Image
@@ -160,7 +150,7 @@
                     </div>
                 </div>
                 <div class="row submit-area">
-                    <button [hidden]="!this.form.valid" class="form-btn" (click)="submitData()">
+                    <button [hidden]="!this.form.valid && imageName == null" class="form-btn" (click)="submitData()">
             Submit
           </button>
                 </div>

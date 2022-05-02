@@ -86,7 +86,7 @@
     width: 2rem;
     height: 2rem;
     justify-content: center;
-    content: url("/assets/home-light.svg");
+    content: url("/assets/home.svg");
 }
 
 .icon-products {
@@ -116,5 +116,36 @@
     width: 2rem;
     height: 2rem;
     justify-content: center;
-    content: url("/assets/add.svg");
+    content: url("/assets/material-add.svg");
+}
+
+.icon-orders {
+    position: absolute;
+    left: 1rem;
+    padding-top: 0.5rem;
+}
+
+.icon-orders::before {
+    position: absolute;
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    justify-content: center;
+    content: url("/assets/shopping-bags.svg");
+}
+
+.icon-statistics {
+    position: absolute;
+    left: 1.1rem;
+    padding-top: 0.5rem;
+}
+
+.icon-statistics::before {
+    position: absolute;
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    justify-content: center;
+    content: url("../../../assets/chart-OEE.svg");
+    filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(71deg) brightness(101%) contrast(102%);
 }

@@ -1,3 +1,4 @@
+import { User } from 'src/app/models/user.model';
 import { AddOrder } from './../../models/add-order.model';
 import { CartItem } from 'src/app/models/cart-item.model';
 import { PickupPoint } from './../../models/pickup-point.model';
@@ -27,10 +28,18 @@ export class OrderService {
   }
 
   createOrder(order: AddOrder): Observable<AddOrder> {
-    const jsonBody = {};
     const body = JSON.stringify(order);
     return this.http.post<AddOrder>(
       this.baseUrl + '/CreateOrder',
+      body,
+      this.options
+    );
+  }
+
+  updateOrder(order: Order): Observable<Order> {
+    const body = JSON.stringify(order);
+    return this.http.put<Order>(
+      this.baseUrl + '/UpdateOrder',
       body,
       this.options
     );
@@ -40,13 +49,29 @@ export class OrderService {
     return this.http.get<Order[]>(this.baseUrl + '/GetAllOrders');
   }
 
+  getOrdersByUserOfficeLocation(userId: number): Observable<Order[]> {
+    return this.http.get<Order[]>(
+      this.baseUrl + '/GetOrdersByUserOfficeLocation?userId=' + userId
+    );
+  }
+
   getOrdersByUserId(userId: number): Observable<Order[]> {
     return this.http.get<Order[]>(
       this.baseUrl + '/GetOrdersByUserId?userId=' + userId
     );
   }
 
+  getOrderByOrderId(orderId: number): Observable<Order> {
+    return this.http.get<Order>(
+      this.baseUrl + '/GetOrderById?orderId=' + orderId
+    );
+  }
   getAllPickupPoints(): Observable<PickupPoint[]> {
     return this.http.get<PickupPoint[]>(this.baseUrl + '/GetAllPickupPoints');
+  }
+  getPickupPointById(pickupPointId: number): Observable<PickupPoint> {
+    return this.http.get<PickupPoint>(
+      this.baseUrl + '/GetPickupPointById?pickupPointId=' + pickupPointId
+    );
   }
 }

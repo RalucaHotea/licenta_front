@@ -14,14 +14,18 @@
     </div>
     <div class="menu-item unselectable" routerLink="/products" routerLinkActive="menu-item-selected">
         <div class="icon-products"></div>
-        <div class="menu-item-title">Product</div>
+        <div class="menu-item-title">Products</div>
     </div>
-    <div class="menu-item unselectable" routerLink="/product-crud" routerLinkActive="menu-item-selected">
+    <div *ngIf="isOptionValid" class="menu-item unselectable" routerLink="/product-crud" routerLinkActive="menu-item-selected">
         <div class="icon-add-product"></div>
-        <div class="menu-item-title">Add Product</div>
+        <div class="menu-item-title">Product Crud</div>
     </div>
     <div class="menu-item unselectable" routerLink="/orders" routerLinkActive="menu-item-selected">
-        <div class="icon-add-product"></div>
+        <div class="icon-orders"></div>
         <div class="menu-item-title">Orders</div>
+    </div>
+    <div class="menu-item unselectable" routerLink="/stats" routerLinkActive="menu-item-selected">
+        <div class="icon-statistics"></div>
+        <div class="menu-item-title">Stats</div>
     </div>
 </div>

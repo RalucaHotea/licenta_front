@@ -12,4 +12,7 @@ export interface User {
   category: Category;
   subcategory: Subcategory;
   totalBenefit: number;
+  officeStreetAddress: string;
+  officeCity: string;
+  officeCountry: string;
 }

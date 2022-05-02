@@ -1,17 +1,28 @@
 .page-wrapper {
-    height: 100%;
+    height: 80vh;
     display: flex;
     justify-content: center;
     padding: 5rem;
-    overflow: auto;
+    overflow-y: auto;
 }
 
 .page-inner {
-    display: flex;
+    position: relative;
     justify-content: center;
     background-color: var(--bosch-white);
-    width: 80rem;
     height: 50rem;
+}
+
+button {
+    border-style: none;
+    background-color: var(--bosch-white);
+}
+
+.icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+    margin-left: 1rem;
 }
 
 .left-column {
@@ -183,6 +194,12 @@ table {
     font-weight: bold;
 }
 
+:host ::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+    margin-left: 1.125rem;
+}
+
 .mat-paginator-container {
     display: flex;
     align-items: center;
@@ -210,4 +227,30 @@ table {
 .form-btn-delete:active,
 .form-btn-delete:focus {
     background: none;
+}
+
+.filter-input {
+    width: 100%;
+    padding: 0.4rem 0;
+    border-bottom: 0.0625rem solid var(--bosch-black);
+    background-color: var(--bosch-white);
+    font-size: 0.9rem;
+}
+
+.filter-input:focus-within {
+    border-bottom: 0.125rem solid var(--bosch-blue-60);
+}
+
+.filter-select select {
+    overflow: hidden;
+    width: 100%;
+    padding: 0.4rem 0;
+    border: 0;
+    border-bottom: 0.0625rem solid var(--bosch-black);
+    background-color: var(--bosch-white);
+    color: var(--bosch-gray-50);
+    font-size: 0.9rem;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

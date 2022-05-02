@@ -6,6 +6,7 @@
     padding-bottom: 0;
     background-color: var(--bosch-white);
     overflow-x: hidden;
+    padding-left: 0rem;
 }
 
 .o-header::before {
@@ -28,6 +29,11 @@
     display: flex;
     align-items: center;
     margin: auto 0;
+    width: 20rem;
+}
+
+.o-header__logo svg {
+    width: 7rem;
 }
 
 .o-header__logo span:first-child {
@@ -35,7 +41,7 @@
 }
 
 .o-header__logo span:first-child::after {
-    margin: 0 0.5rem;
+    margin: 0.5rem 0.5rem;
     content: "|";
 }
 

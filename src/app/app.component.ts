@@ -43,9 +43,33 @@ export class AppComponent {
         )
       )
       .addSvgIcon(
+        'arrow-right',
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/arrow-right.svg'
+        )
+      )
+      .addSvgIcon(
+        'arrow-right-blue',
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/arrow-right-blue.svg'
+        )
+      )
+      .addSvgIcon(
         'down-small',
         this.domSanitizer.bypassSecurityTrustResourceUrl(
           './assets/down-small.svg'
+        )
+      )
+      .addSvgIcon(
+        'address-book',
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/address-book.svg'
+        )
+      )
+      .addSvgIcon(
+        'products',
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/my-products.svg'
         )
       )
       .addSvgIcon(
@@ -56,6 +80,24 @@ export class AppComponent {
         'download',
         this.domSanitizer.bypassSecurityTrustResourceUrl(
           './assets/download.svg'
+        )
+      )
+      .addSvgIcon(
+        'hourglass-white',
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/hourglass-white.svg'
+        )
+      )
+      .addSvgIcon(
+        'alert-success-white',
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/alert-success-white.svg'
+        )
+      )
+      .addSvgIcon(
+        'flag-white',
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          './assets/flag-white.svg'
         )
       )
       .addSvgIcon(
@@ -79,7 +121,6 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
-    this.authService.login();
     if (localStorage.getItem('token') != null) {
       localStorage.removeItem('token');
     }

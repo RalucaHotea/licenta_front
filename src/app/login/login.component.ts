@@ -13,6 +13,20 @@ export class LoginComponent implements OnInit {
   ntUser: string = '';
   loggedUser: User = {} as User;
   isLoaded = false;
+  model: any = {};
+  admins = [
+    'ROC2CLJ',
+    'HOG1CLJ',
+    'VRD1CLJ',
+    'SIO1CLJ',
+    'RUE1CLJ',
+    'TMD4CLJ',
+    'MSO3CLJ',
+    'TOH4CLJ',
+  ];
+  isAdmin = false;
+  isCheckboxChecked = false;
+  customUsername = '';
 
   constructor(
     public authService: AuthenticationService,
@@ -24,6 +38,9 @@ export class LoginComponent implements OnInit {
     this.authService.login();
     this.eventEmitterService.getEmitter('onLogIn').subscribe((username) => {
       this.ntUser = username;
+      if (this.admins.includes(username)) {
+        this.isAdmin = true;
+      }
     });
   }
 
@@ -34,5 +51,26 @@ export class LoginComponent implements OnInit {
 
   loggedIn() {
     return this.authService.loggedIn();
+  }
+
+  onClickCheckbox(event) {
+    if (event.target.checked) {
+      this.isCheckboxChecked = true;
+    } else {
+      this.isCheckboxChecked = false;
+    }
+  }
+
+  onKey(event) {
+    this.customUsername = event.target.value;
+  }
+
+  customLogin() {
+    this.authService.customLogin(this.customUsername);
+    this.eventEmitterService.getEmitter('onCustomLogIn').subscribe((_) => {
+      localStorage.setItem('loggedUser', this.customUsername);
+      this.router.navigate(['/home']);
+      console.log('customLogin');
+    });
   }
 }

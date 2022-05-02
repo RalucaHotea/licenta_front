@@ -6,7 +6,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Category } from '../models/category.model';
 import { Subcategory } from '../models/subcategory.model';
-import { TableFilter } from '../models/table-filter.model';
 
 @Component({
   selector: 'app-products',
@@ -33,33 +32,13 @@ export class ProductsComponent implements OnInit {
     'input-subcategory',
     'input-details',
   ];
-  filterSelectObj: TableFilter[] = [
-    {
-      EnumValue: -1,
-      Value: '',
-      ColumnProp: 'category',
-      Options: [],
-    },
-    {
-      EnumValue: -1,
-      Value: '',
-      ColumnProp: 'subcategory',
-      Options: [],
-    },
-    {
-      EnumValue: -1,
-      Value: '',
-      ColumnProp: 'name',
-      Options: [],
-    },
-  ];
 
   products: Product[] = [] as Product[];
   filteredProducts: Product[] = [] as Product[];
   constructor(private productService: ProductService) {}
 
   ngOnInit() {
-    this.productService.getAllProducts().subscribe((products) => {
+    this.productService.getAllAvailableProducts().subscribe((products) => {
       if (products) {
         this.products = products;
         this.filteredProducts = products;
@@ -98,33 +77,5 @@ export class ProductsComponent implements OnInit {
     this.filteredProducts = this.products.filter(
       (x) => x.subcategoryId == Number(this.selectedSubcategory)
     );
-  }
-
-  getFilterByColumnProp(columnProp: string): TableFilter {
-    return (
-      this.filterSelectObj.find((x) => x.ColumnProp === columnProp) ??
-      ({} as TableFilter)
-    );
-  }
-
-  filterChanged() {
-    this.dataSource.data = this.products.filter((idea) => {
-      let result = true;
-      for (const filter of this.filterSelectObj) {
-        if (
-          (idea[filter.ColumnProp] == null && filter.Value !== '') ||
-          (filter.Value !== '' &&
-            !idea[filter.ColumnProp]
-              .toLocaleLowerCase()
-              .includes(filter.Value.toLocaleLowerCase())) ||
-          (filter.EnumValue != -1 &&
-            idea[filter.ColumnProp] != filter.EnumValue)
-        ) {
-          result = false;
-          break;
-        }
-      }
-      return result;
-    });
   }
 }

@@ -1,0 +1,61 @@
+<div class="col order-status-section">
+    <div class="pie-chart-section">
+        <canvas id="order-overview" class="pie-chart-container"> </canvas>
+    </div>
+    <div class="order-cards-section">
+        <div class="col" style="margin-left: 1rem">
+            <div class="row">
+                <div class="section-card in-submission">
+                    <div class="chart">
+                        <canvas id="in-submission" class="canvas-container"> </canvas>
+                    </div>
+                    <div class="icon in-submission">
+                        <mat-icon svgIcon="hourglass-white" class="card-icon"></mat-icon>
+                        {{ this.orderStatistics?.inSubmissionOrdersNumber }}
+                    </div>
+                    <div class="card-details">
+                        <div class="card-title">In Submission</div>
+                        <div class="percentage">
+                            {{ this.inSubmissionPercentage | number: "1.1-2" }}
+                            <span>%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="section-card shipped">
+                    <div class="chart">
+                        <canvas id="shipped" class="canvas-container"></canvas>
+                    </div>
+                    <div class="icon shipped">
+                        <mat-icon svgIcon="alert-success-white" class="card-icon"></mat-icon>
+                        {{ this.orderStatistics?.shippedOrdersNumber }}
+                    </div>
+                    <div class="card-details">
+                        <div class="card-title">Shipped</div>
+                        <div class="percentage">
+                            {{ this.shippedPercentage | number: "1.1-2" }}
+                            <span>%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="section-card complete">
+                    <div class="chart">
+                        <canvas id="complete" class="canvas-container"> </canvas>
+                    </div>
+                    <div class="icon complete">
+                        <mat-icon svgIcon="flag-white" class="card-icon"></mat-icon>
+                        {{ this.orderStatistics?.completeOrdersNumber }}
+                    </div>
+                    <div class="card-details">
+                        <div class="card-title">Complete</div>
+                        <div class="percentage">
+                            {{ this.completePercentage | number: "1.1-2" }}
+                            <span>%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
