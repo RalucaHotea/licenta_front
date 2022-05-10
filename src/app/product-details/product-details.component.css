@@ -5,6 +5,10 @@
     padding: 5rem;
 }
 
+.image {
+    margin: 2rem;
+}
+
 .page-wrapper {
     height: 100%;
     display: flex;

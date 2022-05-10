@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as Chart from 'chart.js';
+import { Chart } from 'chart.js';
 import _ from 'lodash';
 import { MonthlyStatistics } from '../models/monthly-statistics.model';
 import { StatisticsService } from '../services/statistics-service/statistics.service';
@@ -72,15 +72,7 @@ export class TimelineComponent implements OnInit {
         ],
       },
       options: {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-              },
-            },
-          ],
-        },
+        scales: {},
         responsive: true,
         maintainAspectRatio: false,
       },

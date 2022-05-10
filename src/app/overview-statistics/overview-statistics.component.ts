@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import Chart from 'chart.js';
+import { Chart } from 'chart.js';
 import { OrderStatisticsDto } from '../models/order-statistics.model';
 import { StatisticsService } from '../services/statistics-service/statistics.service';
 
