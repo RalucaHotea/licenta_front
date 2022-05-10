@@ -15,7 +15,6 @@ import { ProductService } from '../services/product-service/product.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Order } from '../models/order.model';
-import { LoadingScreenService } from '../services/loading-screen-service/loading-screen.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -47,7 +46,6 @@ export class ShoppingCartComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private loadingScreenService: LoadingScreenService,
     private router: Router,
     private orderService: OrderService,
     private productService: ProductService,
@@ -59,7 +57,6 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   loadData() {
-    this.loadingScreenService.showLoader();
     this.productService
       .getUserByUserUsername(localStorage.getItem('username'))
       .subscribe((user) => {
@@ -70,7 +67,6 @@ export class ShoppingCartComponent implements OnInit {
           if (items.length == 0) {
             this.noProducts = true;
           }
-          this.loadingScreenService.hideLoader();
         });
       });
     this.orderService.getAllPickupPoints().subscribe((pickupPoints) => {
