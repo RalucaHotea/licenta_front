@@ -5,7 +5,6 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product-service/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../models/user.model';
-import { AuthenticationService } from '../services/authentication-service/authentication.service';
 
 @Component({
   selector: 'app-product-details',
@@ -20,7 +19,7 @@ export class ProductDetailsComponent implements OnInit {
     private productService: ProductService,
     private route: ActivatedRoute,
     private cartService: CartService,
-    private authService: AuthenticationService
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -49,6 +48,8 @@ export class ProductDetailsComponent implements OnInit {
       productId: this.route.snapshot.params.id,
       quantity: minimumQuantity,
     } as CartItem;
-    this.cartService.addToCart(newItem).subscribe();
+    this.cartService.addToCart(newItem).subscribe(() => {
+      this.router.navigate(['/products']);
+    });
   }
 }

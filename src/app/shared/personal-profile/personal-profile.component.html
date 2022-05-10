@@ -8,7 +8,7 @@
                 <div>
                     <div>NT User:</div>
                     <div class="a-text-field">
-                        <input type="text" value="{{ authService.getLoggedUserUserName() }}" disabled="" />
+                        <input type="text" value="{{ loggedUser.username }}" disabled="" />
                     </div>
                 </div>
             </div>
@@ -16,7 +16,7 @@
                 <div class="custom-input">
                     <div>Name:</div>
                     <div class="a-text-field">
-                        <input type="text" value="{{ authService.getLoggedUserName() }}" disabled="" />
+                        <input type="text" value="{{ loggedUser.name }}" disabled="" />
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <div class="custom-input">
                     <div>Email:</div>
                     <div class="a-text-field">
-                        <input type="text" value="{{ authService.getLoggedUserEmail() }}" disabled="" />
+                        <input type="text" value="{{ loggedUser.email }}" disabled="" />
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 <div class="custom-input">
                     <div>Group:</div>
                     <div class="a-text-field">
-                        <input type="text" value="{{ authService.getLoggedUserGroup() }}" disabled="" />
+                        <input type="text" value="{{ loggedUser.group }}" disabled="" />
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                 <div class="custom-input">
                     <div>Total Benefits:</div>
                     <div class="a-text-field">
-                        <input type="text" value="{{ authService.getTotalBenefit() }}" disabled="" />
+                        <input type="text" value="{{ loggedUser.totalBenefit }}" disabled="" />
                     </div>
                 </div>
             </div>

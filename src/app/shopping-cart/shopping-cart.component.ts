@@ -15,6 +15,7 @@ import { ProductService } from '../services/product-service/product.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { Order } from '../models/order.model';
+import { LoadingScreenService } from '../services/loading-screen-service/loading-screen.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -33,6 +34,7 @@ export class ShoppingCartComponent implements OnInit {
   selectedPickupPoint = '';
   orderId: number;
   formErrors: string[] = [] as string[];
+  noProducts = false;
 
   displayedColumns: string[] = [
     'name',
@@ -45,7 +47,7 @@ export class ShoppingCartComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private authService: AuthenticationService,
+    private loadingScreenService: LoadingScreenService,
     private router: Router,
     private orderService: OrderService,
     private productService: ProductService,
@@ -57,6 +59,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   loadData() {
+    this.loadingScreenService.showLoader();
     this.productService
       .getUserByUserUsername(localStorage.getItem('username'))
       .subscribe((user) => {
@@ -64,6 +67,10 @@ export class ShoppingCartComponent implements OnInit {
         this.cartService.getItemList(user.id).subscribe((items) => {
           this.items = items;
           this.dataSource.data = items;
+          if (items.length == 0) {
+            this.noProducts = true;
+          }
+          this.loadingScreenService.hideLoader();
         });
       });
     this.orderService.getAllPickupPoints().subscribe((pickupPoints) => {
@@ -128,7 +135,7 @@ export class ShoppingCartComponent implements OnInit {
 
   async placeOrder() {
     var totalCost = this.getTotalCost();
-    var benefit = this.authService.getTotalBenefit();
+    var benefit = this.loggedUser.totalBenefit;
     if (
       this.items.length != 0 &&
       this.selectedPickupPoint != '' &&

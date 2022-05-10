@@ -1,3 +1,4 @@
+import { ProductService } from './../../services/product-service/product.service';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { AuthenticationService } from 'src/app/services/authentication-service/authentication.service';
@@ -10,9 +11,16 @@ import { AuthenticationService } from 'src/app/services/authentication-service/a
 export class PersonalProfileComponent implements OnInit {
   loggedUser: User = {} as User;
 
-  constructor(public authService: AuthenticationService) {}
+  constructor(
+    public authService: AuthenticationService,
+    private productService: ProductService
+  ) {}
 
   ngOnInit(): void {
-    this.loggedUser = this.authService.getLoggedUser();
+    this.productService
+      .getUserByUserUsername(localStorage.getItem('username'))
+      .subscribe((user) => {
+        this.loggedUser = user;
+      });
   }
 }

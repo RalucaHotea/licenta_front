@@ -1,3 +1,26 @@
+.a-tab-navigation {
+    display: inline-flex;
+    width: 100%;
+    flex-wrap: wrap;
+    padding: 0 3rem;
+    border-bottom: 0.05rem solid var(--bosch-gray-40);
+    margin-bottom: 0;
+    background-color: var(--bosch-white) !important;
+    color: var(--integrated__enabled__text__default);
+}
+
+.a-tab-navigation__tab:hover {
+    filter: invert(33%) sepia(100%) saturate(925%) hue-rotate(172deg) brightness(92%) contrast(104%);
+}
+
+.body-wrapper {
+    position: fixed;
+    z-index: 101;
+    top: 0;
+    width: 100%;
+    padding-top: 4rem;
+}
+
 .page-wrapper {
     height: 80vh;
     display: flex;
