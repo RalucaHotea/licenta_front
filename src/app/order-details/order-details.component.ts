@@ -36,6 +36,7 @@ export class OrderDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    console.log(this.loggedUser);
     this.productService
       .getUserByUserUsername(localStorage.getItem('username'))
       .subscribe((user) => {
@@ -84,4 +85,6 @@ export class OrderDetailsComponent implements OnInit {
     this.order.pickupDate = new Date();
     this.orderService.updateOrder(this.order).subscribe();
   }
+
+  removeOrder() {}
 }

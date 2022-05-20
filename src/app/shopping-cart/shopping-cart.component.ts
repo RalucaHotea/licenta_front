@@ -61,13 +61,15 @@ export class ShoppingCartComponent implements OnInit {
       .getUserByUserUsername(localStorage.getItem('username'))
       .subscribe((user) => {
         this.loggedUser = user;
-        this.cartService.getItemList(user.id).subscribe((items) => {
-          this.items = items;
-          this.dataSource.data = items;
-          if (items.length == 0) {
+        this.cartService.getItemList(user.id).subscribe(
+          (items) => {
+            this.items = items;
+            this.dataSource.data = items;
+          },
+          () => {
             this.noProducts = true;
           }
-        });
+        );
       });
     this.orderService.getAllPickupPoints().subscribe((pickupPoints) => {
       this.pickupPoints = pickupPoints;

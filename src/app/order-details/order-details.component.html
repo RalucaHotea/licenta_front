@@ -114,5 +114,10 @@
         Complete Order
       </button>
         </div>
+        <div class="row submit-area" *ngIf="order.status == 1 && loggedUser.username == order.user.username">
+            <button type="button" class="form-outlined-btn" (click)="removeOrder()">
+        DELETE
+      </button>
+        </div>
     </div>
 </div>
