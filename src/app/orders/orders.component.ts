@@ -26,13 +26,13 @@ export class OrdersComponent implements OnInit {
   selectedPage = 'InSubmission';
 
   displayedColumns: string[] = [
-    'date',
     'customerName',
+    'date',
     'total',
     'status',
     'orderDetails',
   ];
-  headerInputs: string[] = ['input-date', 'input-customer', 'input-total'];
+  headerInputs: string[] = ['input-customer', 'input-date', 'input-total'];
 
   filterSelectObj: TableFilter[] = [
     {

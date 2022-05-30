@@ -45,6 +45,12 @@ export class OrderService {
     );
   }
 
+  deleteOrder(orderId: number): Observable<Order> {
+    return this.http.delete<Order>(
+      this.baseUrl + '/DeleteOrder?orderId=' + orderId
+    );
+  }
+
   getAllOrders(): Observable<Order[]> {
     return this.http.get<Order[]>(this.baseUrl + '/GetAllOrders');
   }

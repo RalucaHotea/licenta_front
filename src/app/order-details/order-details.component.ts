@@ -1,16 +1,15 @@
 import { EmailService } from './../services/email-service/email.service';
 import { PickupPoint } from './../models/pickup-point.model';
 import { OrderService } from './../services/order-service/order.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Order } from '../models/order.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrderStatus } from '../enums/order-status.enum';
-import { Product } from '../models/product.model';
 import { MatTableDataSource } from '@angular/material/table';
-import { CartItem } from '../models/cart-item.model';
 import { OrderItem } from '../models/order-item.model';
 import { User } from '../models/user.model';
 import { ProductService } from '../services/product-service/product.service';
+import { MessageBarComponent } from '../shared/message-bar/message-bar.component';
 
 @Component({
   selector: 'app-order-details',
@@ -18,11 +17,14 @@ import { ProductService } from '../services/product-service/product.service';
   styleUrls: ['./order-details.component.css'],
 })
 export class OrderDetailsComponent implements OnInit {
+  @ViewChild('messageBar') messageBar = {} as MessageBarComponent;
   order: Order = {} as Order;
   dataSource = new MatTableDataSource<OrderItem>();
   items: OrderItem[] = [] as OrderItem[];
   pickupPoint: PickupPoint = {} as PickupPoint;
   loggedUser: User = {} as User;
+  formErrors: string[] = [] as string[];
+  formSuccesses: string[] = [] as string[];
 
   displayedColumns: string[] = ['name', 'price', 'quantity', 'total'];
   headerInputs: string[] = ['input-name', 'input-price', 'input-quantity'];
@@ -36,12 +38,10 @@ export class OrderDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.loggedUser);
     this.productService
       .getUserByUserUsername(localStorage.getItem('username'))
       .subscribe((user) => {
         this.loggedUser = user;
-        console.log(user);
       });
     this.orderService
       .getOrderByOrderId(this.route.snapshot.params.id)
@@ -59,7 +59,7 @@ export class OrderDetailsComponent implements OnInit {
 
   shipClicked() {
     this.order.status = OrderStatus.Sent;
-    this.order.shippedDate = new Date();
+    this.order.shippingDate = new Date();
     this.orderService.updateOrder(this.order).subscribe();
     this.router.navigate(['/products']);
   }
@@ -86,5 +86,15 @@ export class OrderDetailsComponent implements OnInit {
     this.orderService.updateOrder(this.order).subscribe();
   }
 
-  removeOrder() {}
+  removeOrder() {
+    this.orderService.deleteOrder(this.order.id).subscribe(
+      () => {
+        this.messageBar.addSuccessTimeOut('Order Deleted Successfully');
+        this.router.navigate(['/orders']);
+      },
+      () => {
+        this.messageBar.addErrorTimeOut('Operation was unsuccessful');
+      }
+    );
+  }
 }

@@ -1,3 +1,5 @@
+<app-messageBar #messageBar [successes]="formSuccesses" [errors]="formErrors">
+</app-messageBar>
 <div class="container">
     <div class="form-container">
         <div class="row">
@@ -92,32 +94,26 @@
                 <div class="row">
                     <div class="col-sm a-text horizontal-text-box">
                         <label class="special__label">Shipped Date</label>
-                        <p>{{ order.shippedDate | date: "dd/MM/yyyy" }}</p>
+                        <p>{{ order.shippingDate | date: "dd/MM/yyyy" }}</p>
                         <label class="special__label">Pickup Date</label>
                         <p>{{ order.pickupDate | date: "dd/MM/yyyy" }}</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row submit-area" *ngIf="order.status == 1 && loggedUser.roleType == 2">
-            <button type="button" class="form-outlined-btn" (click)="shipClicked()">
-        Ship
-      </button>
-        </div>
-        <div class="row submit-area" *ngIf="order.status == 3 && loggedUser.roleType == 3">
-            <button type="button" class="form-outlined-btn" (click)="confirmReceiptClicked()">
-        Confirm Receipt
-      </button>
-        </div>
-        <div class="row submit-area" *ngIf="order.status == 2 && loggedUser.roleType == 3">
-            <button type="button" class="form-outlined-btn" (click)="completeOrderClicked()">
-        Complete Order
-      </button>
-        </div>
-        <div class="row submit-area" *ngIf="order.status == 1 && loggedUser.username == order.user.username">
-            <button type="button" class="form-outlined-btn" (click)="removeOrder()">
-        DELETE
-      </button>
-        </div>
+    </div>
+    <div class="row submit-area">
+        <button type="button" *ngIf="order.status == 1 && loggedUser.roleType == 2" class="form-btn button" (click)="shipClicked()">
+      Ship
+    </button>
+        <button type="button" *ngIf="order.status == 3 && loggedUser.roleType == 3" class="form-outlined-btn button" (click)="confirmReceiptClicked()">
+      Confirm Receipt
+    </button>
+        <button type="button" *ngIf="order.status == 2 && loggedUser.roleType == 3" class="form-btn button" (click)="completeOrderClicked()">
+      Complete Order
+    </button>
+        <button type="button " *ngIf="order.status == 1 && loggedUser.username == order.user.username" class="form-outlined-btn button" (click)="removeOrder()">
+      DELETE
+    </button>
     </div>
 </div>

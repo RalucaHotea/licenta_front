@@ -1,5 +1,3 @@
-import { Order } from './../../models/order.model';
-import { CartItem } from 'src/app/models/cart-item.model';
 import { Subcategory } from './../../models/subcategory.model';
 import { Category } from './../../models/category.model';
 import { Observable } from 'rxjs';
