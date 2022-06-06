@@ -1,4 +1,13 @@
 <div class="col order-status-section">
+    <div class="dropdown-year">
+        <div class="a-dropdown">
+            <select [(ngModel)]="selectedYear" (change)="updateChart($event)">
+        <option value="{{ year }}" *ngFor="let year of years">
+          {{ year }}
+        </option>
+      </select>
+        </div>
+    </div>
     <div class="pie-chart-section">
         <canvas id="order-overview" class="pie-chart-container"> </canvas>
     </div>

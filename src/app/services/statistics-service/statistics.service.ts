@@ -15,9 +15,9 @@ export class StatisticsService {
   });
   constructor(private http: HttpClient) {}
 
-  getOrderStatistics(): Observable<OrderStatisticsDto> {
+  getOrderPerYearStatistics(year: number): Observable<OrderStatisticsDto> {
     return this.http.get<OrderStatisticsDto>(
-      this.baseUrl + '/GetOverviewOrdersStatistics'
+      this.baseUrl + '/GetOverviewOrdersStatistics?year=' + year
     );
   }
 

@@ -40,17 +40,14 @@ export class EditProductComponent implements OnInit {
   clicked = false;
 
   form = new FormGroup({
-    name: new FormControl(null, [
-      Validators.required,
-      Validators.pattern('^[a-zA-Z ]*$'),
-    ]),
+    name: new FormControl(null, [Validators.required]),
     description: new FormControl(null, Validators.required),
     eanCode: new FormControl(null, Validators.required),
     minimumQuantity: new FormControl(''),
     category: new FormControl(null, Validators.required),
     subcategory: new FormControl(null, Validators.required),
-    stock: new FormControl(null, Validators.required),
-    warehouse: new FormControl(null, Validators.required),
+    stock: new FormControl(null),
+    warehouse: new FormControl(null),
     price: new FormControl(null, Validators.required),
     image: new FormControl(''),
   });
@@ -172,6 +169,18 @@ export class EditProductComponent implements OnInit {
   }
 
   getFormProduct(): Product {
+    let imagePath = '';
+    if (this.imageName != null) {
+      imagePath =
+        'https://localhost:44372/Resources/Images/' +
+        this.name.value +
+        '/' +
+        this.imageName;
+      imagePath = imagePath.replace(/\s/g, '');
+    } else {
+      imagePath = this.selectedProduct.imagePath;
+    }
+
     const newProduct = {
       id: this.selectedProduct.id,
       name: this.name.value,
@@ -181,10 +190,11 @@ export class EditProductComponent implements OnInit {
       price: this.price.value,
       categoryId: Number(this.category.value),
       subcategoryId: Number(this.subcategory.value),
-      imagePath: this.selectedProduct.imagePath,
+      imagePath: imagePath,
       warehouseId: Number(this.warehouse.value),
       quantity: this.stock.value,
-    } as Product;
+    } as unknown as Product;
+    console.log(newProduct);
     return newProduct;
   }
 
@@ -201,28 +211,23 @@ export class EditProductComponent implements OnInit {
       );
       this.form.reset();
       this.searchContent = '';
-      this.selectedCategory = '';
-      this.selectedSubcategory = '';
-      this.selectedWarehouse = '';
-      this.loadData();
       this.imageName = null;
+      this.showImage = false;
     }
   }
 
   deleteProduct(): void {
     const product = this.selectedProduct;
-    this.productService
-      .deleteProduct(product.id)
-      .subscribe(() =>
-        this.messageBar.addSuccessTimeOut('Product Deleted Successfully')
-      );
+    this.productService.deleteProduct(product.id).subscribe(
+      () => {
+        this.messageBar.addSuccessTimeOut('Product Deleted Successfully');
+      },
+      () => {
+        this.messageBar.addErrorTimeOut('Operation was unsuccessful');
+      }
+    );
     this.searchContent = '';
-    this.selectedCategory = '';
-    this.selectedSubcategory = '';
-    this.selectedWarehouse = '';
     this.form.reset();
-
-    this.loadData();
     this.imageName = null;
   }
 

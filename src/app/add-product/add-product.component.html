@@ -150,7 +150,7 @@
                     </div>
                 </div>
                 <div class="row submit-area">
-                    <button [hidden]="!this.form.valid && imageName == null" class="form-btn" (click)="submitData()">
+                    <button *ngIf="this.form.valid && imageName != null" class="form-btn" (click)="submitData()">
             Submit
           </button>
                 </div>

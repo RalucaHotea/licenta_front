@@ -26,7 +26,7 @@ export class OrderDetailsComponent implements OnInit {
   formErrors: string[] = [] as string[];
   formSuccesses: string[] = [] as string[];
 
-  displayedColumns: string[] = ['name', 'price', 'quantity', 'total'];
+  displayedColumns: string[] = ['image', 'name', 'price', 'quantity', 'total'];
   headerInputs: string[] = ['input-name', 'input-price', 'input-quantity'];
 
   constructor(
@@ -58,7 +58,7 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   shipClicked() {
-    this.order.status = OrderStatus.Sent;
+    this.order.status = OrderStatus.Shipped;
     this.order.shippingDate = new Date();
     this.orderService.updateOrder(this.order).subscribe();
     this.router.navigate(['/products']);

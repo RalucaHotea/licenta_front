@@ -65,7 +65,10 @@ const routes: Routes = [
   {
     path: 'stats',
     component: StatisticsComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      expectedRoles: ['Admin', 'LogisticsResp'],
+    },
   },
   { path: '**', redirectTo: 'login', pathMatch: 'full' },
 ];

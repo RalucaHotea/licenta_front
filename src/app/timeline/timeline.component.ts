@@ -45,7 +45,6 @@ export class TimelineComponent implements OnInit {
     const completeOrdersCount = this.monthlyStatistics.map(function (e) {
       return e.completeOrdersCount;
     });
-
     const labels = [
       'January',
       'February',
@@ -57,6 +56,7 @@ export class TimelineComponent implements OnInit {
       'August',
       'September',
       'October',
+      'November',
       'December',
     ];
     this.timelineChart = new Chart('timeline-chart', {
@@ -72,9 +72,13 @@ export class TimelineComponent implements OnInit {
         ],
       },
       options: {
-        scales: {},
         responsive: true,
-        maintainAspectRatio: false,
+
+        scales: {
+          y: {
+            beginAtZero: true,
+          },
+        },
       },
     });
   }

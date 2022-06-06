@@ -36,10 +36,7 @@ export class AddProductComponent implements OnInit {
   formSuccesses: string[] = [] as string[];
 
   form = new FormGroup({
-    name: new FormControl(null, [
-      Validators.required,
-      Validators.pattern('^[a-zA-Z ]*$'),
-    ]),
+    name: new FormControl(null, [Validators.required]),
     description: new FormControl(null, Validators.required),
     eanCode: new FormControl(null, Validators.required),
     minimumQuantity: new FormControl(''),
@@ -161,6 +158,7 @@ export class AddProductComponent implements OnInit {
 
   submitData(): void {
     if (this.form.valid && this.imageName != null) {
+      console.log('form is valid');
       const newProduct = this.getFormProduct();
       this.productService.addProduct(newProduct).subscribe(
         () => {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
+import _ from 'lodash';
 import { OrderStatisticsDto } from '../models/order-statistics.model';
 import { StatisticsService } from '../services/statistics-service/statistics.service';
 
@@ -9,7 +10,10 @@ import { StatisticsService } from '../services/statistics-service/statistics.ser
   styleUrls: ['./overview-statistics.component.css'],
 })
 export class OverviewStatisticsComponent implements OnInit {
+  selectedYear = new Date().getFullYear();
   orderStatistics: OrderStatisticsDto = {} as OrderStatisticsDto;
+  overviewChart: Chart = {} as Chart;
+  years: number[];
   inSubmissionPercentage: number;
   shippedPercentage: number;
   completePercentage: number;
@@ -17,6 +21,8 @@ export class OverviewStatisticsComponent implements OnInit {
   constructor(private statisticsService: StatisticsService) {}
 
   async ngOnInit() {
+    var currentYear = new Date().getFullYear();
+    this.years = _.range(2021, currentYear + 1);
     await this.loadStatistics();
     this.inSubmissionPercentage = this.renderPieChart(
       this.orderStatistics.inSubmissionOrdersNumber,
@@ -39,8 +45,35 @@ export class OverviewStatisticsComponent implements OnInit {
 
   async loadStatistics(): Promise<void> {
     this.orderStatistics = await this.statisticsService
-      .getOrderStatistics()
+      .getOrderPerYearStatistics(this.selectedYear)
       .toPromise();
+  }
+
+  async updateChart(event: Event): Promise<void> {
+    this.selectedYear = Number((event.target as HTMLSelectElement).value);
+    this.orderStatistics = await this.statisticsService
+      .getOrderPerYearStatistics(this.selectedYear)
+      .toPromise();
+    if (this.overviewChart) {
+      this.overviewChart.destroy();
+    }
+    this.inSubmissionPercentage = this.renderPieChart(
+      this.orderStatistics.inSubmissionOrdersNumber,
+      'in-submission',
+      'In Submission'
+    );
+    this.shippedPercentage = this.renderPieChart(
+      this.orderStatistics.shippedOrdersNumber,
+      'shipped',
+      'Shipped'
+    );
+    this.completePercentage = this.renderPieChart(
+      this.orderStatistics.completeOrdersNumber,
+      'complete',
+      'Complete'
+    );
+
+    this.renderOverviewChart();
   }
 
   renderPieChart(
@@ -51,6 +84,7 @@ export class OverviewStatisticsComponent implements OnInit {
     const totalOrdersNumber = this.orderStatistics.totalOrdersNumber;
     const otherOrdersNumber = totalOrdersNumber - ordersNumber;
     let ordersPercentage = (ordersNumber * 100) / totalOrdersNumber;
+    console.log(otherOrdersNumber);
 
     new Chart(canvasName, {
       type: 'doughnut',
@@ -59,7 +93,7 @@ export class OverviewStatisticsComponent implements OnInit {
         datasets: [
           {
             label: '# of Votes',
-            data: [orderType, otherOrdersNumber],
+            data: [ordersNumber, otherOrdersNumber],
             backgroundColor: ['#ffffff', '#b3bab5'],
             borderColor: ['#ffffff', '#419e98'],
             borderWidth: 1,
@@ -81,7 +115,7 @@ export class OverviewStatisticsComponent implements OnInit {
     const shippedOrdersNumber = this.orderStatistics.shippedOrdersNumber;
     const completeOrdersNumber = this.orderStatistics.completeOrdersNumber;
 
-    new Chart('order-overview', {
+    this.overviewChart = new Chart('order-overview', {
       type: 'pie',
       data: {
         labels: ['In Submission', 'Shipped', 'Complete'],

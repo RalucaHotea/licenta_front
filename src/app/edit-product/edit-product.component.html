@@ -248,7 +248,7 @@
         </div>
         <div class="submit-area">
           <button
-            [hidden]="!this.form.valid"
+            [hidden]="!this.form.dirty"
             class="form-btn"
             (click)="submitData()"
           >

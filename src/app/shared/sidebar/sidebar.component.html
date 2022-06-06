@@ -24,7 +24,7 @@
         <div class="icon-orders"></div>
         <div class="menu-item-title">Orders</div>
     </div>
-    <div class="menu-item unselectable" routerLink="/stats" routerLinkActive="menu-item-selected">
+    <div *ngIf="isStatsValid" class="menu-item unselectable" routerLink="/stats" routerLinkActive="menu-item-selected">
         <div class="icon-statistics"></div>
         <div class="menu-item-title">Stats</div>
     </div>

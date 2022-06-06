@@ -13,6 +13,7 @@ export class SidebarComponent implements OnInit {
   @Output() closeSidebarButton = new EventEmitter<void>();
   loggedUser: User = {} as User;
   isOptionValid = false;
+  isStatsValid = false;
   isSidebarActive = false;
 
   constructor(
@@ -27,6 +28,12 @@ export class SidebarComponent implements OnInit {
         this.loggedUser = user;
         if (user.roleType == RoleType.Admin) {
           this.isOptionValid = true;
+        }
+        if (
+          user.roleType == RoleType.Admin ||
+          user.roleType == RoleType.LogisticsResp
+        ) {
+          this.isStatsValid = true;
         }
       });
     this.loggedUser = this.authService.getLoggedUser();

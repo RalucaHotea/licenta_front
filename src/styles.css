@@ -9,14 +9,15 @@ body {
     background-color: var(--bosch-gray-95);
 }
 
-@font-face {
+
+/* @font-face {
     font-family: "BoschSans";
     font-style: normal;
     font-weight: 400;
-    src: local("Pacifico Regular"), local("Pacifico-Regular"), url("/src/assets/fonts/BoschSans-Black.woff") format("woff"), /* Modern Browsers */
+    src: local("Pacifico Regular"), local("Pacifico-Regular"), url("/src/assets/fonts/BoschSans-Black.woff") format("woff"),
     url("./assets/fonts/BoschSans-Black.woff2") format("woff2");
-    /* Super Modern Browsers */
-}
+ 
+} */
 
 *,
 ::after,
