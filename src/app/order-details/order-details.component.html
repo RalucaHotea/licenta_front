@@ -117,8 +117,8 @@
         <button type="button" *ngIf="order.status == 2 && loggedUser.roleType == 3" class="form-btn button" (click)="completeOrderClicked()">
       Complete Order
     </button>
-        <!-- <button type="button " *ngIf="order.status == 1 && loggedUser.username == order.user.username" class="form-outlined-btn button" (click)="removeOrder()">
+        <button type="button " *ngIf="order.status == 1 && loggedUser.username == order.user.username" class="form-outlined-btn button" (click)="removeOrder()">
       DELETE
-    </button> -->
+    </button>
     </div>
 </div>

@@ -88,8 +88,10 @@
                             <div style="margin-right: 3rem">Stock:</div>
                             <div class="m-form-field">
                                 <div class="a-text-field">
-                                    <input formControlName="stock" type="text" placeholder="20" />
+                                    <input formControlName="stock" type="number" placeholder="20" required />
                                 </div>
+                                <small class="p-error" *ngIf="stock.invalid && stock.touched">Stock is mandatory!
+                </small>
                             </div>
                         </div>
                     </div>
@@ -109,7 +111,7 @@
                         <div style="margin-right: 3rem">EanCode:</div>
                         <div class="m-form-field">
                             <div class="a-text-field">
-                                <input formControlName="eanCode" type="text" placeholder="9083474" required />
+                                <input formControlName="eanCode" type="text" placeholder="12345678" required />
                                 <small class="p-error" *ngIf="eanCode.invalid && eanCode.touched">EanCode is mandatory!
                 </small>
                             </div>

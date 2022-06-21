@@ -163,7 +163,6 @@ export class OrdersComponent implements OnInit {
           this.orderService
             .getOrdersByUserOfficeLocation(this.loggedUser.id)
             .subscribe((orders) => {
-              console.log(orders);
               this.orders = orders;
               this.dataSource.data = orders;
             });

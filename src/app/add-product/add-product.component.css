@@ -1,18 +1,18 @@
 .container {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 5rem;
+    max-width: 100%;
+    height: 100vh;
+    padding: 10rem;
     overflow-y: auto;
 }
 
 .main-container {
-    min-width: 50rem;
-    width: 80%;
-    padding: 1rem;
-    margin: 2rem;
     background-color: var(--bosch-white);
     box-shadow: rgba(0, 0, 0, 0.24) 0 0.188rem 0.5rem;
+    max-width: 100rem;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .add-form {
@@ -190,10 +190,6 @@ li {
     text-align: center;
 }
 
-.images_list {
-    margin-left: -2.5rem;
-}
-
 .images__list-item {
     margin: 0 0.625rem;
     list-style: none;
@@ -209,14 +205,14 @@ li {
     height: 3rem;
     padding: 0.625rem;
     margin: 0 0 0.188rem;
-    background-color: var(--bosch-blue-30);
+    background-color: var(--bosch-blue-40);
     color: var(--bosch-white);
     font-size: 0.938rem;
 }
 
 .image button {
     border-style: none;
-    background-color: var(--bosch-blue-30);
+    background-color: var(--bosch-blue-40);
     color: var(--bosch-white);
     float: right;
 }

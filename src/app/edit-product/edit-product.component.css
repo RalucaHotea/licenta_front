@@ -1,17 +1,18 @@
 .container {
-    display: flex;
-    justify-content: center;
-    padding: 5rem;
+    max-width: 100%;
+    height: 100vh;
+    padding: 10rem;
     overflow-y: auto;
 }
 
 .main-container {
-    min-width: 50rem;
-    width: 80%;
-    padding: 1rem;
-    margin: 1rem;
     background-color: var(--bosch-white);
     box-shadow: rgba(0, 0, 0, 0.24) 0 0.188rem 0.5rem;
+    max-width: 100rem;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .input-row {
@@ -26,12 +27,10 @@
 }
 
 .search-result-container {
-    position: absolute;
     z-index: 1;
     overflow: auto;
-    width: 63%;
+    width: 100%;
     height: 15rem;
-    margin-top: 5rem;
 }
 
 .edit-form {

@@ -21,16 +21,13 @@ export class AuthenticationService {
   login() {
     const headerDict = {
       'Content-Type': 'application/json',
-      //'Access-Control-Allow-Headers': 'Content-Type',
       'Access-Control-Allow-Origin':
         'https://localhost:44372/api/Authentication/login',
     };
-
     const requestOptions = {
       headers: new HttpHeaders(headerDict),
       withCredentials: true,
     };
-
     this.httpClient
       .get<User>(this.authUrl + 'login', requestOptions)
       .subscribe((user) => {
@@ -103,7 +100,6 @@ export class AuthenticationService {
   }
 
   getLoggedUserRole(): RoleType {
-    console.log(RoleType[localStorage.getItem('role')]);
     return RoleType[localStorage.getItem('role')];
   }
 

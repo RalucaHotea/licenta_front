@@ -87,14 +87,8 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   removeOrder() {
-    this.orderService.deleteOrder(this.order.id).subscribe(
-      () => {
-        this.messageBar.addSuccessTimeOut('Order Deleted Successfully');
-        this.router.navigate(['/orders']);
-      },
-      () => {
-        this.messageBar.addErrorTimeOut('Operation was unsuccessful');
-      }
-    );
+    this.orderService.deleteOrder(this.order.id).subscribe(() => {
+      this.router.navigate(['/orders']);
+    });
   }
 }

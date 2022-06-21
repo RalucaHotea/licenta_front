@@ -70,7 +70,6 @@ export class LoginComponent implements OnInit {
     this.eventEmitterService.getEmitter('onCustomLogIn').subscribe((_) => {
       localStorage.setItem('loggedUser', this.customUsername);
       this.router.navigate(['/home']);
-      console.log('customLogin');
     });
   }
 }

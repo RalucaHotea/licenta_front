@@ -36,6 +36,7 @@ export class ShoppingCartComponent implements OnInit {
   noProducts = false;
 
   displayedColumns: string[] = [
+    'image',
     'name',
     'price',
     'quantity',

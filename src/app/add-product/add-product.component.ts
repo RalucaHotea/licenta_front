@@ -36,16 +36,23 @@ export class AddProductComponent implements OnInit {
   formSuccesses: string[] = [] as string[];
 
   form = new FormGroup({
-    name: new FormControl(null, [Validators.required]),
-    description: new FormControl(null, Validators.required),
-    eanCode: new FormControl(null, Validators.required),
-    minimumQuantity: new FormControl(''),
+    name: new FormControl(null, [
+      Validators.required,
+      Validators.pattern('[a-zA-Z0-9-]+'),
+    ]),
+    description: new FormControl(null, [Validators.required]),
+    eanCode: new FormControl(null, [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(13),
+      Validators.pattern('^[0-9]*$'),
+    ]),
     category: new FormControl(null, Validators.required),
     subcategory: new FormControl(null, Validators.required),
-    price: new FormControl(null, Validators.required),
     stock: new FormControl(null, Validators.required),
     warehouse: new FormControl(null, Validators.required),
-    image: new FormControl(null, Validators.required),
+    price: new FormControl(null, Validators.required),
+    image: new FormControl(''),
   });
 
   get name(): FormControl {
@@ -58,10 +65,6 @@ export class AddProductComponent implements OnInit {
 
   get eanCode(): FormControl {
     return this.form.get('eanCode') as FormControl;
-  }
-
-  get minimumQuantity(): FormControl {
-    return this.form.get('minimumQuantity') as FormControl;
   }
 
   get category(): FormControl {
@@ -145,7 +148,6 @@ export class AddProductComponent implements OnInit {
       name: this.name.value,
       description: this.description.value,
       eanCode: this.eanCode.value,
-      minimumQuantity: this.minimumQuantity.value,
       price: this.price.value,
       categoryId: Number(this.category.value),
       subcategoryId: Number(this.subcategory.value),
@@ -158,7 +160,6 @@ export class AddProductComponent implements OnInit {
 
   submitData(): void {
     if (this.form.valid && this.imageName != null) {
-      console.log('form is valid');
       const newProduct = this.getFormProduct();
       this.productService.addProduct(newProduct).subscribe(
         () => {

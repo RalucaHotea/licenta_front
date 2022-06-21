@@ -3,7 +3,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import { Category } from '../models/category.model';
-import { ImageDto } from '../models/image.model';
 import { Product } from '../models/product.model';
 import { Subcategory } from '../models/subcategory.model';
 import { User } from '../models/user.model';
@@ -40,10 +39,17 @@ export class EditProductComponent implements OnInit {
   clicked = false;
 
   form = new FormGroup({
-    name: new FormControl(null, [Validators.required]),
-    description: new FormControl(null, Validators.required),
-    eanCode: new FormControl(null, Validators.required),
-    minimumQuantity: new FormControl(''),
+    name: new FormControl(null, [
+      Validators.required,
+      Validators.pattern('[a-zA-Z0-9-]+'),
+    ]),
+    description: new FormControl(null, [Validators.required]),
+    eanCode: new FormControl(null, [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(13),
+      Validators.pattern('^[0-9]*$'),
+    ]),
     category: new FormControl(null, Validators.required),
     subcategory: new FormControl(null, Validators.required),
     stock: new FormControl(null),
@@ -67,10 +73,6 @@ export class EditProductComponent implements OnInit {
 
   get eanCode(): FormControl {
     return this.form.get('eanCode') as FormControl;
-  }
-
-  get minimumQuantity(): FormControl {
-    return this.form.get('minimumQuantity') as FormControl;
   }
 
   get category(): FormControl {
@@ -186,7 +188,6 @@ export class EditProductComponent implements OnInit {
       name: this.name.value,
       description: this.description.value,
       eanCode: this.eanCode.value,
-      minimumQuantity: this.minimumQuantity.value,
       price: this.price.value,
       categoryId: Number(this.category.value),
       subcategoryId: Number(this.subcategory.value),
@@ -194,7 +195,6 @@ export class EditProductComponent implements OnInit {
       warehouseId: Number(this.warehouse.value),
       quantity: this.stock.value,
     } as unknown as Product;
-    console.log(newProduct);
     return newProduct;
   }
 
@@ -229,6 +229,7 @@ export class EditProductComponent implements OnInit {
     this.searchContent = '';
     this.form.reset();
     this.imageName = null;
+    this.showImage = false;
   }
 
   searchOnFocus(): void {
@@ -268,7 +269,6 @@ export class EditProductComponent implements OnInit {
       name: product.name,
       description: product.description,
       eanCode: product.eanCode,
-      minimumQuantity: product.minimumQuantity,
       price: product.price,
       category: product.categoryId,
       subcategory: product.subcategoryId,

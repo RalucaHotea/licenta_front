@@ -3,6 +3,7 @@
 <div class="container">
     <div class="main-container frontend-kit__example-wrapper -floating">
         <div class="edit-form">
+            <h4 class="edit-title">Edit Product</h4>
             <div class="input-row" id="input-search-row" style="margin-bottom: 3rem">
                 <div class="input-group" (clickOutside)="searchOnBlur()">
                     <div>
@@ -32,7 +33,7 @@
           </div>
         </div>
       </div>
-      <h4 class="edit-title">Edit Product</h4>
+
       <form [formGroup]="form">
         <div class="input-row">
           <div class="input-group">
@@ -52,7 +53,11 @@
             <div style="margin-right: 3rem">Price:</div>
             <div class="m-form-field">
               <div class="a-text-field">
-                <input formControlName="price" type="text" placeholder="200" />
+                <input
+                  formControlName="price"
+                  type="number"
+                  placeholder="200"
+                />
               </div>
               <small class="p-error" *ngIf="price.invalid && price.touched"
                 >Price is mandatory!
@@ -158,11 +163,14 @@
                 <div class="a-text-field">
                   <input
                     formControlName="stock"
-                    type="text"
+                    type="number"
                     placeholder="20"
                     [value]="stock.value"
                   />
                 </div>
+                <small class="p-error" *ngIf="stock.invalid && stock.touched"
+                  >Stock is mandatory!
+                </small>
               </div>
             </div>
           </div>
@@ -248,7 +256,7 @@
         </div>
         <div class="submit-area">
           <button
-            [hidden]="!this.form.dirty"
+            [hidden]="!this.form.dirty || !this.form.valid"
             class="form-btn"
             (click)="submitData()"
           >
@@ -258,7 +266,7 @@
             type="button"
             class="delete-btn"
             data-frok-action="confirm"
-            [hidden]="!this.form.valid"
+            [hidden]="!selectedProduct"
             (click)="deleteProduct()"
           >
             Delete
