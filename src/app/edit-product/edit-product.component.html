@@ -33,8 +33,7 @@
           </div>
         </div>
       </div>
-
-      <form [formGroup]="form">
+      <form [formGroup]="form" *ngIf="selectedProduct">
         <div class="input-row">
           <div class="input-group">
             <div>
@@ -166,6 +165,7 @@
                     type="number"
                     placeholder="20"
                     [value]="stock.value"
+                    min="0"
                   />
                 </div>
                 <small class="p-error" *ngIf="stock.invalid && stock.touched"

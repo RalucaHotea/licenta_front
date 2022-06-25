@@ -18,7 +18,7 @@ import { MessageBarComponent } from '../shared/message-bar/message-bar.component
 export class EditProductComponent implements OnInit {
   @ViewChild('messageBar') messageBar = {} as MessageBarComponent;
   products: Product[] = [] as Product[];
-  selectedProduct: Product = {} as Product;
+  selectedProduct: Product;
   showProductsDropDown = false;
   filteredProducts: Product[] = [] as Product[];
   searchContent = '';
@@ -39,10 +39,7 @@ export class EditProductComponent implements OnInit {
   clicked = false;
 
   form = new FormGroup({
-    name: new FormControl(null, [
-      Validators.required,
-      Validators.pattern('[a-zA-Z0-9-]+'),
-    ]),
+    name: new FormControl(null, [Validators.required]),
     description: new FormControl(null, [Validators.required]),
     eanCode: new FormControl(null, [
       Validators.required,

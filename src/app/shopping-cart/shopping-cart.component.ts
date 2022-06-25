@@ -156,6 +156,7 @@ export class ShoppingCartComponent implements OnInit {
         this.router.navigate(['/orders']);
         this.emailService
           .sendEmail(
+            this.loggedUser.name,
             'Thank you for your order! You can check out the details in order section on our website',
             'Order Confirmation'
           )

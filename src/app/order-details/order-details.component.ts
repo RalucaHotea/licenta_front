@@ -75,7 +75,9 @@ export class OrderDetailsComponent implements OnInit {
       ' , ' +
       this.pickupPoint.country;
     this.orderService.updateOrder(this.order).subscribe(() => {
-      this.emailService.sendEmail(emailMessage, 'Package Received').subscribe();
+      this.emailService
+        .sendEmail(this.order.user.name, emailMessage, 'Package Received')
+        .subscribe();
     });
     this.router.navigate(['/products']);
   }

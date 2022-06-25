@@ -84,8 +84,6 @@ export class OverviewStatisticsComponent implements OnInit {
     const totalOrdersNumber = this.orderStatistics.totalOrdersNumber;
     const otherOrdersNumber = totalOrdersNumber - ordersNumber;
     let ordersPercentage = (ordersNumber * 100) / totalOrdersNumber;
-    console.log(otherOrdersNumber);
-
     new Chart(canvasName, {
       type: 'doughnut',
       data: {
@@ -114,7 +112,6 @@ export class OverviewStatisticsComponent implements OnInit {
       this.orderStatistics.inSubmissionOrdersNumber;
     const shippedOrdersNumber = this.orderStatistics.shippedOrdersNumber;
     const completeOrdersNumber = this.orderStatistics.completeOrdersNumber;
-
     this.overviewChart = new Chart('order-overview', {
       type: 'pie',
       data: {
