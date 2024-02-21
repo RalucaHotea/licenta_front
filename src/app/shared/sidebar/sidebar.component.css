@@ -86,7 +86,7 @@
     width: 2rem;
     height: 2rem;
     justify-content: center;
-    content: url("/assets/home.svg");
+    content: url("../../../assets/home.svg");
 }
 
 .icon-products {
@@ -101,7 +101,7 @@
     width: 2rem;
     height: 2rem;
     justify-content: center;
-    content: url("/assets/my-product.svg");
+    content: url("../../../assets/my-product.svg");
 }
 
 .icon-add-product {
@@ -116,7 +116,7 @@
     width: 2rem;
     height: 2rem;
     justify-content: center;
-    content: url("/assets/material-add.svg");
+    content: url("../../../assets/material-add.svg");
 }
 
 .icon-orders {
@@ -131,7 +131,7 @@
     width: 2rem;
     height: 2rem;
     justify-content: center;
-    content: url("/assets/shopping-bags.svg");
+    content: url("../../../assets/shopping-bags.svg");
 }
 
 .icon-statistics {

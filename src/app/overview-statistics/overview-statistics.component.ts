@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Chart } from 'chart.js';
 import _ from 'lodash';
 import { OrderStatisticsDto } from '../models/order-statistics.model';
 import { StatisticsService } from '../services/statistics-service/statistics.service';
+import { Chart, ChartType, registerables } from 'chart.js';
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-overview-statistics',
@@ -13,6 +14,9 @@ export class OverviewStatisticsComponent implements OnInit {
   selectedYear = new Date().getFullYear();
   orderStatistics: OrderStatisticsDto = {} as OrderStatisticsDto;
   overviewChart: Chart = {} as Chart;
+  inSubmissionChart: Chart = {} as Chart;
+  shippedChart: Chart = {} as Chart;
+  completeChart: Chart = {} as Chart;
   years: number[];
   inSubmissionPercentage: number;
   shippedPercentage: number;
@@ -22,8 +26,11 @@ export class OverviewStatisticsComponent implements OnInit {
 
   async ngOnInit() {
     var currentYear = new Date().getFullYear();
-    this.years = _.range(2021, currentYear + 1);
-    await this.loadStatistics();
+    this.selectedYear = currentYear;
+    this.years = _.range(currentYear - 1, currentYear + 1);
+    this.orderStatistics = await this.statisticsService
+    .getOrderPerYearStatistics(this.selectedYear)
+    .toPromise();
     this.inSubmissionPercentage = this.renderPieChart(
       this.orderStatistics.inSubmissionOrdersNumber,
       'in-submission',
@@ -43,10 +50,12 @@ export class OverviewStatisticsComponent implements OnInit {
     this.renderOverviewChart();
   }
 
-  async loadStatistics(): Promise<void> {
-    this.orderStatistics = await this.statisticsService
+  async loadStatistics() {
+    await this.statisticsService
       .getOrderPerYearStatistics(this.selectedYear)
-      .toPromise();
+      .subscribe((x) => {
+        this.orderStatistics = x;
+      });
   }
 
   async updateChart(event: Event): Promise<void> {
@@ -56,6 +65,15 @@ export class OverviewStatisticsComponent implements OnInit {
       .toPromise();
     if (this.overviewChart) {
       this.overviewChart.destroy();
+    }
+    if (this.inSubmissionChart) {
+      this.inSubmissionChart.destroy();
+    }
+    if (this.shippedChart) {
+      this.shippedChart.destroy();
+    }
+    if (this.completeChart) {
+      this.completeChart.destroy();
     }
     this.inSubmissionPercentage = this.renderPieChart(
       this.orderStatistics.inSubmissionOrdersNumber,
@@ -72,7 +90,6 @@ export class OverviewStatisticsComponent implements OnInit {
       'complete',
       'Complete'
     );
-
     this.renderOverviewChart();
   }
 
@@ -84,26 +101,76 @@ export class OverviewStatisticsComponent implements OnInit {
     const totalOrdersNumber = this.orderStatistics.totalOrdersNumber;
     const otherOrdersNumber = totalOrdersNumber - ordersNumber;
     let ordersPercentage = (ordersNumber * 100) / totalOrdersNumber;
-    new Chart(canvasName, {
-      type: 'doughnut',
-      data: {
-        labels: [orderType, 'Others'],
-        datasets: [
-          {
-            label: '# of Votes',
-            data: [ordersNumber, otherOrdersNumber],
-            backgroundColor: ['#ffffff', '#b3bab5'],
-            borderColor: ['#ffffff', '#419e98'],
-            borderWidth: 1,
-          },
-        ],
-      },
-      options: {
-        legend: {
-          display: false,
+    if (canvasName === 'in-submission') {
+      this.inSubmissionChart = new Chart(canvasName, {
+        type: 'doughnut' as ChartType,
+        data: {
+          labels: [orderType, 'Others'],
+          datasets: [
+            {
+              label: '# of Votes',
+              data: [ordersNumber, otherOrdersNumber],
+              backgroundColor: ['#ffffff', '#b3bab5'],
+              borderColor: ['#ffffff', '#419e98'],
+              borderWidth: 1,
+            },
+          ],
         },
-      },
-    });
+        options: {
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+        },
+      });
+    } else if (canvasName === 'shipped') {
+      this.shippedChart = new Chart(canvasName, {
+        type: 'doughnut' as ChartType,
+        data: {
+          labels: [orderType, 'Others'],
+          datasets: [
+            {
+              label: '# of Votes',
+              data: [ordersNumber, otherOrdersNumber],
+              backgroundColor: ['#ffffff', '#b3bab5'],
+              borderColor: ['#ffffff', '#419e98'],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+        },
+      });
+    } else if (canvasName === 'complete') {
+      this.completeChart = new Chart(canvasName, {
+        type: 'doughnut' as ChartType,
+        data: {
+          labels: [orderType, 'Others'],
+          datasets: [
+            {
+              label: '# of Votes',
+              data: [ordersNumber, otherOrdersNumber],
+              backgroundColor: ['#ffffff', '#b3bab5'],
+              borderColor: ['#ffffff', '#419e98'],
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+        },
+      });
+    }
     return ordersPercentage;
   }
 
@@ -113,7 +180,7 @@ export class OverviewStatisticsComponent implements OnInit {
     const shippedOrdersNumber = this.orderStatistics.shippedOrdersNumber;
     const completeOrdersNumber = this.orderStatistics.completeOrdersNumber;
     this.overviewChart = new Chart('order-overview', {
-      type: 'pie',
+      type: 'pie' as ChartType,
       data: {
         labels: ['In Submission', 'Shipped', 'Complete'],
         datasets: [
@@ -131,10 +198,14 @@ export class OverviewStatisticsComponent implements OnInit {
         ],
       },
       options: {
-        legend: {
-          position: 'right',
-          labels: {
-            fontSize: 18,
+        plugins: {
+          legend: {
+            position: 'right',
+            labels: {
+              font: {
+                size: 18,
+              },
+            },
           },
         },
       },

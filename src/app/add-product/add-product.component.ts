@@ -38,7 +38,6 @@ export class AddProductComponent implements OnInit {
   form = new FormGroup({
     name: new FormControl(null, [
       Validators.required,
-      Validators.pattern('[a-zA-Z0-9-]+'),
     ]),
     description: new FormControl(null, [Validators.required]),
     eanCode: new FormControl(null, [

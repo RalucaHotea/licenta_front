@@ -26,7 +26,6 @@ export class AuthenticationService {
     };
     const requestOptions = {
       headers: new HttpHeaders(headerDict),
-      withCredentials: true,
     };
     this.httpClient
       .get<User>(this.authUrl + 'login', requestOptions)
@@ -51,7 +50,7 @@ export class AuthenticationService {
     const headerDict = {
       'Content-Type': 'application/json',
       //'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Origin': 'localhost:44386/api/Authentication/login',
+      'Access-Control-Allow-Origin': 'localhost:d/api/Authentication/login',
     };
 
     const requestOptions = {

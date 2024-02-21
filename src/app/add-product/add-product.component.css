@@ -15,6 +15,10 @@
     flex-direction: column;
 }
 
+.a-dropdown select{
+    text-indent: 0;
+}
+
 .add-form {
     padding: 1rem;
 }

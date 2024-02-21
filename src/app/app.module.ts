@@ -91,7 +91,6 @@ export function tokenGetter() {
   providers: [
     AuthGuard,
     RoleGuard,
-
     {
       provide: HTTP_INTERCEPTORS,
       useClass: WinAuthInterceptor,

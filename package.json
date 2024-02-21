@@ -20,8 +20,12 @@
     "@angular/platform-browser": "~13.1.0",
     "@angular/platform-browser-dynamic": "~13.1.0",
     "@angular/router": "~13.1.0",
-    "chart.js": "^3.7.1",
+    "angular-oauth2-oidc": "^13.0.1",
+    "chart.js": "^3.9.1",
+    "eslint": "^8.56.0",
     "ngx-pagination": "^5.1.1",
+    "postcss": "^8.4.35",
+    "postcss-selector-parser": "^6.0.15",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
